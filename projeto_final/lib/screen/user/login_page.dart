@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:projeto_final/screen/owner/login_owner.dart';
-import 'package:projeto_final/screen/user/user_homepage.dart';
 
 void main() {
   runApp(const LoginPage());
@@ -18,8 +16,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: 
-      Container(
+      body: Container(
         width: double.infinity,
         height: double.infinity,
         decoration: const BoxDecoration(
@@ -47,7 +44,7 @@ class _LoginPageState extends State<LoginPage> {
             width: double.infinity,
             height: double.infinity,
             margin: const EdgeInsets.only(
-                left: 30.0, right: 30.0, top: 50.0, bottom: 30.0), 
+                left: 30.0, right: 30.0, top: 50.0, bottom: 30.0),
             decoration: BoxDecoration(
               color: const Color.fromARGB(255, 246, 241, 241),
               borderRadius: const BorderRadius.only(
@@ -196,8 +193,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         child: ElevatedButton(
                             onPressed: () {
-                              Navigator.push(context,
-                            MaterialPageRoute(builder: (_) => const UserHomePage(),),);
+                              Navigator.pushNamed(context, '/userpage');
                             },
                             style: ButtonStyle(
                                 backgroundColor: const MaterialStatePropertyAll(
@@ -228,8 +224,7 @@ class _LoginPageState extends State<LoginPage> {
                     padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
                     child: TextButton(
                       onPressed: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (_) => const SignupForm(),),);
+                        Navigator.pushNamed(context, '/ownerlogin');
                       },
                       child: Text('Entrar como Dono',
                           style: GoogleFonts.oswald(

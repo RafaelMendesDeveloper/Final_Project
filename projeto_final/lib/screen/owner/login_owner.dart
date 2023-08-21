@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:projeto_final/model/db_class.dart';
-import 'package:projeto_final/model/form_login_controller.dart';
-import 'package:projeto_final/screen/owner/owner_homepage.dart';
 
-class SignupForm extends StatefulWidget {
-  const SignupForm({super.key});
+
+class OwnerLogin extends StatefulWidget {
+  const OwnerLogin({super.key});
 
   @override
-  State<SignupForm> createState() => _SignupFormState();
+  State<OwnerLogin> createState() => _OwnerLoginState();
 }
 
-class _SignupFormState extends State<SignupForm> {
+class _OwnerLoginState extends State<OwnerLogin> {
+  final _formOwnerKey = GlobalKey<FormState>();
+  var formAnderson = DbClass();
+  final TextEditingController loginController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,7 +67,7 @@ class _SignupFormState extends State<SignupForm> {
 
             child: Form(
               //login forms
-              // key: _formKey,
+              key: _formOwnerKey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
@@ -94,7 +98,7 @@ class _SignupFormState extends State<SignupForm> {
                         ],
                       ),
                       child: TextFormField(
-                        controller: TextEditingController(),
+                        controller: loginController,
                         cursorColor: const Color.fromARGB(255, 20, 108, 148),
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
@@ -113,10 +117,11 @@ class _SignupFormState extends State<SignupForm> {
                           fillColor: const Color.fromARGB(255, 175, 211, 223),
                         ),
                         validator: (value) {
+                          formAnderson.login = value;
                           if (value == null || value.isEmpty) {
                             return 'Please enter some text';
                           }
-                          return value;
+                          return null;
                         },
                       ),
                     ),
@@ -148,7 +153,7 @@ class _SignupFormState extends State<SignupForm> {
                         ],
                       ),
                       child: TextFormField(
-                        controller: Controllers().passwordController,
+                        controller: passwordController,
                         obscureText: true,
                         cursorColor: const Color.fromARGB(255, 20, 108, 148),
                         decoration: InputDecoration(
@@ -168,10 +173,11 @@ class _SignupFormState extends State<SignupForm> {
                           fillColor: const Color.fromARGB(255, 175, 211, 223),
                         ),
                         validator: (value) {
+                          formAnderson.password = value;
                           if (value == null || value.isEmpty) {
                             return 'Please enter some text';
                           }
-                          return value;
+                          return null;
                         },
                       ),
                     ),
@@ -194,21 +200,15 @@ class _SignupFormState extends State<SignupForm> {
                         ),
                         child: ElevatedButton(
                             onPressed: () async {
-                              DbClass validatorOwner = DbClass(
-                                  loginController:
-                                      Controllers().loginController,
-                                  passwordController:
-                                      Controllers().passwordController);
-                              bool isValid = validatorOwner.andersonLogin();
-                              if (isValid) {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (_) => const OwnerHomePage(),
-                                  ),
-                                );
-                              } else {
-                                Navigator.pop(context);
+                              if (_formOwnerKey.currentState!.validate()) {
+                                formAnderson.login = loginController.text;
+                                formAnderson.password = passwordController.text;
+                                bool isValid =
+                                    await formAnderson.andersonLogin();
+
+                                if (isValid) {
+                                  Navigator.pushNamed(context, '/ownerpage');
+                                }
                               }
                             },
                             style: ButtonStyle(

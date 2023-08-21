@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_final/model/db_class.dart';
+import 'package:projeto_final/screen/owner/login_owner.dart';
+import 'package:projeto_final/screen/owner/owner_homepage.dart';
 import 'package:projeto_final/screen/user/login_page.dart';
+import 'package:projeto_final/screen/user/user_homepage.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -14,10 +17,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Provider.value(
       value: DbClass(),
-      child: const MaterialApp(
+      child: MaterialApp(
         title: 'Projeto Final',
         debugShowCheckedModeBanner: false,
-        home: LoginPage(),
+        initialRoute: '/login',
+        routes: {
+    '/login': (context) => const LoginPage(),
+    '/ownerlogin': (context) => const OwnerLogin (),
+    '/ownerpage' : (context) => const OwnerHomePage(),
+    '/userpage': (context) => const UserHomePage(),
+  },
       ),
     );
   }
