@@ -10,11 +10,9 @@ class UserHomePage extends StatefulWidget {
 class _UserHomePageState extends State<UserHomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: 
-      Container(
-        child: const Text('oi loja'),
-      ),
+       Text('oi loja'),
     );
   }
 }

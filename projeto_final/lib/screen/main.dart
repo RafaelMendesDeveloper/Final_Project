@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_final/model/db_class.dart';
 import 'package:projeto_final/screen/user/login_page.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -10,10 +12,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'Projeto Final',
-      debugShowCheckedModeBanner: false,
-      home: LoginPage(),
+    return Provider.value(
+      value: DbClass(),
+      child: const MaterialApp(
+        title: 'Projeto Final',
+        debugShowCheckedModeBanner: false,
+        home: LoginPage(),
+      ),
     );
   }
 }

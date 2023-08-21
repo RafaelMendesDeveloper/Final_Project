@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:projeto_final/model/anderson_class.dart';
+import 'package:projeto_final/model/db_class.dart';
 import 'package:projeto_final/model/form_login_controller.dart';
 import 'package:projeto_final/screen/owner/owner_homepage.dart';
 
@@ -116,7 +116,7 @@ class _SignupFormState extends State<SignupForm> {
                           if (value == null || value.isEmpty) {
                             return 'Please enter some text';
                           }
-                          return null;
+                          return value;
                         },
                       ),
                     ),
@@ -171,7 +171,7 @@ class _SignupFormState extends State<SignupForm> {
                           if (value == null || value.isEmpty) {
                             return 'Please enter some text';
                           }
-                          return null;
+                          return value;
                         },
                       ),
                     ),
@@ -194,15 +194,12 @@ class _SignupFormState extends State<SignupForm> {
                         ),
                         child: ElevatedButton(
                             onPressed: () async {
-                              AndersonClass andersonLogin = AndersonClass();
-                              print(Controllers().loginController);
-                              print(Controllers().passwordController);
-                              print(Controllers().loginController.toString());
-                              print(Controllers().passwordController.toString());
-                              bool isValid = await andersonLogin.andersonLogin(
-                                Controllers().loginController.text,
-                                Controllers().passwordController.text,
-                              );
+                              DbClass validatorOwner = DbClass(
+                                  loginController:
+                                      Controllers().loginController,
+                                  passwordController:
+                                      Controllers().passwordController);
+                              bool isValid = validatorOwner.andersonLogin();
                               if (isValid) {
                                 Navigator.push(
                                   context,
@@ -210,6 +207,8 @@ class _SignupFormState extends State<SignupForm> {
                                     builder: (_) => const OwnerHomePage(),
                                   ),
                                 );
+                              } else {
+                                Navigator.pop(context);
                               }
                             },
                             style: ButtonStyle(
