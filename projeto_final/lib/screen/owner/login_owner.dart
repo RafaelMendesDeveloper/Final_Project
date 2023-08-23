@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:projeto_final/model/db_class.dart';
 
-
 class OwnerLogin extends StatefulWidget {
   const OwnerLogin({super.key});
 
@@ -15,6 +14,7 @@ class _OwnerLoginState extends State<OwnerLogin> {
   var formAnderson = DbClass();
   final TextEditingController loginController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  var flag = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -101,6 +101,20 @@ class _OwnerLoginState extends State<OwnerLogin> {
                         controller: loginController,
                         cursorColor: const Color.fromARGB(255, 20, 108, 148),
                         decoration: InputDecoration(
+                          errorStyle: const TextStyle(
+                            color: Colors.black,
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                width: 3, color: Color.fromARGB(255, 0, 0, 0)),
+                            borderRadius: BorderRadius.circular(50.0),
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                width: 3,
+                                color: Color.fromARGB(255, 20, 108, 148)),
+                            borderRadius: BorderRadius.circular(50.0),
+                          ),
                           enabledBorder: OutlineInputBorder(
                             borderSide: const BorderSide(
                                 width: 3,
@@ -117,10 +131,13 @@ class _OwnerLoginState extends State<OwnerLogin> {
                           fillColor: const Color.fromARGB(255, 175, 211, 223),
                         ),
                         validator: (value) {
-                          formAnderson.login = value;
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter some text';
+                          // formAnderson.login = value;
+                          // bool isValid = formAnderson.andersonPassword();
+                          if (value != 'anderson') {
+                            flag = 0;
+                            return 'nome de usuário incorreto';
                           }
+                          flag = 1;
                           return null;
                         },
                       ),
@@ -157,6 +174,20 @@ class _OwnerLoginState extends State<OwnerLogin> {
                         obscureText: true,
                         cursorColor: const Color.fromARGB(255, 20, 108, 148),
                         decoration: InputDecoration(
+                          errorStyle: const TextStyle(
+                            color: Colors.black,
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                width: 3, color: Color.fromARGB(255, 0, 0, 0)),
+                            borderRadius: BorderRadius.circular(50.0),
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                width: 3,
+                                color: Color.fromARGB(255, 20, 108, 148)),
+                            borderRadius: BorderRadius.circular(50.0),
+                          ),
                           enabledBorder: OutlineInputBorder(
                             borderSide: const BorderSide(
                                 width: 3,
@@ -173,9 +204,10 @@ class _OwnerLoginState extends State<OwnerLogin> {
                           fillColor: const Color.fromARGB(255, 175, 211, 223),
                         ),
                         validator: (value) {
-                          formAnderson.password = value;
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter some text';
+                          // formAnderson.login = value;
+                          // bool isInvalid = formAnderson.andersonLogin();
+                          if (value != '123456' && flag == 1) {
+                            return 'senha incorreta!';
                           }
                           return null;
                         },
@@ -204,8 +236,7 @@ class _OwnerLoginState extends State<OwnerLogin> {
                                 formAnderson.login = loginController.text;
                                 formAnderson.password = passwordController.text;
                                 bool isValid =
-                                    await formAnderson.andersonLogin();
-
+                                    await formAnderson.andersonSignIn();
                                 if (isValid) {
                                   Navigator.pushNamed(context, '/ownerpage');
                                 }

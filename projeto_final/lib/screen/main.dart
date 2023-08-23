@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_final/model/db_class.dart';
+import 'package:projeto_final/screen/owner/form_signup.dart';
 import 'package:projeto_final/screen/owner/login_owner.dart';
 import 'package:projeto_final/screen/owner/owner_homepage.dart';
 import 'package:projeto_final/screen/user/login_page.dart';
@@ -20,12 +21,13 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Projeto Final',
         debugShowCheckedModeBanner: false,
-        initialRoute: '/login',
+        initialRoute: '/ownerpage',
         routes: {
     '/login': (context) => const LoginPage(),
     '/ownerlogin': (context) => const OwnerLogin (),
     '/ownerpage' : (context) => const OwnerHomePage(),
     '/userpage': (context) => const UserHomePage(),
+    '/ownersignup': (context) => const SignUpDealerships(),
   },
       ),
     );

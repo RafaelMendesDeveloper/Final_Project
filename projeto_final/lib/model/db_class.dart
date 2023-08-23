@@ -6,13 +6,23 @@ class DbClass {
 
   DbClass({this.login, this.password});
 
-  andersonLogin() async {
+  andersonLogin(){
+    if (login != 'anderson') {
+      return false;
+    }
+  }
 
+  andersonPassword(){
+    if (password != '123456') {
+      return false;
+    }
+  }
+
+  andersonSignIn() async {
     if (login == 'anderson' && password == '123456') {
       return true;
     } else {
       return false;
     }
-
   }
 }
