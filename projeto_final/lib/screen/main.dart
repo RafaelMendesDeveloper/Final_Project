@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Projeto Final',
         debugShowCheckedModeBanner: false,
-        initialRoute: '/ownerpage',
+        initialRoute: '/login',
         routes: {
     '/login': (context) => const LoginPage(),
     '/ownerlogin': (context) => const OwnerLogin (),
