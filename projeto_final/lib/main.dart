@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_final/model/db_class.dart';
-import 'package:projeto_final/screen/owner/form_signup.dart';
-import 'package:projeto_final/screen/owner/login_owner.dart';
-import 'package:projeto_final/screen/owner/owner_homepage.dart';
-import 'package:projeto_final/screen/user/login_page.dart';
-import 'package:projeto_final/screen/user/user_homepage.dart';
 import 'package:provider/provider.dart';
+
+import 'model/db_class.dart';
+import 'screen/owner/form_signup.dart';
+import 'screen/owner/login_owner.dart';
+import 'screen/owner/owner_homepage.dart';
+import 'screen/user/login_page.dart';
+import 'screen/user/user_homepage.dart';
 
 void main() {
   runApp(const MyApp());

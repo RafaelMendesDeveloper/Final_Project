@@ -1,41 +1,11 @@
+// ignore_for_file: lines_longer_than_80_chars
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:projeto_final/controller/database.dart';
-import 'package:projeto_final/entities/dealership.dart';
+import '../../model/db_class.dart';
 
 void main() {
   runApp(const SignUpDealerships());
-}
-
-class DealershipState extends ChangeNotifier {
-  final controller = DealershipController();
-
-  final _controllerCnpj = TextEditingController();
-  final _controllerDealershipName = TextEditingController();
-  final _controllerAutonomyLevel = TextEditingController();
-  final _controllerPassword = TextEditingController();
-
-  TextEditingController get controllerCnpj => _controllerCnpj;
-  TextEditingController get controllerDealershipName =>
-      _controllerDealershipName;
-  TextEditingController get controllerAutonomyLevel => _controllerAutonomyLevel;
-  TextEditingController get controllerPassword => _controllerPassword;
-
-  Future<void> insert() async {
-    final dealership = Dealership(
-        cnpj: controllerCnpj.text,
-        name: controllerDealershipName.text,
-        autonomyLevel: controllerAutonomyLevel.text,
-        password: controllerPassword.text);
-
-    await controller.insert(dealership);
-
-    controllerCnpj.clear();
-    controllerDealershipName.clear();
-    controllerAutonomyLevel.clear();
-    controllerPassword.clear();
-    notifyListeners();
-  }
 }
 
 class SignUpDealerships extends StatefulWidget {
@@ -47,6 +17,7 @@ class SignUpDealerships extends StatefulWidget {
 
 class _SignUpDealershipsState extends State<SignUpDealerships> {
   final _dealershipState = DealershipState();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +69,7 @@ class _SignUpDealershipsState extends State<SignUpDealerships> {
                   Center(
                     child: Form(
                       //login forms
-                      // key: _formKey,
+                      key: _formKey,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: <Widget>[
@@ -121,7 +92,7 @@ class _SignUpDealershipsState extends State<SignUpDealerships> {
                           Padding(
                             padding: const EdgeInsets.fromLTRB(50, 0, 50, 10),
                             child: TextFormField(
-                              controller: _dealershipState._controllerCnpj,
+                              controller: _dealershipState.controllerCnpj,
                               cursorColor:
                                   const Color.fromARGB(255, 246, 241, 241),
                               decoration: InputDecoration(
@@ -298,26 +269,31 @@ class _SignUpDealershipsState extends State<SignUpDealerships> {
                             child: Row(
                               children: [
                                 SizedBox(
-                                  child:
-                                    ElevatedButton(
-                                      onPressed: () async {
+                                  child: ElevatedButton(
+                                    onPressed: () async {
+                                      if (_formKey.currentState!.validate()) {
                                         await _dealershipState.insert();
-                                      },
-                                      style: ButtonStyle(
-                                        backgroundColor: const MaterialStatePropertyAll(
-                                          Color.fromARGB(255, 20, 108, 148),
-                                        ),
-                                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                          RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(50.0),
-                                            side: const BorderSide(
-                                              color: Color.fromARGB(255, 20, 108, 148),
-                                            ),
+                                      }
+                                    },
+                                    style: ButtonStyle(
+                                      backgroundColor:
+                                          const MaterialStatePropertyAll(
+                                        Color.fromARGB(255, 20, 108, 148),
+                                      ),
+                                      shape: MaterialStateProperty.all<
+                                          RoundedRectangleBorder>(
+                                        RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(50.0),
+                                          side: const BorderSide(
+                                            color: Color.fromARGB(
+                                                255, 20, 108, 148),
                                           ),
                                         ),
                                       ),
-                                      child: const Text('LOGIN!'),
                                     ),
+                                    child: const Text('LOGIN!'),
+                                  ),
                                 ),
                               ],
                             ),

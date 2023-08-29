@@ -1,7 +1,10 @@
-import 'package:sqflite/sqflite.dart';
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:path/path.dart';
-import 'package:projeto_final/entities/user.dart';
-import 'package:projeto_final/entities/dealership.dart';
+import 'package:sqflite/sqflite.dart';
+
+import '../entities/dealership.dart';
+import '../entities/user.dart';
 
 Future<Database> getDatabase() async {
   final path = join(
@@ -62,10 +65,10 @@ class TabelDealership {
 
   static const String tablename = 'dealership';
 
-  static const String cnpj = "cnpj";
-  static const String name = "name";
-  static const String autonomyLevel = "autonomy level";
-  static const String password = "password";
+  static const String cnpj = 'cnpj';
+  static const String name = 'name';
+  static const String autonomyLevel = 'autonomy level';
+  static const String password = 'password';
 
   static Map<String, dynamic> toMap(Dealership dealership) {
     final map = <String, dynamic>{};
@@ -98,5 +101,24 @@ class DealershipController {
     await database.insert(TabelDealership.tablename, map);
 
     return;
+  }
+
+  Future<List<Dealership>> select() async {
+    final database = await getDatabase();
+    final List<Map<String, dynamic>> result = await database.query(
+      TabelDealership.tablename,
+    );
+
+    var list = <Dealership>[];
+
+    for (final item in result) {
+      list.add(Dealership(
+          cnpj: item[TabelDealership.cnpj],
+          name: item[TabelDealership.name],
+          autonomyLevel: item[TabelDealership.autonomyLevel],
+          password: item[TabelDealership.password]));
+    }
+
+    return list;
   }
 }

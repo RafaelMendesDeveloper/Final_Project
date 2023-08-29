@@ -1,6 +1,8 @@
+// ignore_for_file: type_annotate_public_apis, use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:projeto_final/model/db_class.dart';
+import '../../model/db_class.dart';
 
 class OwnerLogin extends StatefulWidget {
   const OwnerLogin({super.key});

@@ -8,7 +8,7 @@
             "name": "projeto_final",
             "request": "launch",
             "type": "dart",
-            "program": "main.dart"
+            "program": "projeto_final/lib/main.dart"
         },
         {
             "name": "projeto_final (profile mode)",
