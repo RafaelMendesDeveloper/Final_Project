@@ -2,17 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() {
-  runApp(const LoginPage());
+  runApp(LoginPage());
 }
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class LoginPage extends StatelessWidget {
+  LoginPage({super.key});
 
-  @override
-  State<LoginPage> createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,13 +33,11 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
         child: Center(
-          //form
           child: Container(
-            //white container
             width: double.infinity,
             height: double.infinity,
             margin: const EdgeInsets.only(
-                left: 30.0, right: 30.0, top: 50.0, bottom: 30.0),
+                left: 30.0, right: 30.0, top: 75.0, bottom: 75.0),
             decoration: BoxDecoration(
               color: const Color.fromARGB(255, 246, 241, 241),
               borderRadius: const BorderRadius.only(
@@ -63,26 +56,36 @@ class _LoginPageState extends State<LoginPage> {
             ),
 
             child: Form(
-              //login forms
               // key: _formKey,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 35, 0, 0),
+                    child: Text('ANDERCAR',
+                              style: GoogleFonts.playfairDisplay(
+                                  fontSize: 50,
+                                  fontWeight: FontWeight.bold,
+                                  color:
+                                      const Color.fromARGB(255, 20, 108, 148),
+                                      ),
+                                      ),
+                  ),
                   Row(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(55, 30, 100, 0),
+                        padding: const EdgeInsets.fromLTRB(45, 50, 80, 0),
                         child: Text('LOGIN',
                             style: GoogleFonts.oswald(
-                                fontSize: 18,
+                                fontSize: 25,
                                 letterSpacing: 2,
+                                fontWeight: FontWeight.bold,
                                 color:
                                     const Color.fromARGB(255, 20, 108, 148))),
                       ),
                     ],
                   ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(50, 0, 50, 20),
+                    padding: const EdgeInsets.fromLTRB(40, 10, 40, 25),
                     child: Container(
                       decoration: BoxDecoration(
                         boxShadow: [
@@ -95,6 +98,10 @@ class _LoginPageState extends State<LoginPage> {
                         ],
                       ),
                       child: TextFormField(
+                        style: GoogleFonts.oswald(
+                                fontSize: 22,
+                                color:
+                                    const Color.fromARGB(255, 0, 0, 0)),
                         cursorColor: const Color.fromARGB(255, 20, 108, 148),
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
@@ -124,18 +131,19 @@ class _LoginPageState extends State<LoginPage> {
                   Row(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(55, 20, 100, 0),
+                        padding: const EdgeInsets.fromLTRB(45, 20, 100, 0),
                         child: Text('SENHA',
                             style: GoogleFonts.oswald(
-                                fontSize: 18,
+                                fontSize: 25,
                                 letterSpacing: 2,
+                                fontWeight: FontWeight.bold,
                                 color:
                                     const Color.fromARGB(255, 20, 108, 148))),
                       ),
                     ],
                   ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(50, 0, 50, 0),
+                    padding: const EdgeInsets.fromLTRB(40, 10, 40, 40),
                     child: Container(
                       decoration: BoxDecoration(
                         boxShadow: [
@@ -148,6 +156,9 @@ class _LoginPageState extends State<LoginPage> {
                         ],
                       ),
                       child: TextFormField(
+                        style: GoogleFonts.oswald(
+                                fontSize: 22,
+                        ),
                         obscureText: true,
                         cursorColor: const Color.fromARGB(255, 20, 108, 148),
                         decoration: InputDecoration(
@@ -176,10 +187,10 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(50, 30, 50, 10),
+                    padding: const EdgeInsets.fromLTRB(30, 0, 30, 10),
                     child: SizedBox(
                       width: 300.0,
-                      height: 50.0,
+                      height: 80.0,
                       child: Container(
                         decoration: BoxDecoration(
                           boxShadow: [
@@ -210,18 +221,22 @@ class _LoginPageState extends State<LoginPage> {
                             child: Center(
                                 child: Text('ENTRAR',
                                     style: GoogleFonts.oswald(
-                                        fontSize: 30,
+                                        fontSize: 35,
                                         letterSpacing: 4,
                                         color: const Color.fromARGB(
                                             255, 246, 241, 241))))),
                       ),
                     ),
                   ),
-                  const Divider(
-                    color: Color.fromARGB(68, 20, 108, 148),
+                  const Padding(
+                    padding: EdgeInsets.fromLTRB(0,10,0,10),
+                    child:  Divider(
+                      color: Color.fromARGB(55, 20, 108, 148),
+                    ),
                   ),
+
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                     child: TextButton(
                       onPressed: () {
                         Navigator.pushNamed(context, '/ownerlogin');
@@ -229,6 +244,7 @@ class _LoginPageState extends State<LoginPage> {
                       child: Text('Entrar como Dono',
                           style: GoogleFonts.oswald(
                             fontStyle: FontStyle.italic,
+                            fontSize: 20,
                             decoration: TextDecoration.underline,
                             color: const Color.fromARGB(255, 20, 108, 148),
                           )),

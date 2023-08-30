@@ -24,11 +24,11 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         initialRoute: '/login',
         routes: {
-    '/login': (context) => const LoginPage(),
-    '/ownerlogin': (context) => const OwnerLogin (),
-    '/ownerpage' : (context) => const OwnerHomePage(),
-    '/userpage': (context) => const UserHomePage(),
-    '/ownersignup': (context) => const SignUpDealerships(),
+    '/login': (context) =>  LoginPage(),
+    '/ownerlogin': (context) => OwnerLogin (),
+    '/ownerpage' : (context) => OwnerHomePage(),
+    '/userpage': (context) =>  UserHomePage(),
+    '/ownersignup': (context) =>  SignUpDealerships(),
   },
       ),
     );

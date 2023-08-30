@@ -1,22 +1,15 @@
-// ignore_for_file: type_annotate_public_apis, use_build_context_synchronously
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../model/db_class.dart';
 
-class OwnerLogin extends StatefulWidget {
-  const OwnerLogin({super.key});
+class OwnerLogin extends StatelessWidget {
+   OwnerLogin({super.key});
 
-  @override
-  State<OwnerLogin> createState() => _OwnerLoginState();
-}
-
-class _OwnerLoginState extends State<OwnerLogin> {
   final _formOwnerKey = GlobalKey<FormState>();
-  var formAnderson = DbClass();
+  DbClass formAnderson = DbClass();
   final TextEditingController loginController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  var flag = 0;
+  int flag = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -43,13 +36,11 @@ class _OwnerLoginState extends State<OwnerLogin> {
           ),
         ),
         child: Center(
-          //form
           child: Container(
-            //white container
             width: double.infinity,
             height: double.infinity,
             margin: const EdgeInsets.only(
-                left: 30.0, right: 30.0, top: 50.0, bottom: 50.0),
+                left: 30.0, right: 30.0, top: 75.0, bottom: 75.0),
             decoration: BoxDecoration(
               color: const Color.fromARGB(255, 246, 241, 241),
               borderRadius: const BorderRadius.only(
@@ -68,7 +59,6 @@ class _OwnerLoginState extends State<OwnerLogin> {
             ),
 
             child: Form(
-              //login forms
               key: _formOwnerKey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -133,8 +123,6 @@ class _OwnerLoginState extends State<OwnerLogin> {
                           fillColor: const Color.fromARGB(255, 175, 211, 223),
                         ),
                         validator: (value) {
-                          // formAnderson.login = value;
-                          // bool isValid = formAnderson.andersonPassword();
                           if (value != 'anderson') {
                             flag = 0;
                             return 'nome de usuário incorreto';
@@ -206,8 +194,6 @@ class _OwnerLoginState extends State<OwnerLogin> {
                           fillColor: const Color.fromARGB(255, 175, 211, 223),
                         ),
                         validator: (value) {
-                          // formAnderson.login = value;
-                          // bool isInvalid = formAnderson.andersonLogin();
                           if (value != '123456' && flag == 1) {
                             return 'senha incorreta!';
                           }

@@ -1,5 +1,3 @@
-// ignore_for_file: depend_on_referenced_packages
-
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -14,8 +12,9 @@ Future<Database> getDatabase() async {
 
   return openDatabase(
     path,
-    onCreate: (db, version) {
-      db.execute(TabelUser.createTable);
+    onCreate: (db, version) async {
+      await db.execute(TabelUser.createTable);
+      await db.execute(TabelDealership.createTable);
     },
     version: 1,
   );
@@ -28,7 +27,7 @@ class TabelUser {
   $username TEXT NOT NULL,
   $fullname TEXT NOT NULL,
   $password TEXT NOT NULL,
-  $userType INTEGER NOT NULL
+  $userType TEXT NOT NULL
   );
 ''';
 
@@ -38,7 +37,7 @@ class TabelUser {
   static const String username = 'username';
   static const String fullname = 'fullname';
   static const String password = 'password';
-  static const String userType = '0';
+  static const String userType = 'user_type';
 
   static Map<String, dynamic> toMap(User user) {
     final map = <String, dynamic>{};
@@ -56,10 +55,10 @@ class TabelUser {
 class TabelDealership {
   static const String createTable = '''
   CREATE TABLE $tablename (
-  $cnpj INTEGER PRIMARY KEY NOT NULL,
+  $cnpj TEXT PRIMARY KEY NOT NULL,
   $name TEXT NOT NULL,
   $autonomyLevel TEXT NOT NULL,
-  $password TEXT NOT NULL,
+  $password TEXT NOT NULL
   );
 ''';
 
@@ -67,7 +66,7 @@ class TabelDealership {
 
   static const String cnpj = 'cnpj';
   static const String name = 'name';
-  static const String autonomyLevel = 'autonomy level';
+  static const String autonomyLevel = 'autonomy_level';
   static const String password = 'password';
 
   static Map<String, dynamic> toMap(Dealership dealership) {

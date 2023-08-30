@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class OwnerHomePage extends StatefulWidget {
-  const OwnerHomePage({super.key});
+   OwnerHomePage({super.key});
 
   @override
   State<OwnerHomePage> createState() => _OwnerHomePageState();

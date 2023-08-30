@@ -1,18 +1,12 @@
 import 'package:flutter/material.dart';
 
-class UserHomePage extends StatefulWidget {
-  const UserHomePage({super.key});
+class UserHomePage extends StatelessWidget {
+  UserHomePage({super.key});
 
-  @override
-  State<UserHomePage> createState() => _UserHomePageState();
-}
-
-class _UserHomePageState extends State<UserHomePage> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: 
-       Text('oi loja'),
+      body: Text('data'),
     );
   }
 }

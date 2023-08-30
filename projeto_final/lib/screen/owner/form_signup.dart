@@ -2,20 +2,72 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../model/db_class.dart';
+import '../../controller/database.dart';
+import '../../entities/dealership.dart';
+// import '../../model/db_class.dart';
 
 void main() {
-  runApp(const SignUpDealerships());
+  runApp(SignUpDealerships());
 }
 
-class SignUpDealerships extends StatefulWidget {
-  const SignUpDealerships({super.key});
+class DealershipState extends ChangeNotifier {
+  DealershipState() {
+    load();
+  }
 
-  @override
-  State<SignUpDealerships> createState() => _SignUpDealershipsState();
+  final controller = DealershipController();
+
+  final _controllerCnpj = TextEditingController();
+  final _controllerDealershipName = TextEditingController();
+  final _controllerAutonomyLevel = TextEditingController();
+  final _controllerPassword = TextEditingController();
+
+  final _listDealership = <Dealership>[];
+  List<Dealership> get listDealership => _listDealership;
+
+  TextEditingController get controllerCnpj => _controllerCnpj;
+  TextEditingController get controllerDealershipName =>
+      _controllerDealershipName;
+  TextEditingController get controllerAutonomyLevel => _controllerAutonomyLevel;
+  TextEditingController get controllerPassword => _controllerPassword;
+
+  Future<void> insert() async {
+    final dealership = Dealership(
+        cnpj: controllerCnpj.text,
+        name: controllerDealershipName.text,
+        autonomyLevel: controllerAutonomyLevel.text,
+        password: controllerPassword.text);
+
+    await controller.insert(dealership);
+    await load();
+
+    controllerCnpj.clear();
+    controllerDealershipName.clear();
+    controllerAutonomyLevel.clear();
+    controllerPassword.clear();
+
+    notifyListeners();
+  }
+
+  Future<void> load() async {
+    final list = await controller.select();
+
+    listDealership.clear();
+    listDealership.addAll(list);
+    print('HERE ---------------------------------------> ${listDealership.length}');
+
+    notifyListeners();
+  }
 }
 
-class _SignUpDealershipsState extends State<SignUpDealerships> {
+class SignUpDealerships extends StatelessWidget {
+   SignUpDealerships({super.key});
+
+//  @override
+//  State<SignUpDealerships> createState() => _SignUpDealershipsState();
+//}
+
+//class _SignUpDealershipsState extends State<SignUpDealerships> {
   final _dealershipState = DealershipState();
   final _formKey = GlobalKey<FormState>();
 
