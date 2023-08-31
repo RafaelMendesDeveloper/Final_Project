@@ -14,6 +14,7 @@ class OwnerLogin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
         width: double.infinity,
         height: double.infinity,
@@ -28,10 +29,10 @@ class OwnerLogin extends StatelessWidget {
               0.9,
             ],
             colors: [
-              Color.fromARGB(255, 137, 221, 244),
-              Color.fromARGB(255, 73, 159, 190),
-              Color.fromARGB(255, 25, 167, 236),
-              Color.fromARGB(255, 15, 161, 252),
+              Color.fromARGB(255, 48, 182, 219),
+              Color.fromARGB(255, 40, 127, 159),
+              Color.fromARGB(255, 11, 119, 173),
+              Color.fromARGB(255, 3, 78, 124),
             ],
           ),
         ),
@@ -40,7 +41,7 @@ class OwnerLogin extends StatelessWidget {
             width: double.infinity,
             height: double.infinity,
             margin: const EdgeInsets.only(
-                left: 30.0, right: 30.0, top: 75.0, bottom: 75.0),
+                left: 30.0, right: 30.0, top: 175.0, bottom: 145.0),
             decoration: BoxDecoration(
               color: const Color.fromARGB(255, 246, 241, 241),
               borderRadius: const BorderRadius.only(
@@ -66,18 +67,19 @@ class OwnerLogin extends StatelessWidget {
                   Row(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(55, 30, 100, 0),
+                        padding: const EdgeInsets.fromLTRB(45, 40, 0, 0),
                         child: Text('LOGIN',
                             style: GoogleFonts.oswald(
-                                fontSize: 18,
+                                fontSize: 25,
                                 letterSpacing: 2,
+                                fontWeight: FontWeight.bold,
                                 color:
                                     const Color.fromARGB(255, 20, 108, 148))),
                       ),
                     ],
                   ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(50, 0, 50, 20),
+                    padding: const EdgeInsets.fromLTRB(40, 0, 40, 25),
                     child: Container(
                       decoration: BoxDecoration(
                         boxShadow: [
@@ -90,6 +92,9 @@ class OwnerLogin extends StatelessWidget {
                         ],
                       ),
                       child: TextFormField(
+                        style: GoogleFonts.oswald(
+                                fontSize: 22,
+                        ),
                         controller: loginController,
                         cursorColor: const Color.fromARGB(255, 20, 108, 148),
                         decoration: InputDecoration(
@@ -136,18 +141,19 @@ class OwnerLogin extends StatelessWidget {
                   Row(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(55, 20, 100, 0),
+                        padding: const EdgeInsets.fromLTRB(45, 10, 100, 0),
                         child: Text('SENHA',
                             style: GoogleFonts.oswald(
-                                fontSize: 18,
+                                fontSize: 25,
                                 letterSpacing: 2,
+                                fontWeight: FontWeight.bold,
                                 color:
                                     const Color.fromARGB(255, 20, 108, 148))),
                       ),
                     ],
                   ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(50, 0, 50, 0),
+                    padding: const EdgeInsets.fromLTRB(40, 0, 40, 40),
                     child: Container(
                       decoration: BoxDecoration(
                         boxShadow: [
@@ -160,6 +166,9 @@ class OwnerLogin extends StatelessWidget {
                         ],
                       ),
                       child: TextFormField(
+                        style: GoogleFonts.oswald(
+                                fontSize: 22,
+                        ),
                         controller: passwordController,
                         obscureText: true,
                         cursorColor: const Color.fromARGB(255, 20, 108, 148),
@@ -203,10 +212,10 @@ class OwnerLogin extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(50, 20, 50, 30),
+                    padding: const EdgeInsets.fromLTRB(30, 0, 30, 40),
                     child: SizedBox(
                       width: 300.0,
-                      height: 50.0,
+                      height: 80.0,
                       child: Container(
                         decoration: BoxDecoration(
                           boxShadow: [
@@ -243,9 +252,9 @@ class OwnerLogin extends StatelessWidget {
                                   ),
                                 )),
                             child: Center(
-                                child: Text('ENTRAR COMO DONO',
+                                child: Text('ENTRAR',
                                     style: GoogleFonts.oswald(
-                                        fontSize: 25,
+                                        fontSize: 35,
                                         letterSpacing: 4,
                                         color: const Color.fromARGB(
                                             255, 246, 241, 241))))),

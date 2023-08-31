@@ -63,17 +63,13 @@ class DealershipState extends ChangeNotifier {
 class SignUpDealerships extends StatelessWidget {
    SignUpDealerships({super.key});
 
-//  @override
-//  State<SignUpDealerships> createState() => _SignUpDealershipsState();
-//}
-
-//class _SignUpDealershipsState extends State<SignUpDealerships> {
   final _dealershipState = DealershipState();
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Stack(
         children: <Widget>[
           Scaffold(
@@ -108,10 +104,10 @@ class SignUpDealerships extends StatelessWidget {
                     0.9,
                   ],
                   colors: [
-                    Color.fromARGB(255, 137, 221, 244),
-                    Color.fromARGB(255, 73, 159, 190),
-                    Color.fromARGB(255, 25, 167, 236),
-                    Color.fromARGB(255, 15, 161, 252),
+                    Color.fromARGB(255, 48, 182, 219),
+              Color.fromARGB(255, 40, 127, 159),
+              Color.fromARGB(255, 11, 119, 173),
+              Color.fromARGB(255, 3, 78, 124),
                   ],
                 ),
               ),

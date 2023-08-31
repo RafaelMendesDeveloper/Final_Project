@@ -11,6 +11,7 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
         width: double.infinity,
         height: double.infinity,
@@ -25,10 +26,10 @@ class LoginPage extends StatelessWidget {
               0.9,
             ],
             colors: [
-              Color.fromARGB(255, 137, 221, 244),
-              Color.fromARGB(255, 73, 159, 190),
-              Color.fromARGB(255, 25, 167, 236),
-              Color.fromARGB(255, 15, 161, 252),
+              Color.fromARGB(255, 48, 182, 219),
+              Color.fromARGB(255, 40, 127, 159),
+              Color.fromARGB(255, 11, 119, 173),
+              Color.fromARGB(255, 3, 78, 124),
             ],
           ),
         ),
@@ -60,7 +61,7 @@ class LoginPage extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 35, 0, 0),
+                    padding: const EdgeInsets.fromLTRB(0, 35, 0, 50),
                     child: Text('ANDERCAR',
                               style: GoogleFonts.playfairDisplay(
                                   fontSize: 50,
@@ -73,7 +74,7 @@ class LoginPage extends StatelessWidget {
                   Row(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(45, 50, 80, 0),
+                        padding: const EdgeInsets.fromLTRB(45, 0, 80, 0),
                         child: Text('LOGIN',
                             style: GoogleFonts.oswald(
                                 fontSize: 25,
