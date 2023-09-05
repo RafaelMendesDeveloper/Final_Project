@@ -1,34 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class OwnerHomePage extends StatefulWidget {
-   OwnerHomePage({super.key});
+class OwnerHomePage extends StatelessWidget {
+  const OwnerHomePage({super.key});
 
-  @override
-  State<OwnerHomePage> createState() => _OwnerHomePageState();
-}
+  static const String name = 'Anderson';
 
-class _OwnerHomePageState extends State<OwnerHomePage> {
-  @override
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-              title: Container(
-                margin: const EdgeInsets.fromLTRB(180, 5, 0, 0),
-                child: Text(
-                  'HOME',
-                  style: GoogleFonts.oswald(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 4,
-                      color: const Color.fromARGB(255, 246, 241, 241)),
-                ),
-              ),
-              backgroundColor: Colors.transparent,
-              elevation: 0.0,
-            ),
-        extendBodyBehindAppBar: true,
+        title: Container(
+          margin: const EdgeInsets.fromLTRB(180, 5, 0, 0),
+          child: Text(
+            'HOME',
+            style: GoogleFonts.oswald(
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 4,
+                color: const Color.fromARGB(255, 246, 241, 241)),
+          ),
+        ),
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
+      ),
+      extendBodyBehindAppBar: true,
       body: Container(
         width: double.infinity,
         height: double.infinity,
@@ -57,12 +53,14 @@ class _OwnerHomePageState extends State<OwnerHomePage> {
               Row(
                 children: [
                   Container(
-                    margin: const EdgeInsets.fromLTRB(212, 15, 0, 0),
-                    child: Text('Anderson', style: GoogleFonts.oswald(
-                        fontSize: 25,
-                        letterSpacing: 4,
-                        color: const Color.fromARGB(255, 246, 241, 241)),
-                                  ),
+                    margin: const EdgeInsets.fromLTRB(212, 25, 0, 0),
+                    child: Text(
+                      name,
+                      style: GoogleFonts.oswald(
+                          fontSize: 25,
+                          letterSpacing: 4,
+                          color: const Color.fromARGB(255, 246, 241, 241)),
+                    ),
                   ),
                 ],
               ),
@@ -75,7 +73,7 @@ class _OwnerHomePageState extends State<OwnerHomePage> {
                         BoxShadow(
                           color: Colors.grey.shade400,
                           spreadRadius: 1,
-                          blurRadius: 15,
+                          blurRadius: 100,
                           offset: const Offset(-2, -2),
                         )
                       ],
@@ -83,7 +81,7 @@ class _OwnerHomePageState extends State<OwnerHomePage> {
                     child: SizedBox(
                       height: (MediaQuery.sizeOf(context).height / 4) - 30,
                       width: (MediaQuery.sizeOf(context).height / 4) - 30,
-                      child: ElevatedButton(
+                      child: ElevatedButton.icon(
                           onPressed: () {
                             Navigator.pushNamed(context, '/ownersignup');
                           },
@@ -96,10 +94,15 @@ class _OwnerHomePageState extends State<OwnerHomePage> {
                               ),
                             ),
                           ),
-                          child: Center(
-                            child: Text('adicionar usuários',
+                          icon: const Icon(
+                            Icons.add,
+                            size: 50.0,
+                          ),
+                          label: Center(
+                            child: Text('add lojas',
                                 style: GoogleFonts.oswald(
                                     fontSize: 20,
+                                    fontWeight: FontWeight.bold,
                                     letterSpacing: 3,
                                     color: const Color.fromARGB(
                                         255, 246, 241, 241))),
@@ -112,7 +115,7 @@ class _OwnerHomePageState extends State<OwnerHomePage> {
                         BoxShadow(
                           color: Colors.grey.shade400,
                           spreadRadius: 1,
-                          blurRadius: 15,
+                          blurRadius: 100,
                           offset: const Offset(-2, -2),
                         )
                       ],
@@ -120,7 +123,7 @@ class _OwnerHomePageState extends State<OwnerHomePage> {
                     child: SizedBox(
                       height: (MediaQuery.sizeOf(context).height / 4) - 30,
                       width: (MediaQuery.sizeOf(context).height / 4) - 30,
-                      child: ElevatedButton(
+                      child: ElevatedButton.icon(
                           onPressed: () {},
                           style: ButtonStyle(
                             backgroundColor: const MaterialStatePropertyAll(
@@ -131,9 +134,146 @@ class _OwnerHomePageState extends State<OwnerHomePage> {
                               ),
                             ),
                           ),
-                          child: Center(
+                          icon: const Icon(
+                            Icons.people,
+                            size: 50.0,
+                          ),
+                          label: Center(
+                            child: Text('add adms',
+                                style: GoogleFonts.oswald(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    letterSpacing: 3,
+                                    color: const Color.fromARGB(
+                                        255, 246, 241, 241))),
+                          )),
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.shade400,
+                          spreadRadius: 1,
+                          blurRadius: 100,
+                          offset: const Offset(-2, -2),
+                        )
+                      ],
+                    ),
+                    child: SizedBox(
+                      height: (MediaQuery.sizeOf(context).height / 4) - 30,
+                      width: (MediaQuery.sizeOf(context).height / 4) - 30,
+                      child: ElevatedButton.icon(
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/dealerships');
+                          },
+                          style: ButtonStyle(
+                            backgroundColor: const MaterialStatePropertyAll(
+                                Color.fromARGB(255, 92, 193, 226)),
+                            shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30.0),
+                              ),
+                            ),
+                          ),
+                          icon: const Icon(
+                            Icons.store,
+                            size: 50.0,
+                          ),
+                          label: Center(
                             child: Text('checar lojas',
                                 style: GoogleFonts.oswald(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    letterSpacing: 3,
+                                    color: const Color.fromARGB(
+                                        255, 246, 241, 241))),
+                          )),
+                    ),
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.shade400,
+                          spreadRadius: 1,
+                          blurRadius: 100,
+                          offset: const Offset(-2, -2),
+                        )
+                      ],
+                    ),
+                    child: SizedBox(
+                      height: (MediaQuery.sizeOf(context).height / 4) - 30,
+                      width: (MediaQuery.sizeOf(context).height / 4) - 30,
+                      child: ElevatedButton.icon(
+                          onPressed: () {},
+                          style: ButtonStyle(
+                            backgroundColor: const MaterialStatePropertyAll(
+                                Color.fromARGB(255, 92, 193, 226)),
+                            shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30.0),
+                              ),
+                            ),
+                          ),
+                          icon: const Icon(
+                            Icons.report,
+                            size: 50.0,
+                          ),
+                          label: Center(
+                            child: Text('gerar relatórios',
+                                style: GoogleFonts.oswald(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    letterSpacing: 3,
+                                    color: const Color.fromARGB(
+                                        255, 246, 241, 241))),
+                          )),
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.shade400,
+                          spreadRadius: 1,
+                          blurRadius: 100,
+                          offset: const Offset(-2, -2),
+                        )
+                      ],
+                    ),
+                    child: SizedBox(
+                      height: (MediaQuery.sizeOf(context).height / 4) - 30,
+                      width: (MediaQuery.sizeOf(context).height / 4) - 30,
+                      child: ElevatedButton.icon(
+                          onPressed: () {},
+                          style: ButtonStyle(
+                            backgroundColor: const MaterialStatePropertyAll(
+                                Color.fromARGB(255, 153, 212, 231)),
+                            shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30.0),
+                              ),
+                            ),
+                          ),
+                          icon: const Icon(
+                            Icons.settings,
+                            size: 50.0,
+                          ),
+                          label: Center(
+                            child: Text('configurações',
+                                style: GoogleFonts.oswald(
+                                    fontWeight: FontWeight.bold,
                                     fontSize: 20,
                                     letterSpacing: 3,
                                     color: const Color.fromARGB(
@@ -141,18 +281,13 @@ class _OwnerHomePageState extends State<OwnerHomePage> {
                           )),
                     ),
                   ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
                   Container(
                     decoration: BoxDecoration(
                       boxShadow: [
                         BoxShadow(
                           color: Colors.grey.shade400,
                           spreadRadius: 1,
-                          blurRadius: 15,
+                          blurRadius: 100,
                           offset: const Offset(-2, -2),
                         )
                       ],
@@ -160,98 +295,28 @@ class _OwnerHomePageState extends State<OwnerHomePage> {
                     child: SizedBox(
                       height: (MediaQuery.sizeOf(context).height / 4) - 30,
                       width: (MediaQuery.sizeOf(context).height / 4) - 30,
-                      child: ElevatedButton(
-                          onPressed: () {},
-                          style: ButtonStyle(
-                            backgroundColor: const MaterialStatePropertyAll(
-                                Color.fromARGB(255, 175, 211, 223)),
-                            shape: MaterialStateProperty.all(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30.0),
-                              ),
-                            ),
-                          ),
-                          child: Center(
-                            child: Text('gerar relatórios',
-                                style: GoogleFonts.oswald(
-                                    fontSize: 25,
-                                    letterSpacing: 3,
-                                    color: const Color.fromARGB(
-                                        255, 246, 241, 241))),
-                          )),
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.shade400,
-                          spreadRadius: 1,
-                          blurRadius: 15,
-                          offset: const Offset(-2, -2),
-                        )
-                      ],
-                    ),
-                    child: SizedBox(
-                      height: (MediaQuery.sizeOf(context).height / 4) - 30,
-                      width: (MediaQuery.sizeOf(context).height / 4) - 30,
-                      child: ElevatedButton(
-                          onPressed: () {},
-                          style: ButtonStyle(
-                            backgroundColor: const MaterialStatePropertyAll(
-                                Color.fromARGB(255, 176, 196, 222)),
-                            shape: MaterialStateProperty.all(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30.0),
-                              ),
-                            ),
-                          ),
-                          child: Center(
-                            child: Text('configurações',
-                                style: GoogleFonts.oswald(
-                                    fontSize: 15,
-                                    letterSpacing: 3,
-                                    color: const Color.fromARGB(
-                                        255, 246, 241, 241))),
-                          )),
-                    ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.shade400,
-                          spreadRadius: 1,
-                          blurRadius: 15,
-                          offset: const Offset(-2, -2),
-                        )
-                      ],
-                    ),
-                    child: SizedBox(
-                      height: (MediaQuery.sizeOf(context).height / 4) - 30,
-                      width: (MediaQuery.sizeOf(context).height / 4) - 30,
-                      child: ElevatedButton(
+                      child: ElevatedButton.icon(
                           onPressed: () {
                             Navigator.pushNamed(context, '/login');
                           },
                           style: ButtonStyle(
                             backgroundColor: const MaterialStatePropertyAll(
-                                Color.fromARGB(255, 72, 61, 139)),
+                                Color.fromARGB(255, 153, 212, 231)),
                             shape: MaterialStateProperty.all(
                               RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(30.0),
                               ),
                             ),
                           ),
-                          child: Center(
+                          icon: const Icon(
+                            Icons.logout,
+                            size: 50.0,
+                          ),
+                          label: Center(
                             child: Text('log out',
                                 style: GoogleFonts.oswald(
-                                    fontSize: 15,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
                                     letterSpacing: 3,
                                     color: const Color.fromARGB(
                                         255, 246, 241, 241))),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'model/db_class.dart';
+import 'screen/owner/dealerships.dart';
 import 'screen/owner/form_signup.dart';
 import 'screen/owner/login_owner.dart';
 import 'screen/owner/owner_homepage.dart';
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
     '/ownerpage' : (context) => OwnerHomePage(),
     '/userpage': (context) =>  UserHomePage(),
     '/ownersignup': (context) =>  SignUpDealerships(),
+    '/dealerships': (context) => DealershipsList(),
   },
       ),
     );
