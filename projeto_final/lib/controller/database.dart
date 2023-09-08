@@ -1,8 +1,9 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
+import '../entities/admin.dart';
 import '../entities/dealership.dart';
-import '../entities/user.dart';
+
 
 Future<Database> getDatabase() async {
   final path = join(
@@ -13,40 +14,37 @@ Future<Database> getDatabase() async {
   return openDatabase(
     path,
     onCreate: (db, version) async {
-      await db.execute(TabelUser.createTable);
+      await db.execute(TabelAdmin.createTable);
       await db.execute(TabelDealership.createTable);
     },
     version: 1,
   );
 }
 
-class TabelUser {
+class TabelAdmin {
   static const String createTable = '''
   CREATE TABLE $tableName (
-  $id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+  $cpf TEXT PRIMARY KEY NOT NULL,
   $username TEXT NOT NULL,
   $fullname TEXT NOT NULL,
-  $password TEXT NOT NULL,
-  $userType TEXT NOT NULL
+  $password TEXT NOT NULL
   );
 ''';
 
-  static const String tableName = 'user';
+  static const String tableName = 'admin';
 
-  static const String id = 'id';
+  static const String cpf = 'cpf';
   static const String username = 'username';
   static const String fullname = 'fullname';
   static const String password = 'password';
-  static const String userType = 'user_type';
 
-  static Map<String, dynamic> toMap(User user) {
+  static Map<String, dynamic> toMap(Admin admin) {
     final map = <String, dynamic>{};
 
-    map[TabelUser.id] = user.id;
-    map[TabelUser.username] = user.username;
-    map[TabelUser.fullname] = user.fullName;
-    map[TabelUser.password] = user.password;
-    map[TabelUser.userType] = user.userType;
+    map[TabelAdmin.cpf] = admin.cpf;
+    map[TabelAdmin.username] = admin.username;
+    map[TabelAdmin.fullname] = admin.fullName;
+    map[TabelAdmin.password] = admin.password;
 
     return map;
   }
@@ -81,14 +79,33 @@ class TabelDealership {
   }
 }
 
-class UserController {
-  Future<void> insert(User user) async {
+class AdminController {
+  Future<void> insert(Admin admin) async {
     final database = await getDatabase();
-    final map = TabelUser.toMap(user);
+    final map = TabelAdmin.toMap(admin);
 
-    await database.insert(TabelUser.tableName, map);
+    await database.insert(TabelAdmin.tableName, map);
 
     return;
+  }
+
+  Future<List<Admin>> select() async {
+    final database = await getDatabase();
+    final List<Map<String, dynamic>> result = await database.query(
+      TabelAdmin.tableName,
+    );
+
+    var list = <Admin>[];
+
+    for (var item in result) {
+      list.add(Admin(
+          cpf: item[TabelAdmin.cpf],
+          username: item[TabelAdmin.username],
+          fullName: item[TabelAdmin.fullname],
+          password: item[TabelAdmin.password]));
+    }
+
+    return list;
   }
 }
 

@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:math';
 import 'package:flutter/material.dart';
 import '../../controller/database.dart';
@@ -49,6 +51,7 @@ class FormProvider with ChangeNotifier {
 
     listDealership.clear();
     listDealership.addAll(list);
+    
     print(
         'HERE ---------------------------------------> ${listDealership.length}');
 

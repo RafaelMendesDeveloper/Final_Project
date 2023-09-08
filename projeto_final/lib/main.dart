@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'screen/owner/admin_signup.dart';
 import 'screen/owner/dealerships.dart';
 import 'screen/owner/form_signup.dart';
 import 'screen/owner/login_owner.dart';
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
     '/userpage': (context) =>  UserHomePage(),
     '/ownersignup': (context) =>  SignUpDealerships(),
     '/dealerships': (context) => DealershipsList(),
+    '/admins' : (context) => SignUpAdmin(),
   },
     );
   }

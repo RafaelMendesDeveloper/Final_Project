@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../model/db_class.dart';
 
 class OwnerLogin extends StatelessWidget {
-   OwnerLogin({super.key});
+  OwnerLogin({super.key});
 
   final _formOwnerKey = GlobalKey<FormState>();
   final DbClass formAnderson = DbClass();
@@ -58,7 +58,6 @@ class OwnerLogin extends StatelessWidget {
                 ),
               ],
             ),
-
             child: Form(
               key: _formOwnerKey,
               child: Column(
@@ -93,7 +92,7 @@ class OwnerLogin extends StatelessWidget {
                       ),
                       child: TextFormField(
                         style: GoogleFonts.oswald(
-                                fontSize: 22,
+                          fontSize: 22,
                         ),
                         controller: loginController,
                         cursorColor: const Color.fromARGB(255, 20, 108, 148),
@@ -167,7 +166,7 @@ class OwnerLogin extends StatelessWidget {
                       ),
                       child: TextFormField(
                         style: GoogleFonts.oswald(
-                                fontSize: 22,
+                          fontSize: 22,
                         ),
                         controller: passwordController,
                         obscureText: true,

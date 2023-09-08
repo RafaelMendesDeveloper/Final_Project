@@ -124,7 +124,9 @@ class OwnerHomePage extends StatelessWidget {
                       height: (MediaQuery.sizeOf(context).height / 4) - 30,
                       width: (MediaQuery.sizeOf(context).height / 4) - 30,
                       child: ElevatedButton.icon(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/admins');
+                          },
                           style: ButtonStyle(
                             backgroundColor: const MaterialStatePropertyAll(
                                 Color.fromARGB(255, 20, 108, 148)),
