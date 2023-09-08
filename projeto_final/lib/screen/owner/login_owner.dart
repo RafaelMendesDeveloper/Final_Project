@@ -6,7 +6,7 @@ class OwnerLogin extends StatelessWidget {
    OwnerLogin({super.key});
 
   final _formOwnerKey = GlobalKey<FormState>();
-  DbClass formAnderson = DbClass();
+  final DbClass formAnderson = DbClass();
   final TextEditingController loginController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   int flag = 0;

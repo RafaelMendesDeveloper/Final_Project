@@ -2,73 +2,34 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../controller/database.dart';
-import '../../entities/dealership.dart';
-import 'dart:math';
-// import '../../model/db_class.dart';
+import 'package:projeto_final/controller/signup_controllers.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(SignUpDealerships());
 }
 
-class DealershipState extends ChangeNotifier {
-  DealershipState() {
-    load();
-  }
+class SignUpDealershipController extends StatelessWidget {
+  const SignUpDealershipController({super.key});
 
-  final controller = DealershipController();
-
-  final _controllerCnpj = TextEditingController();
-  final _controllerDealershipName = TextEditingController();
-  final _controllerAutonomyLevel = TextEditingController();
-  final _controllerPassword = TextEditingController();
-
-  final _listDealership = <Dealership>[];
-  List<Dealership> get listDealership => _listDealership;
-
-  TextEditingController get controllerCnpj => _controllerCnpj;
-  TextEditingController get controllerDealershipName =>
-      _controllerDealershipName;
-  TextEditingController get controllerAutonomyLevel => _controllerAutonomyLevel;
-  TextEditingController get controllerPassword => _controllerPassword;
-
-  Future<void> insert() async {
-    final dealership = Dealership(
-        cnpj: controllerCnpj.text,
-        name: controllerDealershipName.text,
-        autonomyLevel: controllerAutonomyLevel.text,
-        password: controllerPassword.text);
-
-    await controller.insert(dealership);
-    await load();
-
-    controllerCnpj.clear();
-    controllerDealershipName.clear();
-    controllerAutonomyLevel.clear();
-    controllerPassword.clear();
-
-    notifyListeners();
-  }
-
-  Future<void> load() async {
-    final list = await controller.select();
-
-    listDealership.clear();
-    listDealership.addAll(list);
-    print(
-        'HERE ---------------------------------------> ${listDealership.length}');
-
-    notifyListeners();
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider(
+      create: (context) => FormProvider(),
+      child: Scaffold(
+        body: SignUpDealerships(),
+      ),
+    );
   }
 }
 
 class SignUpDealerships extends StatelessWidget {
   SignUpDealerships({super.key});
 
-  TextEditingController _controllerAutonomyLevel = TextEditingController(text: 'Iniciante');
-  final _dealershipState = DealershipState();
+  final TextEditingController _controllerAutonomyLevel =
+      TextEditingController(text: 'Iniciante');
+  final _dealershipState = FormProvider();
   final _formKey = GlobalKey<FormState>();
-  var password = 'oi';
 
   @override
   Widget build(BuildContext context) {
@@ -160,15 +121,13 @@ class SignUpDealerships extends StatelessWidget {
                             fillColor: Colors.transparent,
                           ),
                           validator: (value) {
-                          
-                          if (value == null || value.isEmpty) {
+                            if (value == null || value.isEmpty) {
                               return 'Por favor, informe um CNPJ válido.';
                             } else if (value.length < 14 || value.length > 14) {
                               return 'cnpj deve conter 14 digitos';
                             }
                             return null;
                           },
-
                         ),
                       ),
                       Row(
@@ -208,7 +167,7 @@ class SignUpDealerships extends StatelessWidget {
                             fillColor: Colors.transparent,
                           ),
                           validator: (value) {
-                              if (value == null || value.isEmpty) {
+                            if (value == null || value.isEmpty) {
                               return 'Nome inválido.';
                             } else if (value.length > 120) {
                               return 'Nome deve ter menos de 120 caracteres';
@@ -275,8 +234,10 @@ class SignUpDealerships extends StatelessWidget {
                         width: 300,
                         child: ElevatedButton(
                           onPressed: () async {
-                            password = gerarSenha();
-                            _dealershipState.controllerPassword.text = password;
+                            _dealershipState.password =
+                                FormProvider().gerarSenha();
+                            _dealershipState.controllerPassword.text =
+                                _dealershipState.password;
                           },
                           style: ButtonStyle(
                               backgroundColor: const MaterialStatePropertyAll(
@@ -305,8 +266,7 @@ class SignUpDealerships extends StatelessWidget {
                           readOnly: true,
                           cursorColor: const Color.fromARGB(255, 246, 241, 241),
                           decoration: InputDecoration(
-                            labelText:
-                                _dealershipState._controllerPassword.text,
+                            labelText: _dealershipState.password,
                             labelStyle: GoogleFonts.oswald(
                               fontSize: 18,
                               letterSpacing: 2,
@@ -396,18 +356,4 @@ class SignUpDealerships extends StatelessWidget {
       ),
     );
   }
-}
-
-gerarSenha() {
-  var caracteres =
-      "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-  final random = Random();
-  var senha = '';
-
-  for (var i = 0; i < 15; i++) {
-    var indice = random.nextInt(caracteres.length);
-    senha += caracteres[indice];
-  }
-
-  return senha;
 }
