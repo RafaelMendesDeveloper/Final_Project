@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../controller/database.dart';
 import '../../entities/admin.dart';
+import '../model/database.dart';
+
 
 class AdminProvider with ChangeNotifier {
   AdminProvider() {
@@ -44,8 +45,6 @@ class AdminProvider with ChangeNotifier {
 
     listAdmin.clear();
     listAdmin.addAll(list);
-    print(
-        'HERE ---------------------------------------> ${listAdmin.length}');
 
     notifyListeners();
   }
@@ -54,3 +53,4 @@ class AdminProvider with ChangeNotifier {
     return true;
   }
 }
+

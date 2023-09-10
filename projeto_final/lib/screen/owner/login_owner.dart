@@ -1,15 +1,30 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../model/db_class.dart';
+import 'package:provider/provider.dart';
+import '../../controller/login_admin.dart';
+import 'package:projeto_final/controller/login_owner.dart';
+
+class LoginAdminController extends StatelessWidget {
+  const LoginAdminController({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider(
+      create: (context) => AdminProvider(),
+      child: Scaffold(
+        body: OwnerLogin(),
+      ),
+    );
+  }
+}
 
 class OwnerLogin extends StatelessWidget {
   OwnerLogin({super.key});
 
   final _formOwnerKey = GlobalKey<FormState>();
-  final DbClass formAnderson = DbClass();
-  final TextEditingController loginController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  int flag = 0;
+  final _loginState = LoginAdmProvider();
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +109,7 @@ class OwnerLogin extends StatelessWidget {
                         style: GoogleFonts.oswald(
                           fontSize: 22,
                         ),
-                        controller: loginController,
+                        controller: _loginState.loginController,
                         cursorColor: const Color.fromARGB(255, 20, 108, 148),
                         decoration: InputDecoration(
                           errorStyle: const TextStyle(
@@ -127,11 +142,6 @@ class OwnerLogin extends StatelessWidget {
                           fillColor: const Color.fromARGB(255, 175, 211, 223),
                         ),
                         validator: (value) {
-                          if (value != 'anderson') {
-                            flag = 0;
-                            return 'nome de usuário incorreto';
-                          }
-                          flag = 1;
                           return null;
                         },
                       ),
@@ -168,7 +178,7 @@ class OwnerLogin extends StatelessWidget {
                         style: GoogleFonts.oswald(
                           fontSize: 22,
                         ),
-                        controller: passwordController,
+                        controller: _loginState.passwordController,
                         obscureText: true,
                         cursorColor: const Color.fromARGB(255, 20, 108, 148),
                         decoration: InputDecoration(
@@ -202,9 +212,6 @@ class OwnerLogin extends StatelessWidget {
                           fillColor: const Color.fromARGB(255, 175, 211, 223),
                         ),
                         validator: (value) {
-                          if (value != '123456' && flag == 1) {
-                            return 'senha incorreta!';
-                          }
                           return null;
                         },
                       ),
@@ -229,12 +236,78 @@ class OwnerLogin extends StatelessWidget {
                         child: ElevatedButton(
                             onPressed: () async {
                               if (_formOwnerKey.currentState!.validate()) {
-                                formAnderson.login = loginController.text;
-                                formAnderson.password = passwordController.text;
-                                bool isValid =
-                                    await formAnderson.andersonSignIn();
-                                if (isValid) {
+                                final isValid = await _loginState
+                                    .getAdmin(_loginState.loginController.text);
+                                if (isValid != null &&
+                                    isValid.password ==
+                                        _loginState.passwordController.text) {
                                   Navigator.pushNamed(context, '/ownerpage');
+                                } else {
+                                  return showDialog<void>(
+                                    context: context,
+                                    barrierDismissible: false,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        title: Text('ATENÇÃO!',
+                                            style: GoogleFonts.oswald(
+                                                fontSize: 25,
+                                                letterSpacing: 2,
+                                                fontWeight: FontWeight.bold,
+                                                color: const Color.fromARGB(
+                                                    255, 20, 108, 148))),
+                                        content: SingleChildScrollView(
+                                          child: ListBody(
+                                            children: <Widget>[
+                                              Text(
+                                                  'Usuário ou Senha incorretos!'
+                                                  ,style: GoogleFonts.oswald(
+                                                      fontSize: 20,
+                                                      letterSpacing: 2,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color:
+                                                          const Color.fromARGB(
+                                                              255,
+                                                              20,
+                                                              108,
+                                                              148))),
+                                              Text('Digite Novamente.',
+                                                  style: GoogleFonts.oswald(
+                                                      fontSize: 20,
+                                                      letterSpacing: 2,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color:
+                                                          const Color.fromARGB(
+                                                              255,
+                                                              20,
+                                                              108,
+                                                              148))),
+                                            ],
+                                          ),
+                                        ),
+                                        actions: <Widget>[
+                                          TextButton(
+                                            child: Text('Ok!'
+                                            ,style: GoogleFonts.oswald(
+                                                      fontSize: 20,
+                                                      letterSpacing: 2,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color:
+                                                          const Color.fromARGB(
+                                                              255,
+                                                              20,
+                                                              108,
+                                                              148))),
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
                                 }
                               }
                             },

@@ -200,13 +200,13 @@ class SignUpDealerships extends StatelessWidget {
                             'Intermediário',
                             'Avançado',
                             'Personalizado',
-                          ].map((String value) {
+                          ].map((value) {
                             return DropdownMenuItem<String>(
                               value: value,
                               child: Text(value),
                             );
                           }).toList(),
-                          onChanged: (String? newValue) {
+                          onChanged: (newValue) {
                             _controllerAutonomyLevel.text = newValue!;
                           },
                           decoration: InputDecoration(

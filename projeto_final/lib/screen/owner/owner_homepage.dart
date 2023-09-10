@@ -1,10 +1,24 @@
+import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:projeto_final/controller/login_owner.dart';
+
+class LoginAdminController extends StatelessWidget {
+  const LoginAdminController({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider(
+      create: (context) => LoginAdmProvider(),
+      child: const Scaffold(
+        body: OwnerHomePage(),
+      ),
+    );
+  }
+}
 
 class OwnerHomePage extends StatelessWidget {
   const OwnerHomePage({super.key});
-
-  static const String name = 'Anderson';
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +69,7 @@ class OwnerHomePage extends StatelessWidget {
                   Container(
                     margin: const EdgeInsets.fromLTRB(212, 25, 0, 0),
                     child: Text(
-                      name,
+                      'OI',
                       style: GoogleFonts.oswald(
                           fontSize: 25,
                           letterSpacing: 4,
