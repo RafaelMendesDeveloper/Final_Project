@@ -1,7 +1,8 @@
-import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:projeto_final/controller/login_owner.dart';
+import 'package:provider/provider.dart';
+
+import '../../controller/login_owner.dart';
 
 class LoginAdminController extends StatelessWidget {
   const LoginAdminController({super.key});
@@ -69,7 +70,7 @@ class OwnerHomePage extends StatelessWidget {
                   Container(
                     margin: const EdgeInsets.fromLTRB(212, 25, 0, 0),
                     child: Text(
-                      'OI',
+                      'Anderson',
                       style: GoogleFonts.oswald(
                           fontSize: 25,
                           letterSpacing: 4,
@@ -272,7 +273,9 @@ class OwnerHomePage extends StatelessWidget {
                       height: (MediaQuery.sizeOf(context).height / 4) - 30,
                       width: (MediaQuery.sizeOf(context).height / 4) - 30,
                       child: ElevatedButton.icon(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/settings');
+                          },
                           style: ButtonStyle(
                             backgroundColor: const MaterialStatePropertyAll(
                                 Color.fromARGB(255, 153, 212, 231)),

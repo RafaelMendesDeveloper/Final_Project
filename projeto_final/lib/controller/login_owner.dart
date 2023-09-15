@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_final/model/database.dart';
 
 import '../entities/admin.dart';
+import '../model/database.dart';
 
 class LoginAdmProvider with ChangeNotifier {
   final TextEditingController loginController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  Future<dynamic> getAdmin(String username) async {
+  Future<Admin?> getAdmin(String username, String password) async {
     final database = await getDatabase();
     final List<Map<String, dynamic>> result = await database.query(
       TabelAdmin.tableName,
-    );
+      whereArgs: [
+        username,
+        password,
+      ],
+      where: 
+          '${TabelAdmin.username} = ? and ${TabelAdmin.password} = ?');
 
     if (result.isNotEmpty) {
       final item = result.first;
@@ -28,8 +33,4 @@ class LoginAdmProvider with ChangeNotifier {
     notifyListeners();
     return null;
   }
-
-  
 }
-
-

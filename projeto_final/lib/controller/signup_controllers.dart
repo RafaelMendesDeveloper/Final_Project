@@ -5,9 +5,8 @@ import 'package:flutter/material.dart';
 import '../../entities/dealership.dart';
 import '../model/database.dart';
 
-
-class FormProvider with ChangeNotifier {
-  FormProvider() {
+class DealershipProvider with ChangeNotifier {
+  DealershipProvider() {
     load();
   }
 
@@ -44,6 +43,8 @@ class FormProvider with ChangeNotifier {
     controllerAutonomyLevel.clear();
     controllerPassword.clear();
 
+    print(dealership.password);
+
     notifyListeners();
   }
 
@@ -55,6 +56,29 @@ class FormProvider with ChangeNotifier {
 
     notifyListeners();
   }
+  
+
+   Future<List<Dealership>> select() async {
+    final database = await getDatabase();
+    final List<Map<String, dynamic>> result = await database.query(
+      TabelDealership.tablename,
+    );
+
+    var list = <Dealership>[];
+
+    for (final item in result) {
+      list.add(Dealership(
+          id: item[TabelDealership.id],
+          cnpj: item[TabelDealership.cnpj],
+          name: item[TabelDealership.name],
+          autonomyLevel: item[TabelDealership.autonomyLevel],
+          password: item[TabelDealership.password]));
+    }
+
+    return list;
+  }
+
+
 
   String gerarSenha() {
     var caracteres =

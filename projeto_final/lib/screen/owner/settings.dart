@@ -2,36 +2,35 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-import '../../controller/signup_controllers.dart';
+import '../../controller/theme_controller.dart';
 
-class DealerhsipListController extends StatelessWidget {
-  const DealerhsipListController({super.key});
+class SettingsController extends StatelessWidget {
+  const SettingsController({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => DealershipProvider(),
+      create: (context) => ThemeProvider(),
       child: const Scaffold(
-        body: DealershipsList(),
+        body: SettingsPage(),
       ),
     );
   }
 }
 
-class DealershipsList extends StatelessWidget {
-  const DealershipsList({super.key});
-
+class SettingsPage extends StatelessWidget {
+  const SettingsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final state =  Provider.of<DealershipProvider>(context, listen: true);
+    final state = Provider.of<ThemeProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: Container(
-          margin: const EdgeInsets.fromLTRB(0, 5, 30, 0),
+          margin: const EdgeInsets.fromLTRB(0, 5, 35, 0),
           child: Center(
             child: Text(
-              'LISTAGEM DE LOJAS',
+              'CONFIGURAÇÕES',
               style: GoogleFonts.oswald(
                   fontSize: 20,
                   letterSpacing: 3,
@@ -65,13 +64,13 @@ class DealershipsList extends StatelessWidget {
             ],
           ),
         ),
-        child: ListView.builder(
-          itemCount: state.listDealership.length,
-          itemBuilder: (context, index) {
-            return ListTile(
-              title: Text(state.listDealership[index].name),
-            );
-          },
+        child: Column(
+          children: [
+            IconButton(onPressed: state.toggleTheme, 
+            icon: Icon(
+              state.isLight ? Icons.dark_mode : Icons.light_mode
+            )),
+          ],
         ),
       ),
     );

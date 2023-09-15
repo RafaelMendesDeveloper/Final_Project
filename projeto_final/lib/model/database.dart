@@ -4,7 +4,6 @@ import 'package:sqflite/sqflite.dart';
 import '../entities/admin.dart';
 import '../entities/dealership.dart';
 
-
 Future<Database> getDatabase() async {
   final path = join(
     await getDatabasesPath(),
@@ -53,7 +52,8 @@ class TabelAdmin {
 class TabelDealership {
   static const String createTable = '''
   CREATE TABLE $tablename (
-  $cnpj TEXT PRIMARY KEY NOT NULL,
+  $id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+  $cnpj TEXT NOT NULL,
   $name TEXT NOT NULL,
   $autonomyLevel TEXT NOT NULL,
   $password TEXT NOT NULL
@@ -62,6 +62,7 @@ class TabelDealership {
 
   static const String tablename = 'dealership';
 
+  static const String id = 'id';
   static const String cnpj = 'cnpj';
   static const String name = 'name';
   static const String autonomyLevel = 'autonomy_level';
@@ -70,6 +71,7 @@ class TabelDealership {
   static Map<String, dynamic> toMap(Dealership dealership) {
     final map = <String, dynamic>{};
 
+    map[TabelDealership.id] = dealership.id;
     map[TabelDealership.cnpj] = dealership.cnpj;
     map[TabelDealership.name] = dealership.name;
     map[TabelDealership.autonomyLevel] = dealership.autonomyLevel;
@@ -129,6 +131,7 @@ class DealershipController {
 
     for (final item in result) {
       list.add(Dealership(
+          id: item[TabelDealership.id],
           cnpj: item[TabelDealership.cnpj],
           name: item[TabelDealership.name],
           autonomyLevel: item[TabelDealership.autonomyLevel],

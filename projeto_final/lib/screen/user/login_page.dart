@@ -1,12 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+
+import '../../controller/login.dart';
 
 void main() {
   runApp(LoginPage());
 }
 
+class LoginController extends StatelessWidget {
+  const LoginController({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider(
+      create: (context) => LoginProvider(),
+      child: Scaffold(
+        body: LoginPage(),
+      ),
+    );
+  }
+}
+
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
+
+  final _formLoginKey = GlobalKey<FormState>();
+  final _loginState = LoginProvider();
 
   @override
   Widget build(BuildContext context) {
@@ -55,21 +75,20 @@ class LoginPage extends StatelessWidget {
                 ),
               ],
             ),
-
             child: Form(
-              // key: _formKey,
+              key: _formLoginKey,
               child: Column(
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 35, 0, 50),
-                    child: Text('ANDERCAR',
-                              style: GoogleFonts.playfairDisplay(
-                                  fontSize: 50,
-                                  fontWeight: FontWeight.bold,
-                                  color:
-                                      const Color.fromARGB(255, 20, 108, 148),
-                                      ),
-                                      ),
+                    child: Text(
+                      'ANDERCAR',
+                      style: GoogleFonts.playfairDisplay(
+                        fontSize: 50,
+                        fontWeight: FontWeight.bold,
+                        color: const Color.fromARGB(255, 20, 108, 148),
+                      ),
+                    ),
                   ),
                   Row(
                     children: [
@@ -99,10 +118,10 @@ class LoginPage extends StatelessWidget {
                         ],
                       ),
                       child: TextFormField(
+                        controller: _loginState.loginController,
                         style: GoogleFonts.oswald(
-                                fontSize: 22,
-                                color:
-                                    const Color.fromARGB(255, 0, 0, 0)),
+                            fontSize: 22,
+                            color: const Color.fromARGB(255, 0, 0, 0)),
                         cursorColor: const Color.fromARGB(255, 20, 108, 148),
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
@@ -157,8 +176,9 @@ class LoginPage extends StatelessWidget {
                         ],
                       ),
                       child: TextFormField(
+                        controller: _loginState.passwordController,
                         style: GoogleFonts.oswald(
-                                fontSize: 22,
+                          fontSize: 22,
                         ),
                         obscureText: true,
                         cursorColor: const Color.fromARGB(255, 20, 108, 148),
@@ -204,8 +224,78 @@ class LoginPage extends StatelessWidget {
                           ],
                         ),
                         child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.pushNamed(context, '/userpage');
+                            onPressed: () async {
+                              if (_formLoginKey.currentState!.validate()) {
+                                final isValid = await _loginState.getDealership(
+                                    _loginState.loginController.text,
+                                    _loginState.passwordController.text);
+                                if (isValid != null &&
+                                    isValid.password ==
+                                        _loginState.passwordController.text) {
+                                  Navigator.pushNamed(context, '/userpage');
+                                } else {
+                                  return showDialog<void>(
+                                    context: context,
+                                    barrierDismissible: false,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        title: Text('ATENÇÃO!',
+                                            style: GoogleFonts.oswald(
+                                                fontSize: 25,
+                                                letterSpacing: 2,
+                                                fontWeight: FontWeight.bold,
+                                                color: const Color.fromARGB(
+                                                    255, 20, 108, 148))),
+                                        content: SingleChildScrollView(
+                                          child: ListBody(
+                                            children: <Widget>[
+                                              Text(
+                                                  'Usuário ou Senha incorretos!'
+                                                  ,style: GoogleFonts.oswald(
+                                                      fontSize: 20,
+                                                      letterSpacing: 2,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color:
+                                                          const Color.fromARGB(
+                                                              255,
+                                                              20,
+                                                              108,
+                                                              148))),
+                                              Text('Digite Novamente.',
+                                                  style: GoogleFonts.oswald(
+                                                      fontSize: 20,
+                                                      letterSpacing: 2,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color:
+                                                          const Color.fromARGB(
+                                                              255,
+                                                              20,
+                                                              108,
+                                                              148))),
+                                            ],
+                                          ),
+                                        ),
+                                        actions: <Widget>[
+                                          TextButton(
+                                            child: Text('Ok!',
+                                                style: GoogleFonts.oswald(
+                                                    fontSize: 20,
+                                                    letterSpacing: 2,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: const Color.fromARGB(
+                                                        255, 20, 108, 148))),
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                }
+                              }
                             },
                             style: ButtonStyle(
                                 backgroundColor: const MaterialStatePropertyAll(
@@ -230,12 +320,11 @@ class LoginPage extends StatelessWidget {
                     ),
                   ),
                   const Padding(
-                    padding: EdgeInsets.fromLTRB(0,10,0,10),
-                    child:  Divider(
+                    padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                    child: Divider(
                       color: Color.fromARGB(55, 20, 108, 148),
                     ),
                   ),
-
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                     child: TextButton(

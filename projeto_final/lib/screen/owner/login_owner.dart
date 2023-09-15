@@ -3,8 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+
 import '../../controller/login_admin.dart';
-import 'package:projeto_final/controller/login_owner.dart';
+import '../../controller/login_owner.dart';
 
 class LoginAdminController extends StatelessWidget {
   const LoginAdminController({super.key});
@@ -236,8 +237,9 @@ class OwnerLogin extends StatelessWidget {
                         child: ElevatedButton(
                             onPressed: () async {
                               if (_formOwnerKey.currentState!.validate()) {
-                                final isValid = await _loginState
-                                    .getAdmin(_loginState.loginController.text);
+                                final isValid = await _loginState.getAdmin(
+                                    _loginState.loginController.text,
+                                    _loginState.passwordController.text);
                                 if (isValid != null &&
                                     isValid.password ==
                                         _loginState.passwordController.text) {
@@ -260,7 +262,7 @@ class OwnerLogin extends StatelessWidget {
                                             children: <Widget>[
                                               Text(
                                                   'Usuário ou Senha incorretos!'
-                                                  ,style: GoogleFonts.oswald(
+                                                  , style: GoogleFonts.oswald(
                                                       fontSize: 20,
                                                       letterSpacing: 2,
                                                       fontWeight:
@@ -288,18 +290,13 @@ class OwnerLogin extends StatelessWidget {
                                         ),
                                         actions: <Widget>[
                                           TextButton(
-                                            child: Text('Ok!'
-                                            ,style: GoogleFonts.oswald(
-                                                      fontSize: 20,
-                                                      letterSpacing: 2,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color:
-                                                          const Color.fromARGB(
-                                                              255,
-                                                              20,
-                                                              108,
-                                                              148))),
+                                            child: Text('Ok!',
+                                                style: GoogleFonts.oswald(
+                                                    fontSize: 20,
+                                                    letterSpacing: 2,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: const Color.fromARGB(
+                                                        255, 20, 108, 148))),
                                             onPressed: () {
                                               Navigator.of(context).pop();
                                             },

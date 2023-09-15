@@ -3,13 +3,13 @@ class Dealership {
   final String name;
   final String autonomyLevel;
   final String password;
-  // final int idAutonomyLevel;
+  final int? id;
 
   Dealership({
     required this.cnpj,
     required this.name,
     required this.autonomyLevel,
     required this.password,
-    // required this.idAutonomyLevel,
+    this.id,
   });
 }
