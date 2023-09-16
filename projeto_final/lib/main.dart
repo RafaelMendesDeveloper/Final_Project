@@ -15,7 +15,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
+//criar um provider pra cada tela por isso que esta acontecendo o erro.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -28,9 +28,9 @@ class MyApp extends StatelessWidget {
         '/ownerpage': (context) => const OwnerHomePage(),
         '/userpage': (context) => const UserHomePage(),
         '/ownersignup': (context) => SignUpDealerships(),
-        '/dealerships': (context) => const DealershipsList(),
+        '/dealerships': (context) => const DealerhsipListController(),
         '/admins': (context) => SignUpAdmin(),
-        '/settings': (context) => const SettingsPage(),
+        '/settings': (context) => const SettingsController(),
       },
     );
   }

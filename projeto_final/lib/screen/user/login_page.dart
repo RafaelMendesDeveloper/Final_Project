@@ -58,7 +58,7 @@ class LoginPage extends StatelessWidget {
             width: double.infinity,
             height: double.infinity,
             margin: const EdgeInsets.only(
-                left: 30.0, right: 30.0, top: 75.0, bottom: 75.0),
+                left: 32.0, right: 32.0, top: 72.0, bottom: 26.0),
             decoration: BoxDecoration(
               color: const Color.fromARGB(255, 246, 241, 241),
               borderRadius: const BorderRadius.only(
@@ -210,7 +210,7 @@ class LoginPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(30, 0, 30, 10),
                     child: SizedBox(
-                      width: 300.0,
+                      width: 304.0,
                       height: 80.0,
                       child: Container(
                         decoration: BoxDecoration(

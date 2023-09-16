@@ -6,10 +6,15 @@ import '../../entities/dealership.dart';
 import '../model/database.dart';
 
 class DealershipProvider with ChangeNotifier {
-  DealershipProvider() {
+  DealershipProvider({required Dealership? dealership}) {
     load();
   }
 
+  Dealership? dealership;
+
+
+  String cnpj = '';
+  String name = '';
   String password = '';
 
   final controller = DealershipController();
@@ -51,8 +56,30 @@ class DealershipProvider with ChangeNotifier {
   Future<void> load() async {
     final list = await controller.select();
 
+
     listDealership.clear();
     listDealership.addAll(list);
+
+    if(dealership == null){
+      return;
+    }
+
+    _controllerCnpj.text = dealership?.cnpj ?? '';
+    _controllerDealershipName.text = dealership?.name ?? '';
+    _controllerPassword.text = dealership?.password ?? '';
+
+
+    notifyListeners();
+  }
+
+  Future<void> delete(int? id) async {
+    final database = await getDatabase();
+
+    database.delete(
+      'dealership',
+      where: 'id = ?',
+      whereArgs: [id],
+    );
 
     notifyListeners();
   }
@@ -92,6 +119,23 @@ class DealershipProvider with ChangeNotifier {
     }
 
     return senha;
+  }
+
+  Future<bool> getDealership(int? id) async {
+    final database = await getDatabase();
+    final List<Map<String, dynamic>> result = await database.query(
+        TabelDealership.tablename,
+        whereArgs: [
+          id,
+        ],
+        where:
+        '${TabelDealership.id} = ?');
+
+    if (result.isNotEmpty) {
+      return true;
+    }
+
+    return false;
   }
 
   bool fazerLogin() {

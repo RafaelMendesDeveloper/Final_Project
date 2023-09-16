@@ -68,7 +68,7 @@ class OwnerHomePage extends StatelessWidget {
               Row(
                 children: [
                   Container(
-                    margin: const EdgeInsets.fromLTRB(212, 25, 0, 0),
+                    margin: const EdgeInsets.fromLTRB(240, 48, 0, 0),
                     child: Text(
                       'Anderson',
                       style: GoogleFonts.oswald(
@@ -120,8 +120,8 @@ class OwnerHomePage extends StatelessWidget {
                                     fontWeight: FontWeight.bold,
                                     letterSpacing: 3,
                                     color: const Color.fromARGB(
-                                        255, 246, 241, 241))),
-                          )),
+                                        255, 246, 241, 241),),),
+                          ),),
                     ),
                   ),
                   Container(

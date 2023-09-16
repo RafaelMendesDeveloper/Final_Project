@@ -65,6 +65,7 @@ class SettingsPage extends StatelessWidget {
           ),
         ),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             IconButton(onPressed: state.toggleTheme, 
             icon: Icon(

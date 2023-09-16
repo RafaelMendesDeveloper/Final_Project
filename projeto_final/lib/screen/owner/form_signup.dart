@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import '../../controller/signup_controllers.dart';
+import '../../entities/dealership.dart';
 
 void main() {
   runApp(SignUpDealerships());
@@ -15,8 +16,9 @@ class SignUpDealershipController extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as Dealership?;
     return ChangeNotifierProvider(
-      create: (context) => DealershipProvider(),
+      create: (context) => DealershipProvider(dealership: args),
       child: Scaffold(
         body: SignUpDealerships(),
       ),
@@ -29,11 +31,12 @@ class SignUpDealerships extends StatelessWidget {
 
   final TextEditingController _controllerAutonomyLevel =
       TextEditingController(text: 'Iniciante');
-  final _dealershipState = DealershipProvider();
   final _formKey = GlobalKey<FormState>();
+
 
   @override
   Widget build(BuildContext context) {
+    final dealershipState = Provider.of<DealershipProvider>(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -102,9 +105,10 @@ class SignUpDealerships extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(50, 0, 50, 10),
                       child: TextFormField(
-                        controller: _dealershipState.controllerCnpj,
+                        controller: dealershipState.controllerCnpj,
                         cursorColor: const Color.fromARGB(255, 246, 241, 241),
                         decoration: InputDecoration(
+                          labelText: dealershipState.dealership?.cnpj,
                           enabledBorder: OutlineInputBorder(
                             borderSide: const BorderSide(
                                 width: 3,
@@ -148,9 +152,10 @@ class SignUpDealerships extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(50, 0, 50, 20),
                       child: TextFormField(
-                        controller: _dealershipState.controllerDealershipName,
+                        controller: dealershipState.controllerDealershipName,
                         cursorColor: const Color.fromARGB(255, 246, 241, 241),
                         decoration: InputDecoration(
+                          labelText: dealershipState.dealership?.name,
                           enabledBorder: OutlineInputBorder(
                             borderSide: const BorderSide(
                                 width: 3,
@@ -234,10 +239,10 @@ class SignUpDealerships extends StatelessWidget {
                       width: 300,
                       child: ElevatedButton(
                         onPressed: () async {
-                          _dealershipState.password =
-                              DealershipProvider().gerarSenha();
-                          _dealershipState.controllerPassword.text =
-                              _dealershipState.password;
+                          dealershipState.password =
+                              dealershipState.gerarSenha();
+                          dealershipState.controllerPassword.text =
+                              dealershipState.password;
                         },
                         style: ButtonStyle(
                             backgroundColor: const MaterialStatePropertyAll(
@@ -261,12 +266,12 @@ class SignUpDealerships extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(50, 20, 50, 0),
                       child: TextFormField(
-                        controller: _dealershipState.controllerPassword,
+                        controller: dealershipState.controllerPassword,
                         showCursor: false,
                         readOnly: true,
                         cursorColor: const Color.fromARGB(255, 246, 241, 241),
                         decoration: InputDecoration(
-                          labelText: _dealershipState.password,
+                          labelText: dealershipState.dealership?.password,
                           labelStyle: GoogleFonts.oswald(
                             fontSize: 18,
                             letterSpacing: 2,
@@ -316,7 +321,13 @@ class SignUpDealerships extends StatelessWidget {
                               child: ElevatedButton(
                                 onPressed: () async {
                                   if (_formKey.currentState!.validate()) {
-                                    await _dealershipState.insert();
+                                    final alreadyExists = dealershipState.getDealership(dealershipState.dealership?.id);
+                                    if(await alreadyExists){
+                                      print('i have to edit');
+                                    }
+                                    else {
+                                      await dealershipState.insert();
+                                    }
                                   }
                                 },
                                 style: ButtonStyle(

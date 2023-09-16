@@ -57,7 +57,7 @@ class OwnerLogin extends StatelessWidget {
             width: double.infinity,
             height: double.infinity,
             margin: const EdgeInsets.only(
-                left: 30.0, right: 30.0, top: 175.0, bottom: 145.0),
+                left: 30.0, right: 30.0, top: 175.0, bottom: 124.0),
             decoration: BoxDecoration(
               color: const Color.fromARGB(255, 246, 241, 241),
               borderRadius: const BorderRadius.only(
@@ -69,7 +69,7 @@ class OwnerLogin extends StatelessWidget {
               boxShadow: [
                 BoxShadow(
                   color: Colors.grey.shade400,
-                  spreadRadius: 1,
+                  spreadRadius: 2,
                   blurRadius: 15,
                 ),
               ],
@@ -83,13 +83,20 @@ class OwnerLogin extends StatelessWidget {
                     children: [
                       Padding(
                         padding: const EdgeInsets.fromLTRB(45, 40, 0, 0),
-                        child: Text('LOGIN',
-                            style: GoogleFonts.oswald(
-                                fontSize: 25,
-                                letterSpacing: 2,
-                                fontWeight: FontWeight.bold,
-                                color:
-                                    const Color.fromARGB(255, 20, 108, 148))),
+                        child: Text(
+                          'LOGIN',
+                          style: GoogleFonts.oswald(
+                            fontSize: 25,
+                            letterSpacing: 2,
+                            fontWeight: FontWeight.bold,
+                            color: const Color.fromARGB(
+                              255,
+                              20,
+                              108,
+                              148,
+                            ),
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -101,7 +108,7 @@ class OwnerLogin extends StatelessWidget {
                           BoxShadow(
                             color: Colors.grey.shade400,
                             spreadRadius: 1,
-                            blurRadius: 15,
+                            blurRadius: 24,
                             offset: const Offset(-2, -2),
                           )
                         ],
@@ -170,7 +177,7 @@ class OwnerLogin extends StatelessWidget {
                           BoxShadow(
                             color: Colors.grey.shade400,
                             spreadRadius: 1,
-                            blurRadius: 15,
+                            blurRadius: 24,
                             offset: const Offset(-2, -2),
                           ),
                         ],
@@ -205,8 +212,14 @@ class OwnerLogin extends StatelessWidget {
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderSide: const BorderSide(
-                                width: 3,
-                                color: Color.fromARGB(255, 20, 108, 148)),
+                              width: 3,
+                              color: Color.fromARGB(
+                                255,
+                                20,
+                                108,
+                                148,
+                              ),
+                            ),
                             borderRadius: BorderRadius.circular(50.0),
                           ),
                           filled: true,
@@ -219,115 +232,131 @@ class OwnerLogin extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(30, 0, 30, 40),
-                    child: SizedBox(
-                      width: 300.0,
-                      height: 80.0,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.shade400,
-                              spreadRadius: 1,
-                              blurRadius: 15,
-                              offset: const Offset(0, 10),
-                            ),
-                          ],
-                        ),
-                        child: ElevatedButton(
-                            onPressed: () async {
-                              if (_formOwnerKey.currentState!.validate()) {
-                                final isValid = await _loginState.getAdmin(
-                                    _loginState.loginController.text,
-                                    _loginState.passwordController.text);
-                                if (isValid != null &&
-                                    isValid.password ==
-                                        _loginState.passwordController.text) {
-                                  Navigator.pushNamed(context, '/ownerpage');
-                                } else {
-                                  return showDialog<void>(
-                                    context: context,
-                                    barrierDismissible: false,
-                                    builder: (context) {
-                                      return AlertDialog(
-                                        title: Text('ATENÇÃO!',
-                                            style: GoogleFonts.oswald(
-                                                fontSize: 25,
+                    padding: const EdgeInsets.only(
+                      bottom: 32.0,
+                      left: 16.0,
+                      right: 16.0,
+                    ),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.shade400,
+                            spreadRadius: 1,
+                            blurRadius: 15,
+                            offset: const Offset(0, 10),
+                          ),
+                        ],
+                      ),
+                      child: ElevatedButton(
+                          onPressed: () async {
+                            if (_formOwnerKey.currentState!.validate()) {
+                              final isValid = await _loginState.getAdmin(
+                                  _loginState.loginController.text,
+                                  _loginState.passwordController.text);
+                              if (isValid != null &&
+                                  isValid.password ==
+                                      _loginState.passwordController.text) {
+                                Navigator.pushNamed(context, '/ownerpage');
+                              } else {
+                                return showDialog<void>(
+                                  context: context,
+                                  barrierDismissible: false,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: Text(
+                                        'ATENÇÃO!',
+                                        style: GoogleFonts.oswald(
+                                          fontSize: 25,
+                                          letterSpacing: 2,
+                                          fontWeight: FontWeight.bold,
+                                          color: const Color.fromARGB(
+                                            255,
+                                            20,
+                                            108,
+                                            148,
+                                          ),
+                                        ),
+                                      ),
+                                      content: SingleChildScrollView(
+                                        child: ListBody(
+                                          children: <Widget>[
+                                            Text(
+                                              'Usuário ou Senha incorretos!',
+                                              style: GoogleFonts.oswald(
+                                                fontSize: 20,
                                                 letterSpacing: 2,
                                                 fontWeight: FontWeight.bold,
                                                 color: const Color.fromARGB(
-                                                    255, 20, 108, 148))),
-                                        content: SingleChildScrollView(
-                                          child: ListBody(
-                                            children: <Widget>[
-                                              Text(
-                                                  'Usuário ou Senha incorretos!'
-                                                  , style: GoogleFonts.oswald(
-                                                      fontSize: 20,
-                                                      letterSpacing: 2,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color:
-                                                          const Color.fromARGB(
-                                                              255,
-                                                              20,
-                                                              108,
-                                                              148))),
-                                              Text('Digite Novamente.',
-                                                  style: GoogleFonts.oswald(
-                                                      fontSize: 20,
-                                                      letterSpacing: 2,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color:
-                                                          const Color.fromARGB(
-                                                              255,
-                                                              20,
-                                                              108,
-                                                              148))),
-                                            ],
-                                          ),
+                                                  255,
+                                                  20,
+                                                  108,
+                                                  148,
+                                                ),
+                                              ),
+                                            ),
+                                            Text(
+                                              'Digite Novamente.',
+                                              style: GoogleFonts.oswald(
+                                                fontSize: 20,
+                                                letterSpacing: 2,
+                                                fontWeight: FontWeight.bold,
+                                                color: const Color.fromARGB(
+                                                  255,
+                                                  20,
+                                                  108,
+                                                  148,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                        actions: <Widget>[
-                                          TextButton(
-                                            child: Text('Ok!',
-                                                style: GoogleFonts.oswald(
-                                                    fontSize: 20,
-                                                    letterSpacing: 2,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: const Color.fromARGB(
-                                                        255, 20, 108, 148))),
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                            },
+                                      ),
+                                      actions: <Widget>[
+                                        TextButton(
+                                          child: Text(
+                                            'Ok!',
+                                            style: GoogleFonts.oswald(
+                                              fontSize: 20,
+                                              letterSpacing: 2,
+                                              fontWeight: FontWeight.bold,
+                                              color: const Color.fromARGB(
+                                                255,
+                                                20,
+                                                108,
+                                                148,
+                                              ),
+                                            ),
                                           ),
-                                        ],
-                                      );
-                                    },
-                                  );
-                                }
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
                               }
-                            },
-                            style: ButtonStyle(
-                                backgroundColor: const MaterialStatePropertyAll(
-                                    Color.fromARGB(255, 20, 108, 148)),
-                                shape: MaterialStateProperty.all<
-                                    RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(50.0),
-                                    side: const BorderSide(
-                                        color:
-                                            Color.fromARGB(255, 20, 108, 148)),
-                                  ),
-                                )),
-                            child: Center(
-                                child: Text('ENTRAR',
-                                    style: GoogleFonts.oswald(
-                                        fontSize: 35,
-                                        letterSpacing: 4,
-                                        color: const Color.fromARGB(
-                                            255, 246, 241, 241))))),
-                      ),
+                            }
+                          },
+                          style: ButtonStyle(
+                              backgroundColor: const MaterialStatePropertyAll(
+                                  Color.fromARGB(255, 20, 108, 148)),
+                              shape: MaterialStateProperty.all<
+                                  RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(50.0),
+                                  side: const BorderSide(
+                                      color: Color.fromARGB(255, 20, 108, 148)),
+                                ),
+                              )),
+                          child: Center(
+                              child: Text('ENTRAR',
+                                  style: GoogleFonts.oswald(
+                                      fontSize: 35,
+                                      letterSpacing: 4,
+                                      color: const Color.fromARGB(
+                                          255, 246, 241, 241))))),
                     ),
                   ),
                 ],
