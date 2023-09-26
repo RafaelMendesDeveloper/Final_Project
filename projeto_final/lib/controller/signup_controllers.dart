@@ -20,8 +20,6 @@ class DealershipProvider with ChangeNotifier {
 
   final controller = DealershipController();
 
-  File? selectedImage;
-
   final _controllerCnpj = TextEditingController();
   final _controllerDealershipName = TextEditingController();
   final _controllerAutonomyLevel = TextEditingController();
@@ -149,10 +147,8 @@ class DealershipProvider with ChangeNotifier {
 
     return false;
   }
-
-  bool fazerLogin() {
-    return true;
-  }
+  
+  File? selectedImage;
 
   Future pickImageFromGallery() async {
     final returnedImage =

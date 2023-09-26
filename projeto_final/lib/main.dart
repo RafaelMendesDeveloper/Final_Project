@@ -29,14 +29,14 @@ class MyApp extends StatelessWidget {
         builder: (context, state, _) => MaterialApp(
           title: 'Projeto Final',
           debugShowCheckedModeBanner: false,
-          initialRoute: '/ownerpage',
+          initialRoute: '/userpage',
           routes: {
-            '/login': (context) => LoginPage(),
-            '/ownerlogin': (context) => OwnerLogin(),
+            '/login': (context) => const LoginController(),
+            '/ownerlogin': (context) => const LoginAdminController(),
             '/ownerpage': (context) => const OwnerHomePage(),
             '/ownersignup': (context) => const SignUpDealershipController(),
             '/dealerships': (context) => const DealerhsipListController(),
-            '/admins': (context) => SignUpAdmin(),
+            '/admins': (context) => const SignUpAdminController(),
             '/settings': (context) => const SettingsPage(),
             '/userpage': (context) => const UserHomePage(),
             '/carsform' :(context) => const CarScreen(),
