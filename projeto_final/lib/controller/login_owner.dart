@@ -27,6 +27,7 @@ class LoginAdmProvider with ChangeNotifier {
         fullName: item[TabelAdmin.fullname],
         username: item[TabelAdmin.username],
         password: item[TabelAdmin.password],
+        photo: item[TabelAdmin.photo],
       );
     }
 

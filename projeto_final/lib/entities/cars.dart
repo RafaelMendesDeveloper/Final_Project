@@ -8,6 +8,7 @@ class Cars {
   final double buyPrice;
   final DateTime buyDateTime;
   final double idDealership;
+  final String? photo;
 
   Cars({
     required this.id,
@@ -19,6 +20,7 @@ class Cars {
     required this.buyPrice,
     required this.buyDateTime,
     required this.idDealership,
+    required this.photo,
   });
 }
 

@@ -26,7 +26,8 @@ class LoginProvider with ChangeNotifier {
           cnpj: item[TabelDealership.cnpj],
           name: item[TabelDealership.name],
           autonomyLevel: item[TabelDealership.autonomyLevel],
-          password: item[TabelDealership.password]);
+          password: item[TabelDealership.password],
+          photo: item[TabelDealership.photo],);
     }
 
     notifyListeners();

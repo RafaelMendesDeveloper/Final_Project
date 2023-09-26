@@ -330,7 +330,9 @@ class SignUpDealerships extends StatelessWidget {
                           child: ElevatedButton(
                             onPressed: () async {
                               print('ELE VAI ADICIONAR A IMAGEM');
-                              dealershipState.pickImageFromGallery();
+                              dealershipState.controllerPhoto.text =
+                                  dealershipState.pickImageFromGallery()
+                                  .toString();
                             },
                             style: ButtonStyle(
                               backgroundColor: const MaterialStatePropertyAll(

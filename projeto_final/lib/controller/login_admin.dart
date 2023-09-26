@@ -13,6 +13,7 @@ class AdminProvider with ChangeNotifier {
   final _controllerAdminUserName = TextEditingController();
   final _controllerAdminName = TextEditingController();
   final _controllerPassword = TextEditingController();
+  final _controllerPhoto = TextEditingController();
 
   final _listAdmin = <Admin>[];
   List<Admin> get listAdmin => _listAdmin;
@@ -21,13 +22,15 @@ class AdminProvider with ChangeNotifier {
   TextEditingController get controllerAdminUserName => _controllerAdminUserName;
   TextEditingController get controllerAdminName => _controllerAdminName;
   TextEditingController get controllerPassword => _controllerPassword;
+  TextEditingController get controllerPhoto => _controllerPhoto;
 
   Future<void> insert() async {
     final admin = Admin(
         cpf: controllerCpf.text,
         username: controllerAdminUserName.text,
         fullName: controllerAdminName.text,
-        password: controllerPassword.text);
+        password: controllerPassword.text,
+        photo: controllerPhoto.text);
 
     await controller.insert(admin);
     await load();

@@ -26,7 +26,8 @@ class TabelAdmin {
   $cpf TEXT PRIMARY KEY NOT NULL,
   $username TEXT NOT NULL,
   $fullname TEXT NOT NULL,
-  $password TEXT NOT NULL
+  $password TEXT NOT NULL,
+  $photo TEXT NOT NULL
   );
 ''';
 
@@ -36,6 +37,7 @@ class TabelAdmin {
   static const String username = 'username';
   static const String fullname = 'fullname';
   static const String password = 'password';
+  static const String photo = 'photo';
 
   static Map<String, dynamic> toMap(Admin admin) {
     final map = <String, dynamic>{};
@@ -44,6 +46,7 @@ class TabelAdmin {
     map[TabelAdmin.username] = admin.username;
     map[TabelAdmin.fullname] = admin.fullName;
     map[TabelAdmin.password] = admin.password;
+    map[TabelAdmin.photo] = admin.photo;
 
     return map;
   }
@@ -56,7 +59,8 @@ class TabelDealership {
   $cnpj TEXT NOT NULL,
   $name TEXT NOT NULL,
   $autonomyLevel TEXT NOT NULL,
-  $password TEXT NOT NULL
+  $password TEXT NOT NULL,
+  $photo TEXT NOT NULL
   );
 ''';
 
@@ -67,6 +71,7 @@ class TabelDealership {
   static const String name = 'name';
   static const String autonomyLevel = 'autonomy_level';
   static const String password = 'password';
+  static const String photo = 'photo';
 
   static Map<String, dynamic> toMap(Dealership? dealership) {
     final map = <String, dynamic>{};
@@ -76,6 +81,7 @@ class TabelDealership {
     map[TabelDealership.name] = dealership?.name;
     map[TabelDealership.autonomyLevel] = dealership?.autonomyLevel;
     map[TabelDealership.password] = dealership?.password;
+    map[TabelDealership.photo] = dealership?.photo;
 
     return map;
   }
@@ -100,11 +106,15 @@ class AdminController {
     var list = <Admin>[];
 
     for (var item in result) {
-      list.add(Admin(
+      list.add(
+        Admin(
           cpf: item[TabelAdmin.cpf],
           username: item[TabelAdmin.username],
           fullName: item[TabelAdmin.fullname],
-          password: item[TabelAdmin.password]));
+          password: item[TabelAdmin.password],
+          photo: item[TabelAdmin.photo],
+        ),
+      );
     }
 
     return list;
@@ -132,12 +142,16 @@ class DealershipController {
     var list = <Dealership>[];
 
     for (final item in result) {
-      list.add(Dealership(
+      list.add(
+        Dealership(
           id: item[TabelDealership.id],
           cnpj: item[TabelDealership.cnpj],
           name: item[TabelDealership.name],
           autonomyLevel: item[TabelDealership.autonomyLevel],
-          password: item[TabelDealership.password]));
+          password: item[TabelDealership.password],
+          photo: item[TabelDealership.photo],
+        ),
+      );
     }
 
     return list;

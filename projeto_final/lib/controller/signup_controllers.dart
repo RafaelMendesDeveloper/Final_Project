@@ -24,6 +24,7 @@ class DealershipProvider with ChangeNotifier {
   final _controllerDealershipName = TextEditingController();
   final _controllerAutonomyLevel = TextEditingController();
   final _controllerPassword = TextEditingController();
+  final _controllerPhoto = TextEditingController();
 
   final _listDealership = <Dealership>[];
   List<Dealership> get listDealership => _listDealership;
@@ -33,13 +34,16 @@ class DealershipProvider with ChangeNotifier {
       _controllerDealershipName;
   TextEditingController get controllerAutonomyLevel => _controllerAutonomyLevel;
   TextEditingController get controllerPassword => _controllerPassword;
+  TextEditingController get controllerPhoto => _controllerPhoto;
 
   Future<void> insert() async {
+    (controllerPhoto);
     final dealership = Dealership(
         cnpj: controllerCnpj.text,
         name: controllerDealershipName.text,
         autonomyLevel: controllerAutonomyLevel.text,
-        password: controllerPassword.text);
+        password: controllerPassword.text,
+        photo: controllerPhoto.text);
 
     await controller.insert(dealership);
     await load();
@@ -97,7 +101,8 @@ class DealershipProvider with ChangeNotifier {
           cnpj: item[TabelDealership.cnpj],
           name: item[TabelDealership.name],
           autonomyLevel: item[TabelDealership.autonomyLevel],
-          password: item[TabelDealership.password]));
+          password: item[TabelDealership.password],
+          photo: item[TabelDealership.photo],),);
     }
 
     return list;
@@ -147,7 +152,7 @@ class DealershipProvider with ChangeNotifier {
 
     return false;
   }
-  
+
   File? selectedImage;
 
   Future pickImageFromGallery() async {
