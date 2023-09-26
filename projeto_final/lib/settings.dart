@@ -2,21 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-import '../../controller/theme_controller.dart';
-
-class SettingsController extends StatelessWidget {
-  const SettingsController({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => ThemeProvider(),
-      child: const Scaffold(
-        body: SettingsPage(),
-      ),
-    );
-  }
-}
+import 'controller/theme_controller.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -24,6 +10,19 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final state = Provider.of<ThemeProvider>(context);
+    final gradientColors = state.isLight
+        ? [
+            const Color.fromARGB(255, 48, 182, 219),
+            const Color.fromARGB(255, 40, 127, 159),
+            const Color.fromARGB(255, 11, 119, 173),
+            const Color.fromARGB(255, 3, 78, 124)
+          ]
+        : [
+            const Color.fromARGB(255, 3, 78, 124),
+            const Color.fromARGB(255, 1, 64, 86),
+            const Color.fromARGB(255, 3, 53, 79),
+            const Color.fromARGB(255, 0, 28, 46)
+          ];
     return Scaffold(
       appBar: AppBar(
         title: Container(
@@ -46,31 +45,39 @@ class SettingsPage extends StatelessWidget {
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topRight,
             end: Alignment.bottomLeft,
-            stops: [
+            stops: const [
               0.1,
               0.4,
               0.6,
               0.9,
             ],
-            colors: [
-              Color.fromARGB(255, 48, 182, 219),
-              Color.fromARGB(255, 40, 127, 159),
-              Color.fromARGB(255, 11, 119, 173),
-              Color.fromARGB(255, 3, 78, 124),
-            ],
+            colors: gradientColors,
           ),
         ),
-        child: Column(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            IconButton(onPressed: state.toggleTheme, 
-            icon: Icon(
-              state.isLight ? Icons.dark_mode : Icons.light_mode
-            )),
+            TextButton.icon(
+              label: state.isLight
+                  ? const Text(
+                      'MUDAR PARA TEMA ESCURO',
+                      style: TextStyle(color: Colors.white),
+                    )
+                  : const Text(
+                      'MUDAR PARA TEMA CLARO',
+                      style: TextStyle(color: Colors.white),
+                    ),
+              onPressed: state.toggleTheme,
+              icon: Icon(
+                state.isLight ? Icons.dark_mode : Icons.light_mode,
+                color: Colors.white,
+                size: 40.0,
+              ),
+            ),
           ],
         ),
       ),

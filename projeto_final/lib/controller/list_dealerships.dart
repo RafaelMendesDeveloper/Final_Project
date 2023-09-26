@@ -1,14 +1,12 @@
 // ignore_for_file: avoid_print
 
-import 'dart:io';
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import '../../entities/dealership.dart';
 import '../model/database.dart';
 
-class DealershipProvider with ChangeNotifier {
-  DealershipProvider({required Dealership? dealership}) {
+class DealershipListProvider with ChangeNotifier {
+  DealershipListProvider({required Dealership? dealership}) {
     load();
   }
 
@@ -19,8 +17,6 @@ class DealershipProvider with ChangeNotifier {
   String password = '';
 
   final controller = DealershipController();
-
-  File? selectedImage;
 
   final _controllerCnpj = TextEditingController();
   final _controllerDealershipName = TextEditingController();
@@ -62,6 +58,8 @@ class DealershipProvider with ChangeNotifier {
     listDealership.clear();
     listDealership.addAll(list);
 
+    notifyListeners();
+
     if (dealership == null) {
       return;
     }
@@ -71,6 +69,21 @@ class DealershipProvider with ChangeNotifier {
     _controllerPassword.text = dealership?.password ?? '';
 
     notifyListeners();
+  }
+
+  Future<void> update(Dealership dealership) async {
+    final database = await getDatabase();
+
+    var map = TabelDealership.toMap(dealership);
+
+    await database.update(
+      TabelDealership.tablename,
+      map,
+      where: '${TabelDealership.id} = ?',
+      whereArgs: [
+        {dealership.id}
+      ],
+    );
   }
 
   Future<void> delete(int? id) async {
@@ -105,21 +118,6 @@ class DealershipProvider with ChangeNotifier {
     return list;
   }
 
-  Future<void> update(Dealership? dealership) async {
-    final database = await getDatabase();
-
-    var map = TabelDealership.toMap(dealership);
-
-    await database.update(
-      TabelDealership.tablename,
-      map,
-      where: '${TabelDealership.id} = ?',
-      whereArgs: [
-        {dealership?.id}
-      ],
-    );
-  }
-
   String gerarSenha() {
     var caracteres =
         'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -152,21 +150,5 @@ class DealershipProvider with ChangeNotifier {
 
   bool fazerLogin() {
     return true;
-  }
-
-  Future pickImageFromGallery() async {
-    final returnedImage =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
-    notifyListeners();
-
-    print('ERROR ->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-    print(returnedImage!);
-    print(returnedImage.name.toString());
-    print(returnedImage.path);
-
-    // if (returnedImage == null) return;
-
-    selectedImage = File(returnedImage.path);
-    notifyListeners();
   }
 }

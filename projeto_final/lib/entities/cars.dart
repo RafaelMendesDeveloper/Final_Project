@@ -21,3 +21,15 @@ class Cars {
     required this.idDealership,
   });
 }
+
+// {
+//   "price": "string",
+//   "brand": "string",
+//   "model": "string",
+//   "modelYear": 0,
+//   "fuel": "string",
+//   "codeFipe": "string",
+//   "referenceMonth": "string",
+//   "vehicleType": 0,
+//   "fuelAcronym": "string"
+// }

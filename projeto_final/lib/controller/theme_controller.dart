@@ -17,7 +17,6 @@ class ThemeProvider extends ChangeNotifier {
   void toggleTheme() {
     _isLight = !_isLight;
     _sharedPreferences.setBool(appThemeModeKey, _isLight);
-    print(_isLight);
     notifyListeners();
   }
 

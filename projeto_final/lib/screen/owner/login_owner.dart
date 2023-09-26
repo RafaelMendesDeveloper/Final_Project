@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 
 import '../../controller/login_admin.dart';
 import '../../controller/login_owner.dart';
+import '../../controller/theme_controller.dart';
 
 class LoginAdminController extends StatelessWidget {
   const LoginAdminController({super.key});
@@ -26,30 +27,39 @@ class OwnerLogin extends StatelessWidget {
 
   final _formOwnerKey = GlobalKey<FormState>();
   final _loginState = LoginAdmProvider();
-
+  
   @override
   Widget build(BuildContext context) {
+    final colorState = Provider.of<ThemeProvider>(context);
+    final gradientColors = colorState.isLight
+        ? [
+            const Color.fromARGB(255, 48, 182, 219),
+            const Color.fromARGB(255, 40, 127, 159),
+            const Color.fromARGB(255, 11, 119, 173),
+            const Color.fromARGB(255, 3, 78, 124)
+          ]
+        : [
+            const Color.fromARGB(255, 3, 78, 124),
+            const Color.fromARGB(255, 1, 64, 86),
+            const Color.fromARGB(255, 3, 53, 79),
+            const Color.fromARGB(255, 0, 28, 46)
+          ];
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topRight,
             end: Alignment.bottomLeft,
-            stops: [
+            stops: const [
               0.1,
               0.4,
               0.6,
               0.9,
             ],
-            colors: [
-              Color.fromARGB(255, 48, 182, 219),
-              Color.fromARGB(255, 40, 127, 159),
-              Color.fromARGB(255, 11, 119, 173),
-              Color.fromARGB(255, 3, 78, 124),
-            ],
+            colors: gradientColors,
           ),
         ),
         child: Center(
@@ -68,7 +78,9 @@ class OwnerLogin extends StatelessWidget {
               ),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.grey.shade400,
+                  color: colorState.isLight
+                              ? Colors.grey.shade400
+                              : const Color.fromARGB(255, 17, 34, 63),
                   spreadRadius: 2,
                   blurRadius: 15,
                 ),

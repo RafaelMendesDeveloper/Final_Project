@@ -3,17 +3,29 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-import '../../controller/signup_controllers.dart';
+import '../../controller/list_dealerships.dart';
+import '../../controller/theme_controller.dart';
 import '../../entities/dealership.dart';
 
 Future<Map<String, bool?>?> dealershipsAlert(
   BuildContext context,
   Dealership dealership,
 ) async {
-  final state = Provider.of<DealershipProvider>(
+  final state = Provider.of<DealershipListProvider>(
     context,
     listen: false,
   );
+
+  var dealershipAutonomyLevel = '';
+
+  switch (dealership.autonomyLevel) {
+    case '1':
+      dealershipAutonomyLevel = 'Iniciante';
+    case '2':
+      dealershipAutonomyLevel = 'Intermediario';
+    case '3':
+      dealershipAutonomyLevel = 'Avançado';
+  }
 
   final alert = AlertDialog(
     scrollable: true,
@@ -59,7 +71,8 @@ Future<Map<String, bool?>?> dealershipsAlert(
               color: CupertinoColors.activeGreen,
             ),
             onPressed: () {
-              Navigator.of(context).pop(false);
+              // Navigator.of(context).pop(true);
+              print(dealershipAutonomyLevel);
             },
           ),
           IconButton(
@@ -90,8 +103,8 @@ class DealerhsipListController extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<DealershipProvider>(
-      create: (context) => Provider.of<DealershipProvider>(context),
+    return ChangeNotifierProvider<DealershipListProvider>(
+      create: (context) => DealershipListProvider(dealership: null),
       child: Scaffold(
         extendBodyBehindAppBar: true,
         resizeToAvoidBottomInset: false,
@@ -123,35 +136,44 @@ class DealershipsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<DealershipProvider>(
-      builder: (_, state, __) {
+    final colorState = Provider.of<ThemeProvider>(context);
+    final gradientColors = colorState.isLight
+        ? [
+            const Color.fromARGB(255, 48, 182, 219),
+            const Color.fromARGB(255, 40, 127, 159),
+            const Color.fromARGB(255, 11, 119, 173),
+            const Color.fromARGB(255, 3, 78, 124)
+          ]
+        : [
+            const Color.fromARGB(255, 3, 78, 124),
+            const Color.fromARGB(255, 1, 64, 86),
+            const Color.fromARGB(255, 3, 53, 79),
+            const Color.fromARGB(255, 0, 28, 46)
+          ];
+    return Consumer<DealershipListProvider>(
+      builder: (_, state2, __) {
         return Container(
           width: double.infinity,
           height: double.infinity,
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
-              stops: [
+              stops: const [
                 0.1,
                 0.4,
                 0.6,
                 0.9,
               ],
-              colors: [
-                Color.fromARGB(255, 48, 182, 219),
-                Color.fromARGB(255, 40, 127, 159),
-                Color.fromARGB(255, 11, 119, 173),
-                Color.fromARGB(255, 3, 78, 124),
-              ],
+              colors: gradientColors,
             ),
           ),
           child: ListView.builder(
-            itemCount: state.listDealership.length,
+            itemCount: state2.listDealership.length,
             itemBuilder: (context, index) {
               return ListTile(
                 title: Text(
-                  state.listDealership[index].name,
+                  state2.listDealership[index].name,
                   style: GoogleFonts.oswald(
                     fontSize: 20,
                     fontWeight: FontWeight.w300,
@@ -162,10 +184,10 @@ class DealershipsList extends StatelessWidget {
                 onTap: () async {
                   final result = await dealershipsAlert(
                     context,
-                    state.listDealership[index],
+                    state2.listDealership[index],
                   );
                   if (result?['delete'] == true) {
-                    await state.load();
+                    await state2.load();
                   }
                 },
               );

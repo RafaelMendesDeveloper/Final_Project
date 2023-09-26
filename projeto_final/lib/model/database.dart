@@ -68,14 +68,14 @@ class TabelDealership {
   static const String autonomyLevel = 'autonomy_level';
   static const String password = 'password';
 
-  static Map<String, dynamic> toMap(Dealership dealership) {
+  static Map<String, dynamic> toMap(Dealership? dealership) {
     final map = <String, dynamic>{};
 
-    map[TabelDealership.id] = dealership.id;
-    map[TabelDealership.cnpj] = dealership.cnpj;
-    map[TabelDealership.name] = dealership.name;
-    map[TabelDealership.autonomyLevel] = dealership.autonomyLevel;
-    map[TabelDealership.password] = dealership.password;
+    map[TabelDealership.id] = dealership?.id;
+    map[TabelDealership.cnpj] = dealership?.cnpj;
+    map[TabelDealership.name] = dealership?.name;
+    map[TabelDealership.autonomyLevel] = dealership?.autonomyLevel;
+    map[TabelDealership.password] = dealership?.password;
 
     return map;
   }
@@ -117,6 +117,8 @@ class DealershipController {
     final map = TabelDealership.toMap(dealership);
 
     await database.insert(TabelDealership.tablename, map);
+
+    print('insert method done');
 
     return;
   }

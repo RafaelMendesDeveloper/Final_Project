@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import '../../controller/signup_controllers.dart';
+import '../../controller/theme_controller.dart';
 import '../../entities/dealership.dart';
 
 void main() {
@@ -33,9 +34,23 @@ class SignUpDealerships extends StatelessWidget {
       TextEditingController(text: 'Iniciante');
   final _formKey = GlobalKey<FormState>();
 
-
   @override
   Widget build(BuildContext context) {
+    final colorState = Provider.of<ThemeProvider>(context);
+    final gradientColors = colorState.isLight
+        ? [
+            const Color.fromARGB(255, 48, 182, 219),
+            const Color.fromARGB(255, 40, 127, 159),
+            const Color.fromARGB(255, 11, 119, 173),
+            const Color.fromARGB(255, 3, 78, 124)
+          ]
+        : [
+            const Color.fromARGB(255, 3, 78, 124),
+            const Color.fromARGB(255, 1, 64, 86),
+            const Color.fromARGB(255, 3, 53, 79),
+            const Color.fromARGB(255, 0, 28, 46)
+          ];
+
     final dealershipState = Provider.of<DealershipProvider>(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -59,23 +74,17 @@ class SignUpDealerships extends StatelessWidget {
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           gradient: LinearGradient(
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
-            stops: [
-              0.1,
-              0.4,
-              0.6,
-              0.9,
-            ],
-            colors: [
-              Color.fromARGB(255, 48, 182, 219),
-              Color.fromARGB(255, 40, 127, 159),
-              Color.fromARGB(255, 11, 119, 173),
-              Color.fromARGB(255, 3, 78, 124),
-            ],
-          ),
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              stops: const [
+                0.1,
+                0.4,
+                0.6,
+                0.9,
+              ],
+              colors: gradientColors),
         ),
         child: Column(
           children: [
@@ -105,10 +114,18 @@ class SignUpDealerships extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(50, 0, 50, 10),
                       child: TextFormField(
+                        style: TextStyle(
+                          color: colorState.isLight
+                              ? Colors.black
+                              : const Color.fromARGB(255, 246, 241, 241),
+                        ),
                         controller: dealershipState.controllerCnpj,
                         cursorColor: const Color.fromARGB(255, 246, 241, 241),
                         decoration: InputDecoration(
                           labelText: dealershipState.dealership?.cnpj,
+                          labelStyle: const TextStyle(
+                            color: Color.fromARGB(255, 246, 241, 241),
+                          ),
                           enabledBorder: OutlineInputBorder(
                             borderSide: const BorderSide(
                                 width: 3,
@@ -152,6 +169,11 @@ class SignUpDealerships extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(50, 0, 50, 20),
                       child: TextFormField(
+                        style: TextStyle(
+                          color: colorState.isLight
+                              ? Colors.black
+                              : const Color.fromARGB(255, 246, 241, 241),
+                        ),
                         controller: dealershipState.controllerDealershipName,
                         cursorColor: const Color.fromARGB(255, 246, 241, 241),
                         decoration: InputDecoration(
@@ -208,7 +230,10 @@ class SignUpDealerships extends StatelessWidget {
                         ].map((value) {
                           return DropdownMenuItem<String>(
                             value: value,
-                            child: Text(value),
+                            child: Text(
+                              value,
+                              style: const TextStyle(color: Colors.black),
+                            ),
                           );
                         }).toList(),
                         onChanged: (newValue) {
@@ -266,6 +291,11 @@ class SignUpDealerships extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(50, 20, 50, 0),
                       child: TextFormField(
+                        style: TextStyle(
+                          color: colorState.isLight
+                              ? Colors.black
+                              : const Color.fromARGB(255, 246, 241, 241),
+                        ),
                         controller: dealershipState.controllerPassword,
                         showCursor: false,
                         readOnly: true,
@@ -300,15 +330,59 @@ class SignUpDealerships extends StatelessWidget {
                         },
                       ),
                     ),
+                    Container(
+                      margin:
+                          const EdgeInsets.only(left: 50, top: 35, bottom: 10),
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            height: 80,
+                            width: 200,
+                            child: ElevatedButton(
+                              onPressed: () async {
+                                print('ELE VAI ADICIONAR A IMAGEM');
+                                dealershipState.pickImageFromGallery();
+                              },
+                              style: ButtonStyle(
+                                  backgroundColor:
+                                      const MaterialStatePropertyAll(
+                                          Color.fromARGB(255, 20, 108, 148)),
+                                  shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                    const RoundedRectangleBorder(
+                                      side: BorderSide(
+                                          color: Color.fromARGB(
+                                              255, 20, 108, 148)),
+                                    ),
+                                  )),
+                              child: Text('ADD IMAGEM',
+                                  style: GoogleFonts.oswald(
+                                      fontSize: 20,
+                                      letterSpacing: 4,
+                                      color: const Color.fromARGB(
+                                          255, 246, 241, 241))),
+                            ),
+                          ),
+                           Padding(
+                             padding: const EdgeInsets.only(left: 20.0),
+                             child: dealershipState.selectedImage != null
+                                ? Image.file(dealershipState.selectedImage!)
+                                : const Text('Por favor'),
+                           ),
+                        ],
+                      ),
+                    ),
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(50, 20, 0, 20),
+                      padding: const EdgeInsets.fromLTRB(50, 20, 0, 10),
                       child: Row(
                         children: [
                           Container(
                             decoration: BoxDecoration(
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.grey.shade400,
+                                  color: colorState.isLight
+                                      ? Colors.grey.shade400
+                                      : const Color.fromARGB(255, 17, 34, 63),
                                   spreadRadius: 1,
                                   blurRadius: 100,
                                   offset: const Offset(0, 10),
@@ -320,13 +394,22 @@ class SignUpDealerships extends StatelessWidget {
                               width: 300,
                               child: ElevatedButton(
                                 onPressed: () async {
+                                  print('------------------');
+                                  print(
+                                      dealershipState.controllerAutonomyLevel);
+                                  print(_controllerAutonomyLevel.text);
                                   if (_formKey.currentState!.validate()) {
-                                    final alreadyExists = dealershipState.getDealership(dealershipState.dealership?.id);
-                                    if(await alreadyExists){
-                                      print('i have to edit');
-                                    }
-                                    else {
+                                    final alreadyExists =
+                                        dealershipState.getDealership(
+                                            dealershipState.dealership?.id);
+                                    if (await alreadyExists) {
+                                      await dealershipState
+                                          .update(dealershipState.dealership);
+                                    } else {
                                       await dealershipState.insert();
+                                      print(dealershipState
+                                          .controllerAutonomyLevel);
+                                      print(_controllerAutonomyLevel.text);
                                     }
                                   }
                                 },
