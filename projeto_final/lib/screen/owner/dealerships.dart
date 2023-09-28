@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -157,6 +159,10 @@ class DealershipsList extends StatelessWidget {
                   color: const Color.fromARGB(255, 246, 241, 241),
                 ),
               ),
+              leading: Image.file(
+                        File(state2.listDealership[index].photo!),
+                        height: 80.0,
+                      ),
               onTap: () async {
                 final result = await dealershipsAlert(
                   context,

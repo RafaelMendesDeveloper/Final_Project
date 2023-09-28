@@ -81,7 +81,7 @@ class TabelDealership {
     map[TabelDealership.name] = dealership?.name;
     map[TabelDealership.autonomyLevel] = dealership?.autonomyLevel;
     map[TabelDealership.password] = dealership?.password;
-    map[TabelDealership.photo] = dealership?.photo;
+    map[TabelDealership.photo] = dealership?.photo!;
 
     return map;
   }

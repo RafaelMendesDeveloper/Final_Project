@@ -229,69 +229,73 @@ class LoginPage extends StatelessWidget {
                           if (isValid != null &&
                               isValid.password ==
                                   _loginState.passwordController.text) {
-                            Navigator.pushNamed(context, '/userpage');
+                            if (context.mounted) {
+                              Navigator.pushNamed(context, '/userpage');
+                            }
                           } else {
-                            return showDialog<void>(
-                              context: context,
-                              barrierDismissible: false,
-                              builder: (context) {
-                                return AlertDialog(
-                                  title: Text(
-                                    'ATENÇÃO!',
-                                    style: GoogleFonts.oswald(
-                                      fontSize: 25,
-                                      letterSpacing: 2,
-                                      fontWeight: FontWeight.bold,
-                                      color: const Color.fromARGB(
-                                          255, 20, 108, 148),
-                                    ),
-                                  ),
-                                  content: SingleChildScrollView(
-                                    child: ListBody(
-                                      children: <Widget>[
-                                        Text(
-                                          'Usuário ou Senha incorretos!',
-                                          style: GoogleFonts.oswald(
-                                            fontSize: 20,
-                                            letterSpacing: 2,
-                                            fontWeight: FontWeight.bold,
-                                            color: const Color.fromARGB(
-                                                255, 20, 108, 148),
-                                          ),
-                                        ),
-                                        Text(
-                                          'Digite Novamente.',
-                                          style: GoogleFonts.oswald(
-                                            fontSize: 20,
-                                            letterSpacing: 2,
-                                            fontWeight: FontWeight.bold,
-                                            color: const Color.fromARGB(
-                                                255, 20, 108, 148),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  actions: <Widget>[
-                                    TextButton(
-                                      child: Text(
-                                        'Ok!',
-                                        style: GoogleFonts.oswald(
-                                          fontSize: 20,
-                                          letterSpacing: 2,
-                                          fontWeight: FontWeight.bold,
-                                          color: const Color.fromARGB(
-                                              255, 20, 108, 148),
-                                        ),
+                            if (context.mounted) {
+                              return showDialog<void>(
+                                context: context,
+                                barrierDismissible: false,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title: Text(
+                                      'ATENÇÃO!',
+                                      style: GoogleFonts.oswald(
+                                        fontSize: 25,
+                                        letterSpacing: 2,
+                                        fontWeight: FontWeight.bold,
+                                        color: const Color.fromARGB(
+                                            255, 20, 108, 148),
                                       ),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
                                     ),
-                                  ],
-                                );
-                              },
-                            );
+                                    content: SingleChildScrollView(
+                                      child: ListBody(
+                                        children: <Widget>[
+                                          Text(
+                                            'Usuário ou Senha incorretos!',
+                                            style: GoogleFonts.oswald(
+                                              fontSize: 20,
+                                              letterSpacing: 2,
+                                              fontWeight: FontWeight.bold,
+                                              color: const Color.fromARGB(
+                                                  255, 20, 108, 148),
+                                            ),
+                                          ),
+                                          Text(
+                                            'Digite Novamente.',
+                                            style: GoogleFonts.oswald(
+                                              fontSize: 20,
+                                              letterSpacing: 2,
+                                              fontWeight: FontWeight.bold,
+                                              color: const Color.fromARGB(
+                                                  255, 20, 108, 148),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        child: Text(
+                                          'Ok!',
+                                          style: GoogleFonts.oswald(
+                                            fontSize: 20,
+                                            letterSpacing: 2,
+                                            fontWeight: FontWeight.bold,
+                                            color: const Color.fromARGB(
+                                                255, 20, 108, 148),
+                                          ),
+                                        ),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            }
                           }
                         }
                       },

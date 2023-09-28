@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -59,8 +61,19 @@ class SignUpDealerships extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as Dealership?;
     final colorState = Provider.of<ThemeProvider>(context);
     final dealershipState = Provider.of<DealershipProvider>(context);
+    dealershipState.controllerCnpj.text = args?.cnpj ?? '';
+    dealershipState.controllerDealershipName.text = args?.name ?? '';
+    dealershipState.controllerAutonomyLevel.text = args?.autonomyLevel ?? '';
+    dealershipState.controllerPassword.text = args?.password ?? '';
+    // dealershipState.controllerPhoto;
+
+
+    final flag = dealershipState.controllerDealershipName.text.isEmpty;
+
+    print(flag);
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -74,7 +87,7 @@ class SignUpDealerships extends StatelessWidget {
                   Row(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(55, 40, 100, 0),
+                        padding: const EdgeInsets.fromLTRB(55, 28, 100, 0),
                         child: Text(
                           'CNPJ',
                           style: GoogleFonts.oswald(
@@ -329,10 +342,7 @@ class SignUpDealerships extends StatelessWidget {
                           width: 200,
                           child: ElevatedButton(
                             onPressed: () async {
-                              print('ELE VAI ADICIONAR A IMAGEM');
-                              dealershipState.controllerPhoto.text =
-                                  dealershipState.pickImageFromGallery()
-                                  .toString();
+                              dealershipState.pickImage();
                             },
                             style: ButtonStyle(
                               backgroundColor: const MaterialStatePropertyAll(
@@ -362,8 +372,10 @@ class SignUpDealerships extends StatelessWidget {
                           width: 120.0,
                           child: Padding(
                             padding: const EdgeInsets.only(left: 20.0),
-                            child: dealershipState.selectedImage != null
-                                ? Image.file(dealershipState.selectedImage!)
+                            child: dealershipState.controllerPhoto != null
+                                ? Image.file
+                                (File(dealershipState.controllerPhoto!),
+                                  height: MediaQuery.of(context).size.height / 10,)
                                 : Center(
                                     child: Text(
                                       'adicione uma imagem',
@@ -403,10 +415,10 @@ class SignUpDealerships extends StatelessWidget {
                             child: ElevatedButton(
                               onPressed: () async {
                                 if (_formKey.currentState!.validate()) {
-                                  final alreadyExists =
-                                      dealershipState.getDealership(
-                                          dealershipState.dealership?.id);
-                                  if (await alreadyExists) {
+                                  // final alreadyExists =
+                                  //     dealershipState.getDealership(
+                                  //         dealershipState.dealership?.id);
+                                  if (flag == false) {
                                     await dealershipState
                                         .update(dealershipState.dealership);
                                   } else {

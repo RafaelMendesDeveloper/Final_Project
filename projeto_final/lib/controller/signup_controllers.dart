@@ -1,6 +1,5 @@
 // ignore_for_file: avoid_print
 
-import 'dart:io';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -24,7 +23,8 @@ class DealershipProvider with ChangeNotifier {
   final _controllerDealershipName = TextEditingController();
   final _controllerAutonomyLevel = TextEditingController();
   final _controllerPassword = TextEditingController();
-  final _controllerPhoto = TextEditingController();
+  String? _controllerPhoto;
+  
 
   final _listDealership = <Dealership>[];
   List<Dealership> get listDealership => _listDealership;
@@ -34,7 +34,7 @@ class DealershipProvider with ChangeNotifier {
       _controllerDealershipName;
   TextEditingController get controllerAutonomyLevel => _controllerAutonomyLevel;
   TextEditingController get controllerPassword => _controllerPassword;
-  TextEditingController get controllerPhoto => _controllerPhoto;
+  String? get controllerPhoto => _controllerPhoto;
 
   Future<void> insert() async {
     (controllerPhoto);
@@ -43,7 +43,9 @@ class DealershipProvider with ChangeNotifier {
         name: controllerDealershipName.text,
         autonomyLevel: controllerAutonomyLevel.text,
         password: controllerPassword.text,
-        photo: controllerPhoto.text);
+        photo: controllerPhoto);
+
+    print(controllerPhoto);
 
     await controller.insert(dealership);
     await load();
@@ -52,8 +54,10 @@ class DealershipProvider with ChangeNotifier {
     controllerDealershipName.clear();
     controllerAutonomyLevel.clear();
     controllerPassword.clear();
+    controllerAutonomyLevel.clear();
 
     print(dealership.password);
+    print(dealership.photo.toString());
 
     notifyListeners();
   }
@@ -96,13 +100,16 @@ class DealershipProvider with ChangeNotifier {
     var list = <Dealership>[];
 
     for (final item in result) {
-      list.add(Dealership(
+      list.add(
+        Dealership(
           id: item[TabelDealership.id],
           cnpj: item[TabelDealership.cnpj],
           name: item[TabelDealership.name],
           autonomyLevel: item[TabelDealership.autonomyLevel],
           password: item[TabelDealership.password],
-          photo: item[TabelDealership.photo],),);
+          photo: item[TabelDealership.photo],
+        ),
+      );
     }
 
     return list;
@@ -121,6 +128,8 @@ class DealershipProvider with ChangeNotifier {
         {dealership?.id}
       ],
     );
+    print(TabelDealership.tablename);
+    print(TabelDealership.id);
   }
 
   String gerarSenha() {
@@ -153,21 +162,42 @@ class DealershipProvider with ChangeNotifier {
     return false;
   }
 
-  File? selectedImage;
+  // File? selectedImage;
 
-  Future pickImageFromGallery() async {
-    final returnedImage =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
+  // Future pickImageFromGallery() async {
+  //   final returnedImage =
+  //       await ImagePicker().pickImage(source: ImageSource.gallery);
+  //   notifyListeners();
+
+  //   print('ERROR ->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+  //   print(returnedImage!);
+  //   print(returnedImage.name.toString());
+  //   print(returnedImage.path);
+
+  //   // if (returnedImage == null) return;
+
+  //   selectedImage = File(returnedImage.path);
+  //   notifyListeners();
+  // }
+
+
+  Future pickImage() async {
+    {
+      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (image == null) return;
+
+      _controllerPhoto = image.path;
+    }
     notifyListeners();
+  }
 
-    print('ERROR ->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-    print(returnedImage!);
-    print(returnedImage.name.toString());
-    print(returnedImage.path);
+  Future takePhoto() async {
+    {
+      final image = await ImagePicker().pickImage(source: ImageSource.camera);
+      if (image == null) return;
 
-    // if (returnedImage == null) return;
-
-    selectedImage = File(returnedImage.path);
-    notifyListeners();
+      _controllerPhoto = image.path;
+      notifyListeners();
+    }
   }
 }
