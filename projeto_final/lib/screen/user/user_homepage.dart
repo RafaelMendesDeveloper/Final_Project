@@ -73,8 +73,8 @@ class UserHomePage extends StatelessWidget {
                         height: (MediaQuery.sizeOf(context).height / 4) - 30,
                         width: (MediaQuery.sizeOf(context).height / 4) - 30,
                         child: ElevatedButton.icon(
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/carsform');
+                          onPressed: () async{
+                            await Navigator.pushNamed(context, '/carsform');
                           },
                           style: ButtonStyle(
                             backgroundColor: const MaterialStatePropertyAll(
@@ -121,8 +121,8 @@ class UserHomePage extends StatelessWidget {
                         height: (MediaQuery.sizeOf(context).height / 4) - 30,
                         width: (MediaQuery.sizeOf(context).height / 4) - 30,
                         child: ElevatedButton.icon(
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/sales');
+                          onPressed: () async{
+                            await Navigator.pushNamed(context, '/sales');
                           },
                           style: ButtonStyle(
                             backgroundColor: const MaterialStatePropertyAll(
@@ -174,8 +174,8 @@ class UserHomePage extends StatelessWidget {
                         height: (MediaQuery.sizeOf(context).height / 4) - 30,
                         width: (MediaQuery.sizeOf(context).height / 4) - 30,
                         child: ElevatedButton.icon(
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/inventory');
+                          onPressed: () async{
+                            await Navigator.pushNamed(context, '/inventory');
                           },
                           style: ButtonStyle(
                             backgroundColor: const MaterialStatePropertyAll(
@@ -222,8 +222,8 @@ class UserHomePage extends StatelessWidget {
                         height: (MediaQuery.sizeOf(context).height / 4) - 30,
                         width: (MediaQuery.sizeOf(context).height / 4) - 30,
                         child: ElevatedButton.icon(
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/dealershipreports');
+                          onPressed: () async{
+                            await Navigator.pushNamed(context, '/dealershipreports');
                           },
                           style: ButtonStyle(
                             backgroundColor: const MaterialStatePropertyAll(
@@ -275,8 +275,8 @@ class UserHomePage extends StatelessWidget {
                         height: (MediaQuery.sizeOf(context).height / 4) - 30,
                         width: (MediaQuery.sizeOf(context).height / 4) - 30,
                         child: ElevatedButton.icon(
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/settings');
+                          onPressed: () async{
+                            await Navigator.pushNamed(context, '/settings');
                           },
                           style: ButtonStyle(
                             backgroundColor: const MaterialStatePropertyAll(
@@ -323,8 +323,8 @@ class UserHomePage extends StatelessWidget {
                         height: (MediaQuery.sizeOf(context).height / 4) - 30,
                         width: (MediaQuery.sizeOf(context).height / 4) - 30,
                         child: ElevatedButton.icon(
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/login');
+                          onPressed: () async{
+                            await Navigator.pushNamed(context, '/login');
                           },
                           style: ButtonStyle(
                             backgroundColor: const MaterialStatePropertyAll(

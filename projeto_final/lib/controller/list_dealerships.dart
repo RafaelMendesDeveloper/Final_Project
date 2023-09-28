@@ -7,6 +7,7 @@ import '../model/database.dart';
 
 class DealershipListProvider with ChangeNotifier {
   DealershipListProvider({required Dealership? dealership}) {
+    // ignore: discarded_futures
     load();
   }
 
@@ -92,7 +93,7 @@ class DealershipListProvider with ChangeNotifier {
   Future<void> delete(int? id) async {
     final database = await getDatabase();
 
-    database.delete(
+    await database.delete(
       'dealership',
       where: 'id = ?',
       whereArgs: [id],

@@ -73,7 +73,6 @@ class SignUpDealerships extends StatelessWidget {
 
     final flag = dealershipState.controllerDealershipName.text.isEmpty;
 
-    print(flag);
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -342,7 +341,7 @@ class SignUpDealerships extends StatelessWidget {
                           width: 200,
                           child: ElevatedButton(
                             onPressed: () async {
-                              dealershipState.pickImage();
+                              await dealershipState.pickImage();
                             },
                             style: ButtonStyle(
                               backgroundColor: const MaterialStatePropertyAll(
@@ -375,7 +374,8 @@ class SignUpDealerships extends StatelessWidget {
                             child: dealershipState.controllerPhoto != null
                                 ? Image.file
                                 (File(dealershipState.controllerPhoto!),
-                                  height: MediaQuery.of(context).size.height / 10,)
+                                  height: MediaQuery.of(context)
+                                  .size.height / 10,)
                                 : Center(
                                     child: Text(
                                       'adicione uma imagem',

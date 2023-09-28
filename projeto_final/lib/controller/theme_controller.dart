@@ -5,6 +5,7 @@ const appThemeModeKey = 'appThemeMode';
 
 class ThemeProvider extends ChangeNotifier {
   ThemeProvider() {
+    // ignore: discarded_futures
     _init();
   }
 
@@ -14,9 +15,9 @@ class ThemeProvider extends ChangeNotifier {
 
   bool get isLight => _isLight;
 
-  void toggleTheme() {
+  Future<void> toggleTheme() async {
     _isLight = !_isLight;
-    _sharedPreferences.setBool(appThemeModeKey, _isLight);
+    await _sharedPreferences.setBool(appThemeModeKey, _isLight);
     notifyListeners();
   }
 

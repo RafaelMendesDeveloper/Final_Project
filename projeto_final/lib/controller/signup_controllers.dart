@@ -8,6 +8,7 @@ import '../model/database.dart';
 
 class DealershipProvider with ChangeNotifier {
   DealershipProvider({required Dealership? dealership}) {
+    // ignore: discarded_futures
     load();
   }
 
@@ -82,7 +83,7 @@ class DealershipProvider with ChangeNotifier {
   Future<void> delete(int? id) async {
     final database = await getDatabase();
 
-    database.delete(
+    await database.delete(
       'dealership',
       where: 'id = ?',
       whereArgs: [id],
@@ -162,25 +163,6 @@ class DealershipProvider with ChangeNotifier {
     return false;
   }
 
-  // File? selectedImage;
-
-  // Future pickImageFromGallery() async {
-  //   final returnedImage =
-  //       await ImagePicker().pickImage(source: ImageSource.gallery);
-  //   notifyListeners();
-
-  //   print('ERROR ->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-  //   print(returnedImage!);
-  //   print(returnedImage.name.toString());
-  //   print(returnedImage.path);
-
-  //   // if (returnedImage == null) return;
-
-  //   selectedImage = File(returnedImage.path);
-  //   notifyListeners();
-  // }
-
-
   Future pickImage() async {
     {
       final image = await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -189,15 +171,5 @@ class DealershipProvider with ChangeNotifier {
       _controllerPhoto = image.path;
     }
     notifyListeners();
-  }
-
-  Future takePhoto() async {
-    {
-      final image = await ImagePicker().pickImage(source: ImageSource.camera);
-      if (image == null) return;
-
-      _controllerPhoto = image.path;
-      notifyListeners();
-    }
   }
 }

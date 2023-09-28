@@ -18,16 +18,16 @@ Future<Map<String, bool?>?> dealershipsAlert(
     listen: false,
   );
 
-  var dealershipAutonomyLevel = '';
+  // var dealershipAutonomyLevel = '';
 
-  switch (dealership.autonomyLevel) {
-    case '1':
-      dealershipAutonomyLevel = 'Iniciante';
-    case '2':
-      dealershipAutonomyLevel = 'Intermediario';
-    case '3':
-      dealershipAutonomyLevel = 'Avançado';
-  }
+  // switch (dealership.autonomyLevel) {
+  //   case '1':
+  //     dealershipAutonomyLevel = 'Iniciante';
+  //   case '2':
+  //     dealershipAutonomyLevel = 'Intermediario';
+  //   case '3':
+  //     dealershipAutonomyLevel = 'Avançado';
+  // }
 
   final alert = AlertDialog(
     scrollable: true,
@@ -73,8 +73,7 @@ Future<Map<String, bool?>?> dealershipsAlert(
               color: CupertinoColors.activeGreen,
             ),
             onPressed: () {
-              // Navigator.of(context).pop(true);
-              print(dealershipAutonomyLevel);
+              Navigator.of(context).pop(true);
             },
           ),
           IconButton(
@@ -84,7 +83,9 @@ Future<Map<String, bool?>?> dealershipsAlert(
             ),
             onPressed: () async {
               await state.delete(dealership.id);
+              if(context.mounted){
               Navigator.of(context).pop({'delete': true});
+              }
             },
           ),
         ],
@@ -92,7 +93,7 @@ Future<Map<String, bool?>?> dealershipsAlert(
     ],
   );
 
-  return await showDialog<Map<String, bool?>>(
+  return showDialog<Map<String, bool?>>(
     context: context,
     builder: (context) {
       return alert;

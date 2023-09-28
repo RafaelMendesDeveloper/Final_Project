@@ -128,8 +128,6 @@ class DealershipController {
 
     await database.insert(TabelDealership.tablename, map);
 
-    print('insert method done');
-
     return;
   }
 

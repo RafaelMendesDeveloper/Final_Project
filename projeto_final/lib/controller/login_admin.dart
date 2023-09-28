@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import '../../entities/admin.dart';
 import '../model/database.dart';
 
-
 class AdminProvider with ChangeNotifier {
   AdminProvider() {
+    // ignore: discarded_futures
     load();
   }
   final controller = AdminController();
@@ -13,7 +14,7 @@ class AdminProvider with ChangeNotifier {
   final _controllerAdminUserName = TextEditingController();
   final _controllerAdminName = TextEditingController();
   final _controllerPassword = TextEditingController();
-  final _controllerPhoto = TextEditingController();
+  String? _controllerPhoto;
 
   final _listAdmin = <Admin>[];
   List<Admin> get listAdmin => _listAdmin;
@@ -22,7 +23,7 @@ class AdminProvider with ChangeNotifier {
   TextEditingController get controllerAdminUserName => _controllerAdminUserName;
   TextEditingController get controllerAdminName => _controllerAdminName;
   TextEditingController get controllerPassword => _controllerPassword;
-  TextEditingController get controllerPhoto => _controllerPhoto;
+  String? get controllerPhoto => _controllerPhoto;
 
   Future<void> insert() async {
     final admin = Admin(
@@ -30,7 +31,7 @@ class AdminProvider with ChangeNotifier {
         username: controllerAdminUserName.text,
         fullName: controllerAdminName.text,
         password: controllerPassword.text,
-        photo: controllerPhoto.text);
+        photo: controllerPhoto);
 
     await controller.insert(admin);
     await load();
@@ -55,5 +56,13 @@ class AdminProvider with ChangeNotifier {
   bool fazerLogin() {
     return true;
   }
-}
 
+  Future pickImage() async {
+    {
+      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (image == null) return;
+      _controllerPhoto = image.path;
+    }
+    notifyListeners();
+  }
+}

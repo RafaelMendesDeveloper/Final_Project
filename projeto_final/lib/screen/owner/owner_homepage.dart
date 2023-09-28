@@ -73,8 +73,8 @@ class OwnerHomePage extends StatelessWidget {
                         height: (MediaQuery.sizeOf(context).height / 4) - 30,
                         width: (MediaQuery.sizeOf(context).height / 4) - 30,
                         child: ElevatedButton.icon(
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/ownersignup');
+                          onPressed: () async {
+                            await Navigator.pushNamed(context, '/ownersignup');
                           },
                           style: ButtonStyle(
                             backgroundColor: const MaterialStatePropertyAll(
@@ -121,8 +121,8 @@ class OwnerHomePage extends StatelessWidget {
                         height: (MediaQuery.sizeOf(context).height / 4) - 30,
                         width: (MediaQuery.sizeOf(context).height / 4) - 30,
                         child: ElevatedButton.icon(
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/admins');
+                          onPressed: () async{
+                            await Navigator.pushNamed(context, '/admins');
                           },
                           style: ButtonStyle(
                             backgroundColor: const MaterialStatePropertyAll(
@@ -174,8 +174,8 @@ class OwnerHomePage extends StatelessWidget {
                         height: (MediaQuery.sizeOf(context).height / 4) - 30,
                         width: (MediaQuery.sizeOf(context).height / 4) - 30,
                         child: ElevatedButton.icon(
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/dealerships');
+                          onPressed: () async{
+                            await Navigator.pushNamed(context, '/dealerships');
                           },
                           style: ButtonStyle(
                             backgroundColor: const MaterialStatePropertyAll(
@@ -273,8 +273,8 @@ class OwnerHomePage extends StatelessWidget {
                         height: (MediaQuery.sizeOf(context).height / 4) - 30,
                         width: (MediaQuery.sizeOf(context).height / 4) - 30,
                         child: ElevatedButton.icon(
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/settings');
+                          onPressed: () async{
+                            await Navigator.pushNamed(context, '/settings');
                           },
                           style: ButtonStyle(
                             backgroundColor: const MaterialStatePropertyAll(
@@ -321,8 +321,8 @@ class OwnerHomePage extends StatelessWidget {
                         height: (MediaQuery.sizeOf(context).height / 4) - 30,
                         width: (MediaQuery.sizeOf(context).height / 4) - 30,
                         child: ElevatedButton.icon(
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/login');
+                          onPressed: () async{
+                            await Navigator.pushNamed(context, '/login');
                           },
                           style: ButtonStyle(
                             backgroundColor: const MaterialStatePropertyAll(

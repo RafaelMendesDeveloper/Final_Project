@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -51,7 +53,7 @@ class SignUpAdminController extends StatelessWidget {
 class SignUpAdmin extends StatelessWidget {
   SignUpAdmin({super.key});
 
-  final _adminState = AdminProvider();
+  final adminState = AdminProvider();
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -90,7 +92,7 @@ class SignUpAdmin extends StatelessWidget {
                             ? Colors.black
                             : const Color.fromARGB(255, 246, 241, 241),
                       ),
-                      controller: _adminState.controllerCpf,
+                      controller: adminState.controllerCpf,
                       cursorColor: const Color.fromARGB(255, 246, 241, 241),
                       decoration: InputDecoration(
                         enabledBorder: OutlineInputBorder(
@@ -143,7 +145,7 @@ class SignUpAdmin extends StatelessWidget {
                             ? Colors.black
                             : const Color.fromARGB(255, 246, 241, 241),
                       ),
-                      controller: _adminState.controllerAdminName,
+                      controller: adminState.controllerAdminName,
                       cursorColor: const Color.fromARGB(255, 246, 241, 241),
                       decoration: InputDecoration(
                         enabledBorder: OutlineInputBorder(
@@ -196,7 +198,7 @@ class SignUpAdmin extends StatelessWidget {
                             ? Colors.black
                             : const Color.fromARGB(255, 246, 241, 241),
                       ),
-                      controller: _adminState.controllerAdminUserName,
+                      controller: adminState.controllerAdminUserName,
                       cursorColor: const Color.fromARGB(255, 246, 241, 241),
                       decoration: InputDecoration(
                         enabledBorder: OutlineInputBorder(
@@ -250,7 +252,7 @@ class SignUpAdmin extends StatelessWidget {
                             : const Color.fromARGB(255, 246, 241, 241),
                       ),
                       obscureText: true,
-                      controller: _adminState.controllerPassword,
+                      controller: adminState.controllerPassword,
                       cursorColor: const Color.fromARGB(255, 246, 241, 241),
                       decoration: InputDecoration(
                         enabledBorder: OutlineInputBorder(
@@ -280,6 +282,68 @@ class SignUpAdmin extends StatelessWidget {
                       },
                     ),
                   ),
+                  Container(
+                    margin:
+                        const EdgeInsets.only(left: 30, top: 35, bottom: 10),
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          height: 80,
+                          width: 200,
+                          child: ElevatedButton(
+                            onPressed: () async {
+                              await adminState.pickImage();
+                            },
+                            style: ButtonStyle(
+                              backgroundColor: const MaterialStatePropertyAll(
+                                Color.fromARGB(255, 20, 108, 148),
+                              ),
+                              shape: MaterialStateProperty.all<
+                                  RoundedRectangleBorder>(
+                                const RoundedRectangleBorder(
+                                  side: BorderSide(
+                                    color: Color.fromARGB(255, 20, 108, 148),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            child: Text(
+                              'ADD IMAGEM',
+                              style: GoogleFonts.oswald(
+                                fontSize: 20,
+                                letterSpacing: 4,
+                                color: const Color.fromARGB(255, 246, 241, 241),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 80.0,
+                          width: 120.0,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 20.0),
+                            child: adminState.controllerPhoto != null
+                                ? Image.file(
+                                    File(adminState.controllerPhoto!),
+                                    height:
+                                        MediaQuery.of(context).size.height / 10,
+                                  )
+                                : Center(
+                                    child: Text(
+                                      'adicione uma imagem',
+                                      style: GoogleFonts.oswald(
+                                        fontSize: 20,
+                                        letterSpacing: 3,
+                                        color: const Color.fromARGB(
+                                            255, 246, 241, 241),
+                                      ),
+                                    ),
+                                  ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(50, 20, 0, 20),
                     child: Row(
@@ -303,7 +367,7 @@ class SignUpAdmin extends StatelessWidget {
                             child: ElevatedButton(
                               onPressed: () async {
                                 if (_formKey.currentState!.validate()) {
-                                  await _adminState.insert();
+                                  await adminState.insert();
                                 }
                               },
                               style: ButtonStyle(

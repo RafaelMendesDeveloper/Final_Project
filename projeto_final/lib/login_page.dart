@@ -230,7 +230,7 @@ class LoginPage extends StatelessWidget {
                               isValid.password ==
                                   _loginState.passwordController.text) {
                             if (context.mounted) {
-                              Navigator.pushNamed(context, '/userpage');
+                              await Navigator.pushNamed(context, '/userpage');
                             }
                           } else {
                             if (context.mounted) {
@@ -336,8 +336,8 @@ class LoginPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                 child: TextButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/ownerlogin');
+                  onPressed: () async {
+                    await Navigator.pushNamed(context, '/ownerlogin');
                   },
                   child: Text(
                     'Entrar como Dono',
