@@ -1,17 +1,16 @@
 class Cars {
-  final int id;
+  final int? id;
   final String model;
   final String brand;
   final String plate;
-  final int carYear;
-  final String carPic;
-  final double buyPrice;
+  final String carYear;
+  final String? carPic;
+  final String buyPrice;
   final DateTime buyDateTime;
-  final double idDealership;
-  final String? photo;
+  final int? idDealership;
 
   Cars({
-    required this.id,
+    this.id,
     required this.model,
     required this.brand,
     required this.plate,
@@ -19,19 +18,6 @@ class Cars {
     required this.carPic,
     required this.buyPrice,
     required this.buyDateTime,
-    required this.idDealership,
-    required this.photo,
+    this.idDealership,
   });
 }
-
-// {
-//   "price": "string",
-//   "brand": "string",
-//   "model": "string",
-//   "modelYear": 0,
-//   "fuel": "string",
-//   "codeFipe": "string",
-//   "referenceMonth": "string",
-//   "vehicleType": 0,
-//   "fuelAcronym": "string"
-// }

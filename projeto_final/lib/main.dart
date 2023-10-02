@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
             '/admins': (context) => const SignUpAdminController(),
             '/settings': (context) => const SettingsPage(),
             '/userpage': (context) => const UserHomePage(),
-            '/carsform' :(context) => const CarScreen(),
+            '/carsform' :(context) => const CarScreenController(),
             '/sales' : (context) => const SalesScreen(),
             '/inventory' : (context) => const InventoryScreen(),
             '/dealershipreports' : (context) => const ReportsDealership(),

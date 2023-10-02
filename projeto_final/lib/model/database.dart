@@ -1,7 +1,9 @@
+import 'package:intl/intl.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../entities/admin.dart';
+import '../entities/cars.dart';
 import '../entities/dealership.dart';
 
 Future<Database> getDatabase() async {
@@ -20,6 +22,53 @@ Future<Database> getDatabase() async {
   );
 }
 
+// ignore: avoid_classes_with_only_static_members
+class TabelCars {
+  static const String createTable = '''
+  CREATE TABLE $tablename(
+  $id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+  $model TEXT NOT NULL,
+  $brand TEXT NOT NULL,
+  $plate TEXT NOT NULL,
+  $carYear INTEGER NOT NULL,
+  $carPic TEXT NOT NULL,
+  $buyPrice REAL NOT NULL,
+  $buyDateTime TEXT NOT NULL,
+  $idDealership INTEGER NOT NULL,
+  );
+''';
+
+  static const String tablename = 'cars';
+
+  static const String id = 'id';
+  static const String model = 'model';
+  static const String brand = 'brand';
+  static const String plate = 'plate';
+  static const String carYear = 'carYear';
+  static const String carPic = 'carPic';
+  static const String buyPrice = 'buyPrice';
+  static const String buyDateTime = 'buyDateTime';
+  static const String idDealership = 'idDealership';
+
+  static Map<String, dynamic> toMap(Cars car) {
+    final map = <String, dynamic>{};
+
+    map[TabelCars.id] = car.id;
+    map[TabelCars.model] = car.model;
+    map[TabelCars.brand] = car.brand;
+    map[TabelCars.plate] = car.plate;
+    map[TabelCars.carYear] = car.carYear;
+    map[TabelCars.carPic] = car.carPic;
+    map[TabelCars.buyPrice] = car.buyPrice;
+    map[TabelCars.buyDateTime] =
+        DateFormat('yyyy-MM-dd').format(car.buyDateTime);
+    map[TabelCars.idDealership] = car.idDealership;
+
+    return map;
+  }
+}
+
+// ignore: avoid_classes_with_only_static_members
 class TabelAdmin {
   static const String createTable = '''
   CREATE TABLE $tableName (
@@ -52,6 +101,7 @@ class TabelAdmin {
   }
 }
 
+// ignore: avoid_classes_with_only_static_members
 class TabelDealership {
   static const String createTable = '''
   CREATE TABLE $tablename (
@@ -153,5 +203,66 @@ class DealershipController {
     }
 
     return list;
+  }
+}
+
+class CarsController {
+  Future<void> insert(Cars cars) async {
+    final database = await getDatabase();
+    final map = TabelCars.toMap(cars);
+
+    await database.insert(TabelCars.tablename, map);
+
+    return;
+  }
+
+  Future<void> delete(Cars cars) async {
+    final database = await getDatabase();
+
+    await database.delete(
+      TabelCars.tablename,
+      where: '${TabelCars.id} = ?',
+      whereArgs: [cars.id],
+    );
+  }
+
+  Future<List<Cars>> select() async {
+    final database = await getDatabase();
+
+    final List<Map<String, dynamic>> result = await database.query(
+      TabelCars.tablename,
+    );
+
+    var list = <Cars>[];
+
+    for (final item in result) {
+      list.add(
+        Cars(
+            id: item[TabelCars.id],
+            model: item[TabelCars.model],
+            brand: item[TabelCars.brand],
+            plate: item[TabelCars.plate],
+            carYear: item[TabelCars.carYear],
+            carPic: item[TabelCars.carPic],
+            buyPrice: item[TabelCars.buyPrice],
+            buyDateTime:
+                DateFormat('yyyy-MM-dd').parse(item[TabelCars.buyDateTime]),
+            idDealership: item[TabelCars.idDealership]),
+      );
+    }
+    return list;
+  }
+
+  Future<void> update(Cars cars) async {
+    final database = await getDatabase();
+
+    var map = TabelCars.toMap(cars);
+
+    await database.update(
+      TabelCars.tablename,
+      map,
+      where: '${TabelCars.id} = ?',
+      whereArgs: [TabelCars.id],
+    );
   }
 }
