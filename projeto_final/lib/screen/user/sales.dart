@@ -16,7 +16,7 @@ class SalesScreen extends StatelessWidget {
           margin: const EdgeInsets.fromLTRB(0, 5, 30, 0),
           child: Center(
             child: Text(
-              'CHECAR INVENTÁRIO',
+              'ADICIONAR VENDAS',
               style: GoogleFonts.oswald(
                 fontSize: 20,
                 letterSpacing: 3,

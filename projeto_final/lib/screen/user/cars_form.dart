@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:easy_autocomplete/easy_autocomplete.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -8,85 +7,111 @@ import 'package:provider/provider.dart';
 import '../../controller/cars.dart';
 import '../../controller/theme_controller.dart';
 import '../utilities/background.dart';
+import 'auto_complete.dart';
 
 class CarScreenController extends StatelessWidget {
   const CarScreenController({super.key});
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-    create: (context) => CarsProvider(),
-    child: Scaffold(
-      extendBodyBehindAppBar: true,
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        title: Container(
-          margin: const EdgeInsets.fromLTRB(0, 5, 30, 0),
-          child: Center(
-            child: Text(
-              'ADICIONAR CARROS',
-              style: GoogleFonts.oswald(
-                fontSize: 20,
-                letterSpacing: 3,
-                fontWeight: FontWeight.bold,
-                color: const Color.fromARGB(255, 246, 241, 241),
+      create: (context) => CarsProvider(),
+      child: Scaffold(
+        extendBodyBehindAppBar: true,
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          title: Container(
+            margin: const EdgeInsets.fromLTRB(0, 5, 30, 0),
+            child: Center(
+              child: Text(
+                'ADICIONAR CARROS',
+                style: GoogleFonts.oswald(
+                  fontSize: 20,
+                  letterSpacing: 3,
+                  fontWeight: FontWeight.bold,
+                  color: const Color.fromARGB(255, 246, 241, 241),
+                ),
               ),
             ),
           ),
+          backgroundColor: Colors.transparent,
+          elevation: 0.0,
         ),
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
+        body: Stack(
+          children: [
+            const BackgroundColor(),
+            CarScreen(),
+          ],
+        ),
       ),
-      body: Stack(
-        children: [
-          const BackgroundColor(),
-          CarScreen(),
-        ],
-      ),
-    ),
     );
   }
 }
 
 class CarScreen extends StatelessWidget {
-   CarScreen({super.key});
+  CarScreen({super.key});
 
-   final _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
   @override
- Widget build(BuildContext context) {
- final state = Provider.of<CarsProvider>(context, listen: true); 
- final colorState = Provider.of<ThemeProvider>(context);
+  Widget build(BuildContext context) {
+    final state = Provider.of<CarsProvider>(context);
+    final colorState = Provider.of<ThemeProvider>(context);
     return SingleChildScrollView(
       child: Column(
         children: [
-          const SizedBox(height: 60),
           Center(
             child: Form(
               key: _formKey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
+                  Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 90, 100, 4),
+                        child: Text(
+                          'MARCA DO CARRO',
+                          style: GoogleFonts.oswald(
+                            fontSize: 18,
+                            letterSpacing: 2,
+                            color: const Color.fromARGB(255, 246, 241, 241),
+                          ),
+                        ),
+                      ),
                   const Row(
                     children: [
                       Padding(
-                              padding: EdgeInsets.only(
-                                top: 56,
-                                left: 48,
-                                right: 48,
-                                bottom: 8,
-                              ),
-                              child: _BrandTextField(),
-                            ),
+                        padding: EdgeInsets.only(
+                          left: 55,
+                          right: 48,
+                        ),
+                        child: SizedBox(
+                          height: 60.0,
+                          width: 280.0,
+                          child: _BrandTextField()),
+                      ),
                     ],
                   ),
-                 const Padding(
-                              padding: EdgeInsets.only(
-                                top: 56,
-                                left: 48,
-                                right: 48,
-                                bottom: 8,
-                              ),
-                              child: _ModelTextField(),
-                            ),
+                  Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 20, 100, 0),
+                        child: Text(
+                          'MODELO DO CARRO',
+                          style: GoogleFonts.oswald(
+                            fontSize: 18,
+                            letterSpacing: 2,
+                            color: const Color.fromARGB(255, 246, 241, 241),
+                          ),
+                        ),
+                      ),
+                  const Padding(
+                    padding: EdgeInsets.only(
+                      top: 0,
+                      left: 48,
+                      right: 48,
+                      bottom: 20,
+                    ),
+                    child: SizedBox(
+                      height: 60.0,
+                      width: 280.0,
+                      child: _ModelTextField(),),
+                  ),
                   Row(
                     children: [
                       Padding(
@@ -212,7 +237,7 @@ class CarScreen extends StatelessWidget {
                     ],
                   ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(50, 0, 50, 20),
+                    padding: const EdgeInsets.fromLTRB(50, 0, 50, 0),
                     child: TextFormField(
                       style: TextStyle(
                         color: colorState.isLight
@@ -251,11 +276,11 @@ class CarScreen extends StatelessWidget {
                   ),
                   Container(
                     margin:
-                        const EdgeInsets.only(left: 30, top: 35, bottom: 10),
+                        const EdgeInsets.only(left: 50, top: 25, bottom: 10),
                     child: Row(
                       children: [
                         SizedBox(
-                          height: 80,
+                          height: 60,
                           width: 200,
                           child: ElevatedButton(
                             onPressed: () async {
@@ -285,10 +310,10 @@ class CarScreen extends StatelessWidget {
                           ),
                         ),
                         SizedBox(
-                          height: 80.0,
+                          height: 60.0,
                           width: 120.0,
                           child: Padding(
-                            padding: const EdgeInsets.only(left: 20.0),
+                            padding: const EdgeInsets.only(left: 10.0),
                             child: state.controllerPhoto != null
                                 ? Image.file(
                                     File(state.controllerPhoto!),
@@ -299,7 +324,7 @@ class CarScreen extends StatelessWidget {
                                     child: Text(
                                       'adicione uma imagem',
                                       style: GoogleFonts.oswald(
-                                        fontSize: 20,
+                                        fontSize: 16,
                                         letterSpacing: 3,
                                         color: const Color.fromARGB(
                                             255, 246, 241, 241),
@@ -312,7 +337,7 @@ class CarScreen extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(50, 20, 0, 20),
+                    padding: const EdgeInsets.fromLTRB(50, 20, 0, 0),
                     child: Row(
                       children: [
                         Container(
@@ -329,7 +354,7 @@ class CarScreen extends StatelessWidget {
                             ],
                           ),
                           child: SizedBox(
-                            height: 80,
+                            height: 70,
                             width: 300,
                             child: ElevatedButton(
                               onPressed: () async {
@@ -376,13 +401,12 @@ class CarScreen extends StatelessWidget {
   }
 }
 
-
 class _BrandTextField extends StatelessWidget {
   const _BrandTextField();
 
   String? validator(String? value) {
     if (value!.isEmpty) {
-      return "Please inform the vehicle's brand";
+      return 'informe a marca do veículo';
     }
     return null;
   }
@@ -393,6 +417,7 @@ class _BrandTextField extends StatelessWidget {
     return AppTextFieldAutoComplete(
       controller: state.controllerBrand,
       validator: validator,
+      focusNode: state.brandFieldFocusNode,
       suggestions: state.allBrands,
     );
   }
@@ -403,7 +428,7 @@ class _ModelTextField extends StatelessWidget {
 
   String? validator(String? value) {
     if (value!.isEmpty) {
-      return "Please inform the vehicle's model";
+      return 'por favor informe o modelo do veículo';
     }
     return null;
   }
@@ -416,40 +441,6 @@ class _ModelTextField extends StatelessWidget {
       validator: validator,
       focusNode: state.modelFieldFocusNode,
       suggestions: state.allModels,
-    );
-  }
-}
-
-
-class AppTextFieldAutoComplete extends StatelessWidget {
-  const AppTextFieldAutoComplete({
-    required this.suggestions,
-    required this.controller,
-    this.validator,
-    this.focusNode,
-    super.key,
-  });
-
-  final List<String> suggestions;
-  final TextEditingController controller;
-  final String? Function(String?)? validator;
-  final FocusNode? focusNode;
-
-  @override
-  Widget build(BuildContext context) {
-    return EasyAutocomplete(
-      suggestions: suggestions,
-      validator: validator,
-      focusNode: focusNode,
-      onChanged: (value) => controller,
-      controller: controller,
-      decoration: const InputDecoration(
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(20),
-          ),
-        ),
-      ),
     );
   }
 }
