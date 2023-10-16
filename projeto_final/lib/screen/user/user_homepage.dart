@@ -36,22 +36,109 @@ class UserHomePage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(top: 40.0),
-                      child: Text(
-                        'Nome da Loja',
-                        style: GoogleFonts.oswald(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 4,
-                          color: const Color.fromARGB(255, 246, 241, 241),
+                Padding(
+                  padding: const EdgeInsets.only(top: 48.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: colorState.isLight
+                                  ? Colors.grey.shade400
+                                  : const Color.fromARGB(255, 17, 34, 63),
+                              spreadRadius: colorState.isLight ? 10 : 0,
+                              blurRadius: 100,
+                              offset: const Offset(-2, -2),
+                            ),
+                          ],
+                        ),
+                        child: SizedBox(
+                          height: (MediaQuery.sizeOf(context).height / 4) - 50,
+                          width: (MediaQuery.sizeOf(context).height / 4) - 50,
+                          child: ElevatedButton.icon(
+                            onPressed: () async{
+                              await Navigator.pushNamed(context, '/carsform');
+                            },
+                            style: ButtonStyle(
+                              backgroundColor: const MaterialStatePropertyAll(
+                                Color.fromARGB(255, 20, 108, 148),
+                              ),
+                              shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30.0),
+                                ),
+                              ),
+                            ),
+                            icon: const Icon(
+                              Icons.add,
+                              size: 50.0,
+                            ),
+                            label: Center(
+                              child: Text(
+                                'add carros',
+                                style: GoogleFonts.oswald(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  letterSpacing: 3,
+                                  color: const Color.fromARGB(255, 246, 241, 241),
+                                ),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                      Container(
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: colorState.isLight
+                                  ? Colors.grey.shade400
+                                  : const Color.fromARGB(255, 17, 34, 63),
+                              spreadRadius: colorState.isLight ? 10 : 0,
+                              blurRadius: 100,
+                              offset: const Offset(-2, -2),
+                            ),
+                          ],
+                        ),
+                        child: SizedBox(
+                          height: (MediaQuery.sizeOf(context).height / 4) - 50,
+                          width: (MediaQuery.sizeOf(context).height / 4) - 50,
+                          child: ElevatedButton.icon(
+                            onPressed: () async{
+                              await Navigator.pushNamed(context, '/sales');
+                            },
+                            style: ButtonStyle(
+                              backgroundColor: const MaterialStatePropertyAll(
+                                Color.fromARGB(255, 20, 108, 148),
+                              ),
+                              shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30.0),
+                                ),
+                              ),
+                            ),
+                            icon: const Icon(
+                              Icons.attach_money,
+                              size: 50.0,
+                            ),
+                            label: Center(
+                              child: Text(
+                                'add venda',
+                                style: GoogleFonts.oswald(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  letterSpacing: 3,
+                                  color: const Color.fromARGB(255, 246, 241, 241),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -70,109 +157,8 @@ class UserHomePage extends StatelessWidget {
                         ],
                       ),
                       child: SizedBox(
-                        height: (MediaQuery.sizeOf(context).height / 4) - 30,
-                        width: (MediaQuery.sizeOf(context).height / 4) - 30,
-                        child: ElevatedButton.icon(
-                          onPressed: () async{
-                            await Navigator.pushNamed(context, '/carsform');
-                          },
-                          style: ButtonStyle(
-                            backgroundColor: const MaterialStatePropertyAll(
-                              Color.fromARGB(255, 20, 108, 148),
-                            ),
-                            shape: MaterialStateProperty.all(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30.0),
-                              ),
-                            ),
-                          ),
-                          icon: const Icon(
-                            Icons.add,
-                            size: 50.0,
-                          ),
-                          label: Center(
-                            child: Text(
-                              'add carros',
-                              style: GoogleFonts.oswald(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                letterSpacing: 3,
-                                color: const Color.fromARGB(255, 246, 241, 241),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                            color: colorState.isLight
-                                ? Colors.grey.shade400
-                                : const Color.fromARGB(255, 17, 34, 63),
-                            spreadRadius: colorState.isLight ? 10 : 0,
-                            blurRadius: 100,
-                            offset: const Offset(-2, -2),
-                          ),
-                        ],
-                      ),
-                      child: SizedBox(
-                        height: (MediaQuery.sizeOf(context).height / 4) - 30,
-                        width: (MediaQuery.sizeOf(context).height / 4) - 30,
-                        child: ElevatedButton.icon(
-                          onPressed: () async{
-                            await Navigator.pushNamed(context, '/sales');
-                          },
-                          style: ButtonStyle(
-                            backgroundColor: const MaterialStatePropertyAll(
-                              Color.fromARGB(255, 20, 108, 148),
-                            ),
-                            shape: MaterialStateProperty.all(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30.0),
-                              ),
-                            ),
-                          ),
-                          icon: const Icon(
-                            Icons.attach_money,
-                            size: 50.0,
-                          ),
-                          label: Center(
-                            child: Text(
-                              'add venda',
-                              style: GoogleFonts.oswald(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                letterSpacing: 3,
-                                color: const Color.fromARGB(255, 246, 241, 241),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                            color: colorState.isLight
-                                ? Colors.grey.shade400
-                                : const Color.fromARGB(255, 17, 34, 63),
-                            spreadRadius: colorState.isLight ? 10 : 0,
-                            blurRadius: 100,
-                            offset: const Offset(-2, -2),
-                          ),
-                        ],
-                      ),
-                      child: SizedBox(
-                        height: (MediaQuery.sizeOf(context).height / 4) - 30,
-                        width: (MediaQuery.sizeOf(context).height / 4) - 30,
+                        height: (MediaQuery.sizeOf(context).height / 4) - 50,
+                        width: (MediaQuery.sizeOf(context).height / 4) - 50,
                         child: ElevatedButton.icon(
                           onPressed: () async{
                             await Navigator.pushNamed(context, '/inventory');
@@ -219,8 +205,8 @@ class UserHomePage extends StatelessWidget {
                         ],
                       ),
                       child: SizedBox(
-                        height: (MediaQuery.sizeOf(context).height / 4) - 30,
-                        width: (MediaQuery.sizeOf(context).height / 4) - 30,
+                        height: (MediaQuery.sizeOf(context).height / 4) - 50,
+                        width: (MediaQuery.sizeOf(context).height / 4) - 50,
                         child: ElevatedButton.icon(
                           onPressed: () async{
                             await Navigator.pushNamed(context, '/dealershipreports');
@@ -272,8 +258,8 @@ class UserHomePage extends StatelessWidget {
                         ],
                       ),
                       child: SizedBox(
-                        height: (MediaQuery.sizeOf(context).height / 4) - 30,
-                        width: (MediaQuery.sizeOf(context).height / 4) - 30,
+                        height: (MediaQuery.sizeOf(context).height / 4) - 50,
+                        width: (MediaQuery.sizeOf(context).height / 4) - 50,
                         child: ElevatedButton.icon(
                           onPressed: () async{
                             await Navigator.pushNamed(context, '/settings');
@@ -320,8 +306,8 @@ class UserHomePage extends StatelessWidget {
                         ],
                       ),
                       child: SizedBox(
-                        height: (MediaQuery.sizeOf(context).height / 4) - 30,
-                        width: (MediaQuery.sizeOf(context).height / 4) - 30,
+                        height: (MediaQuery.sizeOf(context).height / 4) - 50,
+                        width: (MediaQuery.sizeOf(context).height / 4) - 50,
                         child: ElevatedButton.icon(
                           onPressed: () async{
                             await Navigator.pushNamed(context, '/login');

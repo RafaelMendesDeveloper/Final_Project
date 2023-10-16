@@ -31,7 +31,7 @@ class SignUpDealershipController extends StatelessWidget {
         ),
         appBar: AppBar(
           title: Container(
-            margin: const EdgeInsets.fromLTRB(0, 5, 30, 0),
+            margin: const EdgeInsets.fromLTRB(0, 5, 30, 20),
             child: Center(
               child: Text(
                 'CADASTRO DE LOJAS',
@@ -86,7 +86,7 @@ class SignUpDealerships extends StatelessWidget {
                   Row(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(55, 28, 100, 0),
+                        padding: const EdgeInsets.fromLTRB(55, 48, 100, 0),
                         child: Text(
                           'CNPJ',
                           style: GoogleFonts.oswald(
@@ -375,12 +375,12 @@ class SignUpDealerships extends StatelessWidget {
                                 ? Image.file
                                 (File(dealershipState.controllerPhoto!),
                                   height: MediaQuery.of(context)
-                                  .size.height / 10,)
+                                  .size.height / 8,)
                                 : Center(
                                     child: Text(
                                       'adicione uma imagem',
                                       style: GoogleFonts.oswald(
-                                        fontSize: 20,
+                                        fontSize: 18,
                                         letterSpacing: 3,
                                         color: const Color.fromARGB(
                                             255, 246, 241, 241),

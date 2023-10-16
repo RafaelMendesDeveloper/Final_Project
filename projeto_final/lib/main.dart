@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         builder: (context, state, _) => MaterialApp(
           title: 'Projeto Final',
           debugShowCheckedModeBanner: false,
-          initialRoute: '/userpage',
+          initialRoute: '/ownerpage',
           routes: {
             '/login': (context) => const LoginController(),
             '/ownerlogin': (context) => const LoginAdminController(),

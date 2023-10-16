@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 
 import '../entities/cars.dart';
 import '../model/database.dart';
@@ -38,16 +39,18 @@ class CarsProvider with ChangeNotifier {
   final allBrands = <String>[];
   final allModels = <String>[];
 
+
+
   Future<void> insert() async {
     (controllerPhoto);
     final cars = Cars(
       model: controllerModel.text,
       brand: controllerBrand.text,
       plate: controllerPlate.text,
-      carYear: controllerCarYear.text,
+      carYear: int.parse(controllerCarYear.text),
       carPic: controllerPhoto,
-      buyPrice: controllerBuyPrice.text,
-      buyDateTime: DateTime.parse(controllerBuyDateTime.text),
+      buyPrice: double.parse(controllerBuyPrice.text),
+      buyDateTime: DateFormat('dd/MM/yyyy').parse(controllerBuyDateTime.text),
     );
 
     await controller.insert(cars);
@@ -112,4 +115,17 @@ class CarsProvider with ChangeNotifier {
     }
     return brandNames;
   }
+
+  Future<List<String>?> getModelsByBrand(String brand) async {
+  final modelsList = await getCarModel(brand);
+
+  final modelNames = <String>[];
+
+  if (modelsList != null) {
+    for (final item in modelsList) {
+      modelNames.add(item.name!);
+    }
+  }
+  return modelNames;
+}
 }

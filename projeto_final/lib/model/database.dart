@@ -5,6 +5,7 @@ import 'package:sqflite/sqflite.dart';
 import '../entities/admin.dart';
 import '../entities/cars.dart';
 import '../entities/dealership.dart';
+import '../entities/sale.dart';
 
 Future<Database> getDatabase() async {
   final path = join(
@@ -17,6 +18,8 @@ Future<Database> getDatabase() async {
     onCreate: (db, version) async {
       await db.execute(TabelAdmin.createTable);
       await db.execute(TabelDealership.createTable);
+      await db.execute(TabelCars.createTable);
+      await db.execute(TabelSales.createTable);
     },
     version: 1,
   );
@@ -34,7 +37,6 @@ class TabelCars {
   $carPic TEXT NOT NULL,
   $buyPrice REAL NOT NULL,
   $buyDateTime TEXT NOT NULL,
-  $idDealership INTEGER NOT NULL,
   );
 ''';
 
@@ -48,7 +50,6 @@ class TabelCars {
   static const String carPic = 'carPic';
   static const String buyPrice = 'buyPrice';
   static const String buyDateTime = 'buyDateTime';
-  static const String idDealership = 'idDealership';
 
   static Map<String, dynamic> toMap(Cars car) {
     final map = <String, dynamic>{};
@@ -61,8 +62,7 @@ class TabelCars {
     map[TabelCars.carPic] = car.carPic;
     map[TabelCars.buyPrice] = car.buyPrice;
     map[TabelCars.buyDateTime] =
-        DateFormat('yyyy-MM-dd').format(car.buyDateTime);
-    map[TabelCars.idDealership] = car.idDealership;
+        DateFormat('yyyy-MM-dd').format(car.buyDateTime!);
 
     return map;
   }
@@ -132,6 +132,61 @@ class TabelDealership {
     map[TabelDealership.autonomyLevel] = dealership?.autonomyLevel;
     map[TabelDealership.password] = dealership?.password;
     map[TabelDealership.photo] = dealership?.photo!;
+
+    return map;
+  }
+}
+
+// required this.id,
+//   required this.cpfClient,
+//   required this.nameClient,
+//   required this.saleDateTime,
+//   required this.salePrice,
+//   required this.priceDealership,
+//   required this.priceAnderson,
+//   required this.priceSafety,
+//   required this.idCar,
+
+// ignore: avoid_classes_with_only_static_members
+class TabelSales {
+  static const String createTable = '''
+  CREATE TABLE $tablename (
+  $id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+  $cpfClient TEXT NOT NULL,
+  $nameClient TEXT NOT NULL,
+  $saleDateTime TEXT NOT NULL,
+  $salePrice REAL NOT NULL,
+  $priceDealership REAL NOT NULL,
+  $priceAnderson REAL NOT NULL,
+  $priceSafety REAL NOT NULL,
+  $idCar INTEGER NOT NULL
+  );
+''';
+
+  static const String tablename = 'sale';
+
+  static const String id = 'id';
+  static const String cpfClient = 'cpfClient';
+  static const String nameClient = 'nameClient';
+  static const String saleDateTime = 'saleDateTime';
+  static const String salePrice = 'salePrice';
+  static const String priceDealership = 'priceDealership';
+  static const String priceAnderson = 'priceAnderson';
+  static const String priceSafety = 'priceSafety';
+  static const String idCar = 'idCar';
+
+  static Map<String, dynamic> toMap(Sale? sale) {
+    final map = <String, dynamic>{};
+
+    map[TabelSales.id] = sale?.id;
+    map[TabelSales.cpfClient] = sale?.cpfClient;
+    map[TabelSales.nameClient] = sale?.nameClient;
+    map[TabelSales.saleDateTime] = sale?.saleDateTime;
+    map[TabelSales.salePrice] = sale?.salePrice;
+    map[TabelSales.priceDealership] = sale?.priceDealership;
+    map[TabelSales.priceAnderson] = sale?.priceAnderson;
+    map[TabelSales.priceSafety] = sale?.priceSafety;
+    map[TabelSales.idCar] = sale?.idCar;
 
     return map;
   }
@@ -238,16 +293,17 @@ class CarsController {
     for (final item in result) {
       list.add(
         Cars(
-            id: item[TabelCars.id],
-            model: item[TabelCars.model],
-            brand: item[TabelCars.brand],
-            plate: item[TabelCars.plate],
-            carYear: item[TabelCars.carYear],
-            carPic: item[TabelCars.carPic],
-            buyPrice: item[TabelCars.buyPrice],
-            buyDateTime:
-                DateFormat('yyyy-MM-dd').parse(item[TabelCars.buyDateTime]),
-            idDealership: item[TabelCars.idDealership]),
+          id: item[TabelCars.id],
+          model: item[TabelCars.model],
+          brand: item[TabelCars.brand],
+          plate: item[TabelCars.plate],
+          carYear: item[TabelCars.carYear],
+          carPic: item[TabelCars.carPic],
+          buyPrice: item[TabelCars.buyPrice],
+          buyDateTime: DateFormat('yyyy-MM-dd').parse(
+            item[TabelCars.buyDateTime],
+          ),
+        ),
       );
     }
     return list;
@@ -264,5 +320,42 @@ class CarsController {
       where: '${TabelCars.id} = ?',
       whereArgs: [TabelCars.id],
     );
+  }
+}
+
+class SalesController {
+  Future<void> insert(Sale sale) async {
+    final database = await getDatabase();
+    final map = TabelSales.toMap(sale);
+
+    await database.insert(TabelSales.tablename, map);
+
+    return;
+  }
+
+  Future<List<Sale>> select() async {
+    final database = await getDatabase();
+    final List<Map<String, dynamic>> result = await database.query(
+      TabelSales.tablename,
+    );
+
+    var list = <Sale>[];
+
+    for (final item in result) {
+      list.add(
+        Sale(
+            id: item[TabelSales.id],
+            cpfClient: item[TabelSales.cpfClient],
+            nameClient: item[TabelSales.nameClient],
+            saleDateTime: item[TabelSales.saleDateTime],
+            salePrice: item[TabelSales.salePrice],
+            priceDealership: item[TabelSales.priceDealership],
+            priceAnderson: item[TabelSales.priceAnderson],
+            priceSafety: item[TabelSales.priceSafety],
+            idCar: item[TabelSales.idCar]),
+      );
+    }
+
+    return list;
   }
 }

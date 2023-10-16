@@ -3,21 +3,19 @@ class Cars {
   final String model;
   final String brand;
   final String plate;
-  final String carYear;
+  final int? carYear;
   final String? carPic;
-  final String buyPrice;
-  final DateTime buyDateTime;
-  final int? idDealership;
+  final double? buyPrice;
+  final DateTime? buyDateTime;
 
   Cars({
     this.id,
     required this.model,
     required this.brand,
     required this.plate,
-    required this.carYear,
-    required this.carPic,
-    required this.buyPrice,
-    required this.buyDateTime,
-    this.idDealership,
+    this.carYear,
+    this.carPic,
+    this.buyPrice,
+    this.buyDateTime,
   });
 }

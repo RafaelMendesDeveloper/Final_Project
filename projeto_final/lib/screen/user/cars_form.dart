@@ -244,7 +244,6 @@ class CarScreen extends StatelessWidget {
                             ? Colors.black
                             : const Color.fromARGB(255, 246, 241, 241),
                       ),
-                      obscureText: true,
                       controller: state.controllerBuyPrice,
                       cursorColor: const Color.fromARGB(255, 246, 241, 241),
                       decoration: InputDecoration(
@@ -267,7 +266,7 @@ class CarScreen extends StatelessWidget {
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Senha Inválida.';
+                          return 'Preço Inválido';
                         }
                           else{
                         return null;}
