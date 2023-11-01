@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'controller/theme_controller.dart';
+import 'entities/dealership.dart';
 import 'login_page.dart';
 import 'screen/owner/admin_signup.dart';
 import 'screen/owner/dealerships.dart';
@@ -34,7 +35,11 @@ class MyApp extends StatelessWidget {
             '/login': (context) => const LoginController(),
             '/ownerlogin': (context) => const LoginAdminController(),
             '/ownerpage': (context) => const OwnerHomePage(),
-            '/ownersignup': (context) => const SignUpDealershipController(),
+            '/ownersignup': (context){
+              final args = ModalRoute.of(context)!
+              .settings.arguments as Dealership?;
+              return  SignUpDealershipController(dealership: args,);
+            },
             '/dealerships': (context) => const DealerhsipListController(),
             '/admins': (context) => const SignUpAdminController(),
             '/settings': (context) => const SettingsPage(),

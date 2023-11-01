@@ -40,8 +40,11 @@ class OwnerLogin extends StatelessWidget {
       child: Container(
         width: double.infinity,
         height: double.infinity,
-        margin: const EdgeInsets.only(
-            left: 30.0, right: 30.0, top: 175.0, bottom: 124.0),
+        margin: EdgeInsets.only(
+            left: (MediaQuery.sizeOf(context).width / 24), 
+            right: (MediaQuery.sizeOf(context).width / 24), 
+            top: (MediaQuery.sizeOf(context).height / 6), 
+            bottom: (MediaQuery.sizeOf(context).height / 6)),
         decoration: BoxDecoration(
           color: const Color.fromARGB(255, 246, 241, 241),
           borderRadius: const BorderRadius.only(
@@ -63,31 +66,34 @@ class OwnerLogin extends StatelessWidget {
         child: Form(
           key: _formOwnerKey,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            // mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(45, 40, 0, 0),
-                    child: Text(
-                      'LOGIN',
-                      style: GoogleFonts.oswald(
-                        fontSize: 25,
-                        letterSpacing: 2,
-                        fontWeight: FontWeight.bold,
-                        color: const Color.fromARGB(
-                          255,
-                          20,
-                          108,
-                          148,
-                        ),
-                      ),
+              Padding(
+                  padding: EdgeInsets.only(
+                    right: (MediaQuery.sizeOf(context).width / 2),
+                    top: MediaQuery.sizeOf(context).height / 40),
+                  child: Text(
+                  'LOGIN',
+                  style: GoogleFonts.oswald(
+                    fontSize: 25,
+                    letterSpacing: 2,
+                    fontWeight: FontWeight.bold,
+                    color: const Color.fromARGB(
+                      255,
+                      20,
+                      108,
+                      148,
                     ),
                   ),
-                ],
+                ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(40, 0, 40, 25),
+                padding: EdgeInsets.only(
+                  left: (MediaQuery.sizeOf(context).width / 12),
+                  right: (MediaQuery.sizeOf(context).width / 12),
+                  top: (MediaQuery.sizeOf(context).height / 80),
+                  bottom: (MediaQuery.sizeOf(context).height / 24)
+                  ),
                 child: Container(
                   decoration: BoxDecoration(
                     boxShadow: [

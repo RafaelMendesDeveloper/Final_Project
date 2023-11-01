@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print
 
+import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -7,9 +8,8 @@ import '../../entities/dealership.dart';
 import '../model/database.dart';
 
 class DealershipProvider with ChangeNotifier {
-  DealershipProvider({required Dealership? dealership}) {
-    // ignore: discarded_futures
-    load();
+  DealershipProvider({this.dealership}) {
+    unawaited(load());
   }
 
   Dealership? dealership;
@@ -24,8 +24,7 @@ class DealershipProvider with ChangeNotifier {
   final _controllerDealershipName = TextEditingController();
   final _controllerAutonomyLevel = TextEditingController();
   final _controllerPassword = TextEditingController();
-  String? _controllerPhoto;
-  
+  String? controllerPhoto;
 
   final _listDealership = <Dealership>[];
   List<Dealership> get listDealership => _listDealership;
@@ -35,18 +34,18 @@ class DealershipProvider with ChangeNotifier {
       _controllerDealershipName;
   TextEditingController get controllerAutonomyLevel => _controllerAutonomyLevel;
   TextEditingController get controllerPassword => _controllerPassword;
-  String? get controllerPhoto => _controllerPhoto;
 
   Future<void> insert() async {
-    (controllerPhoto);
+    if (controllerPhoto == null) {
+      return;
+    }
+
     final dealership = Dealership(
         cnpj: controllerCnpj.text,
         name: controllerDealershipName.text,
         autonomyLevel: controllerAutonomyLevel.text,
         password: controllerPassword.text,
-        photo: controllerPhoto);
-
-    print(controllerPhoto);
+        photo: controllerPhoto!);
 
     await controller.insert(dealership);
     await load();
@@ -64,18 +63,22 @@ class DealershipProvider with ChangeNotifier {
   }
 
   Future<void> load() async {
+    if (dealership == null) {
+      return;
+    }
+
     final list = await controller.select();
 
     listDealership.clear();
     listDealership.addAll(list);
 
-    if (dealership == null) {
-      return;
+    if (controllerPhoto == null) {
+      controllerCnpj.text = dealership?.cnpj ?? '';
+      controllerDealershipName.text = dealership?.name ?? '';
+      controllerAutonomyLevel.text = dealership?.autonomyLevel ?? '';
+      controllerPassword.text = dealership?.password ?? '';
+      controllerPhoto = dealership?.photo ?? '';
     }
-
-    _controllerCnpj.text = dealership?.cnpj ?? '';
-    _controllerDealershipName.text = dealership?.name ?? '';
-    _controllerPassword.text = dealership?.password ?? '';
 
     notifyListeners();
   }
@@ -116,17 +119,21 @@ class DealershipProvider with ChangeNotifier {
     return list;
   }
 
-  Future<void> update(Dealership? dealership) async {
+  Future<void> update() async {
+    if (dealership == null) {
+      return;
+    }
+
     final database = await getDatabase();
 
-    var map = TabelDealership.toMap(dealership);
+    var map = TabelDealership.toMap(dealership!);
 
     await database.update(
       TabelDealership.tablename,
       map,
       where: '${TabelDealership.id} = ?',
       whereArgs: [
-        {dealership?.id}
+        {dealership!.id}
       ],
     );
     print(TabelDealership.tablename);
@@ -168,9 +175,8 @@ class DealershipProvider with ChangeNotifier {
       final image = await ImagePicker().pickImage(source: ImageSource.gallery);
       if (image == null) return;
 
-      _controllerPhoto = image.path;
+      controllerPhoto = image.path;
     }
     notifyListeners();
   }
-
 }

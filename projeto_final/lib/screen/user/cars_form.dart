@@ -75,19 +75,15 @@ class CarScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                  const Row(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                          left: 55,
-                          right: 48,
-                        ),
-                        child: SizedBox(
-                          height: 60.0,
-                          width: 280.0,
-                          child: _BrandTextField()),
-                      ),
-                    ],
+                  const Padding(
+                    padding: EdgeInsets.only(
+                      left: 55,
+                      right: 48,
+                    ),
+                    child: SizedBox(
+                      height: 60.0,
+                      width: 280.0,
+                      child: _BrandTextField(),),
                   ),
                   Padding(
                         padding: const EdgeInsets.fromLTRB(20, 20, 100, 0),

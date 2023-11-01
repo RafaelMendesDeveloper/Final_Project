@@ -43,8 +43,11 @@ class LoginPage extends StatelessWidget {
       child: Container(
         width: double.infinity,
         height: double.infinity,
-        margin: const EdgeInsets.only(
-            left: 32.0, right: 32.0, top: 72.0, bottom: 26.0),
+        margin: EdgeInsets.only(
+            left: (MediaQuery.sizeOf(context).width / 24), 
+            right: (MediaQuery.sizeOf(context).width / 24), 
+            top: (MediaQuery.sizeOf(context).height / 8), 
+            bottom: (MediaQuery.sizeOf(context).height / 11)),
         decoration: BoxDecoration(
           color: const Color.fromARGB(255, 246, 241, 241),
           borderRadius: const BorderRadius.only(
@@ -68,7 +71,10 @@ class LoginPage extends StatelessWidget {
           child: Column(
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.fromLTRB(0, 35, 0, 50),
+                padding: EdgeInsets.only(
+                  top: (MediaQuery.sizeOf(context).height / 24),
+                  bottom: (MediaQuery.sizeOf(context).height / 64)
+                ),
                 child: Text(
                   'ANDERCAR',
                   style: GoogleFonts.playfairDisplay(
@@ -78,24 +84,33 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
               ),
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(45, 0, 80, 0),
-                    child: Text(
-                      'LOGIN',
-                      style: GoogleFonts.oswald(
-                        fontSize: 25,
-                        letterSpacing: 2,
-                        fontWeight: FontWeight.bold,
-                        color: const Color.fromARGB(255, 20, 108, 148),
-                      ),
-                    ),
-                  ),
-                ],
+               Padding(
+                padding: EdgeInsets.only(
+                  bottom: (MediaQuery.sizeOf(context).height / 40)),
+                child: const Divider(
+                  color: Color.fromARGB(92, 20, 108, 148),
+                ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(40, 10, 40, 25),
+                padding: EdgeInsets.only(
+                  right: (MediaQuery.sizeOf(context).width / 2)),
+                child: Text(
+                  'LOGIN',
+                  style: GoogleFonts.oswald(
+                    fontSize: 25,
+                    letterSpacing: 2,
+                    fontWeight: FontWeight.bold,
+                    color: const Color.fromARGB(255, 20, 108, 148),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                  left: (MediaQuery.sizeOf(context).width / 12),
+                  right: (MediaQuery.sizeOf(context).width / 12),
+                  top: (MediaQuery.sizeOf(context).height / 80),
+                  bottom: (MediaQuery.sizeOf(context).height / 24)
+                  ),
                 child: Container(
                   decoration: BoxDecoration(
                     boxShadow: [
@@ -134,31 +149,33 @@ class LoginPage extends StatelessWidget {
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter some text';
+                        return 'Por favor digite um texto';
                       }
                       return null;
                     },
                   ),
                 ),
               ),
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(45, 20, 100, 0),
-                    child: Text(
-                      'SENHA',
-                      style: GoogleFonts.oswald(
-                        fontSize: 25,
-                        letterSpacing: 2,
-                        fontWeight: FontWeight.bold,
-                        color: const Color.fromARGB(255, 20, 108, 148),
-                      ),
-                    ),
+              Padding(
+                padding: EdgeInsets.only(
+                  right: (MediaQuery.sizeOf(context).width / 2)),
+                child: Text(
+                  'SENHA',
+                  style: GoogleFonts.oswald(
+                    fontSize: 25,
+                    letterSpacing: 2,
+                    fontWeight: FontWeight.bold,
+                    color: const Color.fromARGB(255, 20, 108, 148),
                   ),
-                ],
+                ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(40, 10, 40, 40),
+                padding: EdgeInsets.only(
+                  left: (MediaQuery.sizeOf(context).width / 12),
+                  right: (MediaQuery.sizeOf(context).width / 12),
+                  top: (MediaQuery.sizeOf(context).height / 80),
+                  bottom: (MediaQuery.sizeOf(context).height / 24)
+                  ),
                 child: Container(
                   decoration: BoxDecoration(
                     boxShadow: [
@@ -197,7 +214,7 @@ class LoginPage extends StatelessWidget {
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter some text';
+                        return 'Por favor digite um texto';
                       }
                       return null;
                     },
@@ -205,10 +222,13 @@ class LoginPage extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(30, 0, 30, 10),
+                padding: EdgeInsets.only(
+                  left: MediaQuery.sizeOf(context).width / 16,
+                  right: MediaQuery.sizeOf(context).width / 16,
+                ),
                 child: SizedBox(
-                  width: 304.0,
-                  height: 80.0,
+                  width: double.infinity,
+                  height: MediaQuery.sizeOf(context).height / 10,
                   child: Container(
                     decoration: BoxDecoration(
                       boxShadow: [
@@ -327,26 +347,25 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                child: Divider(
-                  color: Color.fromARGB(55, 20, 108, 148),
+              Padding(
+                padding: EdgeInsets.only
+                (top: MediaQuery.sizeOf(context).height / 40,
+                bottom: MediaQuery.sizeOf(context).height / 80,),
+                child: const Divider(
+                  color: Color.fromARGB(92, 20, 107, 148),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                child: TextButton(
-                  onPressed: () async {
-                    await Navigator.pushNamed(context, '/ownerlogin');
-                  },
-                  child: Text(
-                    'Entrar como Dono',
-                    style: GoogleFonts.oswald(
-                      fontStyle: FontStyle.italic,
-                      fontSize: 20,
-                      decoration: TextDecoration.underline,
-                      color: const Color.fromARGB(255, 20, 108, 148),
-                    ),
+              TextButton(
+                onPressed: () async {
+                  await Navigator.pushNamed(context, '/ownerlogin');
+                },
+                child: Text(
+                  'Entrar como Dono',
+                  style: GoogleFonts.oswald(
+                    fontStyle: FontStyle.italic,
+                    fontSize: 20,
+                    decoration: TextDecoration.underline,
+                    color: const Color.fromARGB(255, 20, 108, 148),
                   ),
                 ),
               ),

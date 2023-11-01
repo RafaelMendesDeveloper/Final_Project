@@ -4,7 +4,7 @@ class Dealership {
   final String autonomyLevel;
   final String password;
   final int? id;
-  final String? photo;
+  final String photo;
 
   Dealership({
     required this.cnpj,

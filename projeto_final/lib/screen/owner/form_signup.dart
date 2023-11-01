@@ -14,13 +14,12 @@ void main() {
 }
 
 class SignUpDealershipController extends StatelessWidget {
-  const SignUpDealershipController({super.key});
-
+  const SignUpDealershipController({super.key, this.dealership});
+  final Dealership? dealership;
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as Dealership?;
     return ChangeNotifierProvider(
-      create: (context) => DealershipProvider(dealership: args),
+      create: (context) => DealershipProvider(dealership: dealership),
       child: Scaffold(
         resizeToAvoidBottomInset: true,
         body: Stack(
@@ -61,15 +60,8 @@ class SignUpDealerships extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as Dealership?;
     final colorState = Provider.of<ThemeProvider>(context);
     final dealershipState = Provider.of<DealershipProvider>(context);
-    dealershipState.controllerCnpj.text = args?.cnpj ?? '';
-    dealershipState.controllerDealershipName.text = args?.name ?? '';
-    dealershipState.controllerAutonomyLevel.text = args?.autonomyLevel ?? '';
-    dealershipState.controllerPassword.text = args?.password ?? '';
-    // dealershipState.controllerPhoto;
-
 
     final flag = dealershipState.controllerDealershipName.text.isEmpty;
 
@@ -333,7 +325,7 @@ class SignUpDealerships extends StatelessWidget {
                   ),
                   Container(
                     margin:
-                        const EdgeInsets.only(left: 30, top: 35, bottom: 10),
+                        const EdgeInsets.only(left: 54, top: 32, bottom: 16),
                     child: Row(
                       children: [
                         SizedBox(
@@ -371,11 +363,12 @@ class SignUpDealerships extends StatelessWidget {
                           width: 120.0,
                           child: Padding(
                             padding: const EdgeInsets.only(left: 20.0),
-                            child: dealershipState.controllerPhoto != null
-                                ? Image.file
-                                (File(dealershipState.controllerPhoto!),
-                                  height: MediaQuery.of(context)
-                                  .size.height / 8,)
+                            child: dealershipState.controllerPhoto != ''
+                                ? Image.file(
+                                    File(dealershipState.controllerPhoto!),
+                                    height:
+                                        MediaQuery.of(context).size.height / 8,
+                                  )
                                 : Center(
                                     child: Text(
                                       'adicione uma imagem',
@@ -415,12 +408,9 @@ class SignUpDealerships extends StatelessWidget {
                             child: ElevatedButton(
                               onPressed: () async {
                                 if (_formKey.currentState!.validate()) {
-                                  // final alreadyExists =
-                                  //     dealershipState.getDealership(
-                                  //         dealershipState.dealership?.id);
                                   if (flag == false) {
                                     await dealershipState
-                                        .update(dealershipState.dealership);
+                                        .update();
                                   } else {
                                     await dealershipState.insert();
                                   }

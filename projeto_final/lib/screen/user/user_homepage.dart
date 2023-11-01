@@ -82,7 +82,8 @@ class UserHomePage extends StatelessWidget {
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
                                   letterSpacing: 3,
-                                  color: const Color.fromARGB(255, 246, 241, 241),
+                                  color: 
+                                  const Color.fromARGB(255, 246, 241, 241),
                                 ),
                               ),
                             ),
@@ -130,7 +131,8 @@ class UserHomePage extends StatelessWidget {
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
                                   letterSpacing: 3,
-                                  color: const Color.fromARGB(255, 246, 241, 241),
+                                  color: 
+                                  const Color.fromARGB(255, 246, 241, 241),
                                 ),
                               ),
                             ),

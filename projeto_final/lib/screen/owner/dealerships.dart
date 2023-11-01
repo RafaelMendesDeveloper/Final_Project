@@ -161,7 +161,7 @@ class DealershipsList extends StatelessWidget {
                 ),
               ),
               leading: Image.file(
-                        File(state2.listDealership[index].photo!),
+                        File(state2.listDealership[index].photo),
                         height: 80.0,
                       ),
               onTap: () async {

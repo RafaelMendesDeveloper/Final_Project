@@ -70,14 +70,12 @@ class CarsProvider with ChangeNotifier {
     final result = await getBrandNames();
 
     allBrands.addAll(result ?? []);
-    print(allBrands);
-
+    
     modelFieldFocusNode.addListener(
       () async {
         if (modelFieldFocusNode.hasFocus) {
           final result = await getModelsByBrand(controllerBrand.text);
           allModels.addAll(result!);
-          print(allModels);
           notifyListeners();
         }
       },

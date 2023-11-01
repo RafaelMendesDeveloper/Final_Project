@@ -40,7 +40,8 @@ class OwnerHomePage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      margin: const EdgeInsets.only(top: 40.0),
+                      margin: EdgeInsets.only(
+                        top: MediaQuery.sizeOf(context).height / 20),
                       child: Text(
                         'Nome do Adm',
                         style: GoogleFonts.oswald(
@@ -71,7 +72,7 @@ class OwnerHomePage extends StatelessWidget {
                       ),
                       child: SizedBox(
                         height: (MediaQuery.sizeOf(context).height / 4) - 30,
-                        width: (MediaQuery.sizeOf(context).height / 4) - 30,
+                        width: (MediaQuery.sizeOf(context).width / 2) - 30,
                         child: ElevatedButton.icon(
                           onPressed: () async {
                             await Navigator.pushNamed(context, '/ownersignup');
@@ -119,7 +120,7 @@ class OwnerHomePage extends StatelessWidget {
                       ),
                       child: SizedBox(
                         height: (MediaQuery.sizeOf(context).height / 4) - 30,
-                        width: (MediaQuery.sizeOf(context).height / 4) - 30,
+                        width: (MediaQuery.sizeOf(context).width / 2) - 30,
                         child: ElevatedButton.icon(
                           onPressed: () async{
                             await Navigator.pushNamed(context, '/admins');
@@ -172,7 +173,7 @@ class OwnerHomePage extends StatelessWidget {
                       ),
                       child: SizedBox(
                         height: (MediaQuery.sizeOf(context).height / 4) - 30,
-                        width: (MediaQuery.sizeOf(context).height / 4) - 30,
+                        width: (MediaQuery.sizeOf(context).width / 2) - 30,
                         child: ElevatedButton.icon(
                           onPressed: () async{
                             await Navigator.pushNamed(context, '/dealerships');
@@ -220,7 +221,7 @@ class OwnerHomePage extends StatelessWidget {
                       ),
                       child: SizedBox(
                         height: (MediaQuery.sizeOf(context).height / 4) - 30,
-                        width: (MediaQuery.sizeOf(context).height / 4) - 30,
+                        width: (MediaQuery.sizeOf(context).width / 2) - 30,
                         child: ElevatedButton.icon(
                           onPressed: () {},
                           style: ButtonStyle(
@@ -271,7 +272,7 @@ class OwnerHomePage extends StatelessWidget {
                       ),
                       child: SizedBox(
                         height: (MediaQuery.sizeOf(context).height / 4) - 30,
-                        width: (MediaQuery.sizeOf(context).height / 4) - 30,
+                        width: (MediaQuery.sizeOf(context).width / 2) - 30,
                         child: ElevatedButton.icon(
                           onPressed: () async{
                             await Navigator.pushNamed(context, '/settings');
@@ -319,7 +320,7 @@ class OwnerHomePage extends StatelessWidget {
                       ),
                       child: SizedBox(
                         height: (MediaQuery.sizeOf(context).height / 4) - 30,
-                        width: (MediaQuery.sizeOf(context).height / 4) - 30,
+                        width: (MediaQuery.sizeOf(context).width / 2) - 30,
                         child: ElevatedButton.icon(
                           onPressed: () async{
                             await Navigator.pushNamed(context, '/login');

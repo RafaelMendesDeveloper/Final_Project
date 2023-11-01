@@ -36,7 +36,7 @@ class TabelCars {
   $carYear INTEGER NOT NULL,
   $carPic TEXT NOT NULL,
   $buyPrice REAL NOT NULL,
-  $buyDateTime TEXT NOT NULL,
+  $buyDateTime TEXT NOT NULL
   );
 ''';
 
@@ -123,15 +123,14 @@ class TabelDealership {
   static const String password = 'password';
   static const String photo = 'photo';
 
-  static Map<String, dynamic> toMap(Dealership? dealership) {
+  static Map<String, dynamic> toMap(Dealership dealership) {
     final map = <String, dynamic>{};
 
-    map[TabelDealership.id] = dealership?.id;
-    map[TabelDealership.cnpj] = dealership?.cnpj;
-    map[TabelDealership.name] = dealership?.name;
-    map[TabelDealership.autonomyLevel] = dealership?.autonomyLevel;
-    map[TabelDealership.password] = dealership?.password;
-    map[TabelDealership.photo] = dealership?.photo!;
+    map[TabelDealership.cnpj] = dealership.cnpj;
+    map[TabelDealership.name] = dealership.name;
+    map[TabelDealership.autonomyLevel] = dealership.autonomyLevel;
+    map[TabelDealership.password] = dealership.password;
+    map[TabelDealership.photo] = dealership.photo;
 
     return map;
   }

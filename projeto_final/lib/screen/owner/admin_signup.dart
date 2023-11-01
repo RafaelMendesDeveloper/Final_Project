@@ -53,12 +53,12 @@ class SignUpAdminController extends StatelessWidget {
 class SignUpAdmin extends StatelessWidget {
   SignUpAdmin({super.key});
 
-  final adminState = AdminProvider();
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     final colorState = Provider.of<ThemeProvider>(context);
+    final adminState = Provider.of<AdminProvider>(context);
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -72,7 +72,7 @@ class SignUpAdmin extends StatelessWidget {
                   Row(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(55, 40, 100, 0),
+                        padding: const EdgeInsets.fromLTRB(56, 56, 104, 0),
                         child: Text(
                           'CPF',
                           style: GoogleFonts.oswald(
@@ -284,7 +284,7 @@ class SignUpAdmin extends StatelessWidget {
                   ),
                   Container(
                     margin:
-                        const EdgeInsets.only(left: 30, top: 35, bottom: 10),
+                        const EdgeInsets.only(left: 48, top: 32, bottom: 24),
                     child: Row(
                       children: [
                         SizedBox(
@@ -323,7 +323,9 @@ class SignUpAdmin extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.only(left: 20.0),
                             child: adminState.controllerPhoto != null
-                                ? Image.file(
+                                ? 
+                                adminState.controllerCpf.text != '' ?
+                                Image.file(
                                     File(adminState.controllerPhoto!),
                                     height:
                                         MediaQuery.of(context).size.height / 10,
@@ -332,8 +334,21 @@ class SignUpAdmin extends StatelessWidget {
                                     child: Text(
                                       'adicione uma imagem',
                                       style: GoogleFonts.oswald(
-                                        fontSize: 20,
-                                        letterSpacing: 3,
+                                        fontSize: 18,
+                                        letterSpacing: 4,
+                                        fontWeight: FontWeight.bold,
+                                        color: const Color.fromARGB(
+                                            255, 246, 241, 241),
+                                      ),
+                                    ),
+                                  )
+                                : Center(
+                                    child: Text(
+                                      'adicione uma imagem',
+                                      style: GoogleFonts.oswald(
+                                        fontSize: 18,
+                                        letterSpacing: 4,
+                                        fontWeight: FontWeight.bold,
                                         color: const Color.fromARGB(
                                             255, 246, 241, 241),
                                       ),
