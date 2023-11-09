@@ -14,7 +14,9 @@ class SettingsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Container(
-          margin: const EdgeInsets.fromLTRB(0, 5, 35, 0),
+          margin: EdgeInsets.only(
+            right: MediaQuery.sizeOf(context).width / 10
+            ),
           child: Center(
             child: Text(
               'CONFIGURAÇÕES',
@@ -54,7 +56,7 @@ class SettingsPage extends StatelessWidget {
                     icon: Icon(
                       state.isLight ? Icons.dark_mode : Icons.light_mode,
                       color: Colors.white,
-                      size: 40.0,
+                      size: MediaQuery.sizeOf(context).height / 12,
                     ),
                   ),
                 ],
